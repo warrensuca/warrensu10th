@@ -15,6 +15,8 @@ struct ContentView: View {
     @State private var errorTitle = ""
     @State private var errorMessage = ""
     @State private var showingError = false
+    
+    @State private var score = 0.0
     var body: some View {
         NavigationStack{
             List {
@@ -28,9 +30,20 @@ struct ContentView: View {
                     }
                 }
             }.navigationTitle(rootWord)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("New Word") {
+                        startGame()
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarLeading) {
+                    Text("Score: \(Int(score))")
+                }
+            }
             .onAppear(perform: startGame)
             .onSubmit {
-
+                
                 addNewWord()
             }
             .alert(errorTitle, isPresented: $showingError) {} message: {
@@ -41,8 +54,7 @@ struct ContentView: View {
 
     }
     func addNewWord() {
-        print("hi")
-        print(isInvalidWord())
+
         if !isInvalidWord() {
             let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
             
@@ -51,9 +63,11 @@ struct ContentView: View {
             }
             withAnimation{
                 usedWords.insert(answer, at: 0)
+                score += calculateScore()
             }
+            
             newWord = ""
-            print(usedWords)
+            
         }
         else {
             errorTitle = "Error!"
@@ -62,6 +76,7 @@ struct ContentView: View {
         }
     }
     func startGame() {
+        score = 0
         if let startWordsURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
             if let startWords = try? String(contentsOf: startWordsURL, encoding: .utf8) {
                 let allWords = startWords.components(separatedBy: "\n")
@@ -98,8 +113,14 @@ struct ContentView: View {
         print(usedWords.contains(newWord))
         print(misspelledRange.location != NSNotFound)
         
-        return misspelledRange.location != NSNotFound || usedWords.contains(answer)
+        return misspelledRange.location != NSNotFound || usedWords.contains(answer) || answer.count < 3 || rootWord == answer
         
+    }
+    
+    func calculateScore() -> Double {
+        //*1.2 as a power up/streak kind of thing, he said to involve the # of words
+        
+        return 5 * (Double(newWord.count)/Double(rootWord.count)) * 1.2
     }
 
 }
