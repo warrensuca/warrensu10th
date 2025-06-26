@@ -44,6 +44,8 @@ function love.load()
         ['score'] = love.audio.newSource('sounds/score.wav', "static"),
         ['wall_hit'] = love.audio.newSource('sounds/wall_hit.wav', "static")
     }
+
+    doublePlayer = true
 end
 
 function love.draw()
@@ -62,6 +64,7 @@ function love.draw()
     currPlayer = servingPlayer == -2 and 2 or 1
     if gameState == 'start' then
         love.graphics.printf('Press enter to start the game!', 0, 10, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('Press "P" to toggle single player!', 0, 20, VIRTUAL_WIDTH, 'center')
     elseif gameState == 'serve' then
         
         love.graphics.printf('Player ' .. tostring(currPlayer) .. ' is serving', 0, 10, VIRTUAL_WIDTH, 'center')
@@ -112,10 +115,11 @@ function love.keypressed(key)
             ball:reset()
         end
     end
-
-
-
+    if key == 'p' then
+        doublePlayer = not doublePlayer
+    end
 end
+
 
 function love.update(dt)
     if love.keyboard.isDown('w') then
@@ -127,15 +131,17 @@ function love.update(dt)
     end
 
     --player 
-
-    if love.keyboard.isDown('up') then
-        player2.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('down') then
-        player2.dy = PADDLE_SPEED
+    if doublePlayer then
+        if love.keyboard.isDown('up') then
+            player2.dy = -PADDLE_SPEED
+        elseif love.keyboard.isDown('down') then
+            player2.dy = PADDLE_SPEED
+        else
+            player2.dy = 0
+        end
     else
-        player2.dy = 0
+        player2.y = ball.y-10
     end
-
     --computer
     --player2.y = ball.y-10
 
