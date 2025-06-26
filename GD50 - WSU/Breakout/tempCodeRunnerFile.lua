@@ -1,1 +1,0 @@
-if love.keyboard.keysPressed
