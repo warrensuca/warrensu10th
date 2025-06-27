@@ -63,12 +63,14 @@ function love.load()
         ['game-over'] = function() return GameOverState() end,
         ['victory'] = function () return VictoryState() end,
         ['high-scores'] = function () return HighScoreState() end,
-        ['enter-high-score'] = function () return EnterHighScoreState() end
+        ['enter-high-score'] = function () return EnterHighScoreState() end,
+        ['paddle-select'] = function () return PaddleSelectState() end
             
 
     }
 
     gFrames = {
+        ['arrows'] = GenerateQuads(gTextures['arrows'], 24, 24),
         ['paddles'] = GenerateQuadsPaddles(gTextures['main']),
         ['ball'] = GenerateQuadsBalls(gTextures['main']),
         ['brick'] = GenerateQuadsBricks(gTextures['main']),
@@ -80,10 +82,11 @@ function love.load()
         highScores = loadHighScores()
     })
     love.keyboard.keysPressed = {}
-
+    gSounds['music']:play()
 end
 
 function love.update(dt)
+
     gStateMachine:update(dt)
     love.keyboard.keysPressed = {}
 end

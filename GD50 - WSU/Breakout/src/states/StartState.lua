@@ -17,12 +17,9 @@ function StartState:update(dt)
         love.event.quit()
     elseif (love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return')) then
         if highlighted == 1 then
-            gStateMachine:change('serve', {
+            print('here')
+            gStateMachine:change('paddle-select', {
                 level = 1, 
-                paddle = Paddle(),
-                bricks = LevelMaker.createMap(1),
-                health = 3,
-                score = 0,
                 highScores = self.highScores
             })
         elseif highlighted == 2 then

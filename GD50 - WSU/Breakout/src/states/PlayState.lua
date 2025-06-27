@@ -2,6 +2,7 @@ PlayState = Class{__includes = BaseState}
 
 
 function PlayState:enter(params)
+
     self.paddle = params.paddle
     self.ball = params.ball
 
@@ -87,7 +88,7 @@ function PlayState:update(dt)
 
         if brick.inPlay and self.ball:collides(brick) then
             --understand this
-            self.score = self.score + 1000000
+            self.score = self.score + 10
 
 
             -- center of x and y or brick and ball
