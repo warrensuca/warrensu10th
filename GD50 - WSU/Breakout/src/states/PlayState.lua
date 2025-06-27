@@ -1,33 +1,48 @@
 PlayState = Class{__includes = BaseState}
 
 
-function PlayState:init()
-    self.paddle = Paddle()
-    self.ball = Ball(4)
+function PlayState:enter(params)
+    self.paddle = params.paddle
+    self.ball = params.ball
 
-    self.ball.x = VIRTUAL_WIDTH / 2 - 4
+    self.ball.x = self.paddle.x + self.paddle.width/2 - 4
     self.ball.y = VIRTUAL_HEIGHT - 42
 
     self.ball.dx = math.random(-200,200)
     self.ball.dy = math.random(50,200)
 
-    self.bricks = LevelMaker.createMap()
-    print(#self.bricks)
+    self.bricks = params.bricks
+
+    self.health = params.health
+    self.score = params.score
+
+    self.level = params.level
+    self.highScores = params.highScores
 end
 
 function PlayState:render()
     self.paddle:render()
     self.ball:render()
-
+    
     for k, brick in pairs(self.bricks) do 
         brick:render()
+        
     end
+    for k, brick in pairs(self.bricks) do
+        brick:renderParticles()
+    end
+
+
+    renderHealth(self.health)
+    renderScore(self.score)
 end
 
 function PlayState:update(dt)
     self.paddle:update(dt)
     self.ball:update(dt)
-
+    if isVictory(self.bricks) then
+        gStateMachine:change('victory', {level = self.level, paddle = self.paddle, health = self.health, score = self.score, ball = self.ball, highScores = self.highScores})
+    end
     if self.ball:collides(self.paddle) then
         self.ball.y = self.paddle.y - 8
         self.ball.dy = -self.ball.dy
@@ -49,16 +64,30 @@ function PlayState:update(dt)
             self.ball.dx = ballOffSet + bounceAngleMultiplier * ballOffSet
         end
 
+    end
+
+    if self.ball.y >= VIRTUAL_HEIGHT then
+
+        self.health = self.health - 1
+        gSounds['hurt']:play()
+        print(self.score)
+        if self.health == 0 then
+            gStateMachine:change('game-over', {
+                
+                score = self.score,
+                highScores = self.highScores
+            })
     
-
-
+        else
+            gStateMachine:change('serve', {level = self.level, paddle = self.paddle, bricks = self.bricks, health = self.health, score = self.score, highScores = self.highScores})
+        end
     end
 
     for k, brick in pairs(self.bricks) do
 
         if brick.inPlay and self.ball:collides(brick) then
             --understand this
-
+            self.score = self.score + 1000000
 
 
             -- center of x and y or brick and ball
@@ -83,6 +112,22 @@ function PlayState:update(dt)
             end
             self.ball.dy = self.ball.dy*1.02
            brick:hit() 
+           
+        end
+
+    end
+    for k, brick in pairs(self.bricks) do
+        brick:update(dt)
+    end
+
+
+end
+
+function isVictory(bricks)
+    for k, brick in pairs(bricks) do
+        if brick.inPlay then
+            return false
         end
     end
+    return true
 end

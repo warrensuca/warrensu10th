@@ -1,5 +1,9 @@
 StartState = Class{__includes = BaseState}
 
+function StartState:enter(params)
+    self.highScores = params.highScores
+end
+
 local highlighted = 1
 
 function StartState:update(dt)
@@ -11,8 +15,20 @@ function StartState:update(dt)
 
     elseif love.keyboard.wasPressed('escape') then
         love.event.quit()
-    elseif highlighted == 1 and (love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return')) then
-        gStateMachine:change('play')
+    elseif (love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return')) then
+        if highlighted == 1 then
+            gStateMachine:change('serve', {
+                level = 1, 
+                paddle = Paddle(),
+                bricks = LevelMaker.createMap(1),
+                health = 3,
+                score = 0,
+                highScores = self.highScores
+            })
+        elseif highlighted == 2 then
+            gStateMachine:change('high-scores', {highScores = self.highScores})
+        end
+    
     end
 end
 

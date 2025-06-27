@@ -58,7 +58,14 @@ function love.load()
     }
     gStateMachine = StateMachine {
         ['start'] = function () return StartState() end,
-        ['play'] = function () return PlayState() end
+        ['play'] = function () return PlayState() end,
+        ['serve'] = function () return ServeState end,
+        ['game-over'] = function() return GameOverState() end,
+        ['victory'] = function () return VictoryState() end,
+        ['high-scores'] = function () return HighScoreState() end,
+        ['enter-high-score'] = function () return EnterHighScoreState() end
+            
+
     }
 
     gFrames = {
@@ -69,7 +76,9 @@ function love.load()
 
     }
 
-    gStateMachine:change('start')
+    gStateMachine:change('start', {
+        highScores = loadHighScores()
+    })
     love.keyboard.keysPressed = {}
 
 end
@@ -113,4 +122,78 @@ function love.keyboard.wasPressed(key)
     else
         return false
     end
+end
+
+function renderHealth(health)
+
+    healthX = VIRTUAL_WIDTH - 100
+
+    for i = 1, health do
+
+        love.graphics.draw(gTextures['hearts'], gFrames['hearts'][1], healthX, 0)
+        healthX = healthX + 11
+    end
+
+    for i = health+1, 3 do
+
+        love.graphics.draw(gTextures['hearts'], gFrames['hearts'][2], healthX, 0)
+        healthX = healthX + 11
+    end
+
+end
+
+function renderScore(score)
+    love.graphics.setFont(gFonts['small'])
+    love.graphics.printf("Score: " .. tostring(score), VIRTUAL_WIDTH-60, 0, 40, 'right')
+    
+end
+
+function loadHighScores()
+    love.filesystem.setIdentity('breakout')
+
+    -- if the file doesn't exist, initialize it with some default scores
+    if not love.filesystem.getInfo('breakout.lst') then
+        local scores = ''
+        for i = 10, 1, -1 do
+            scores = scores .. 'CTO\n'
+            scores = scores .. tostring(i * 1000) .. '\n'
+        end
+
+        love.filesystem.write('breakout.lst', scores)
+    end
+
+    -- flag for whether we're reading a name or not
+    local name = true
+    local currentName = nil
+    local counter = 1
+
+    -- initialize scores table with at least 10 blank entries
+    local scores = {}
+
+    for i = 1, 10 do
+        -- blank table; each will hold a name and a score
+        scores[i] = {
+            name = nil,
+            score = nil
+        }
+    end
+
+    -- iterate over each line in the file, filling in names and scores
+    for line in love.filesystem.lines('breakout.lst') do
+        if name then
+            scores[counter].name = string.sub(line, 1, 3)
+        else
+            scores[counter].score = tonumber(line)
+            counter = counter + 1
+        end
+
+        -- flip the name flag
+        name = not name
+    end
+
+
+    for k, v in pairs(scores) do
+        print(k, v.name, v.score)
+    end
+    return scores
 end

@@ -5,25 +5,37 @@ function LevelMaker.createMap(level)
     local numRows = math.random(1,5)
     local numCols = math.random(7,13)    
 
-    for y = 0, numRows-1 do 
-        for x = 0, numCols-1 do 
-            if x % 3 == 0 then
+    local tier = math.min(3, math.floor(level/5))
+    local highestColor = math.min(5, level+1 % 5)
+    
+    for y = 1, numRows do 
+        local ColorPatternInterval = math.random(0,4)
+        alternateColor1 = math.random(1, highestColor)
+        alternateColor2 = math.random(1, highestColor)
+
+        
+        for x = 1, numCols do 
+            
+
+            if x % ColorPatternInterval == 0 then
                 b = Brick(
-                    x*32 
+                    (x-1)*32 
                     + 8 
                     + (13-numCols) * 16,
 
                     y*16, 
-                    2
+                    alternateColor1,
+                    tier
                 )
             else
                 b = Brick(
-                    x*32 
+                    (x-1)*32 
                     + 8 
                     + (13-numCols) * 16,
 
                     y*16,
-                    1
+                    alternateColor2,
+                    tier
                 )
 
             
