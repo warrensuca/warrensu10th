@@ -32,17 +32,20 @@ struct ContentView: View {
                     
                     
                     DatePicker("Please enter a time", selection: $wakeUp, displayedComponents: .hourAndMinute).labelsHidden()
+                        .onChange(of: wakeUp) { _ in calculateBedtime() }
                 }
                 VStack(alignment: .leading, spacing: 0){
                     Text("Desired amount of sleep").font(.headline)
                     
                     Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
+                        .onChange(of: sleepAmount) { _ in calculateBedtime() }
                 }
                 VStack(alignment: .leading, spacing: 0){
                     Text("Daily coffee intake").font(.headline)
                     
                     Picker(selection: $coffeeAmount, label: Text("\(coffeeAmount) \(increment)"), content:{ForEach(1...20, id: \.self)
                         {Text("\($0)")}})
+                    .onChange(of: coffeeAmount) { _ in calculateBedtime() }
                     
                     //Stepper("\(coffeeAmount) \(increment)", value: $coffeeAmount, in: 1...20)
                 }.onAppear() {
