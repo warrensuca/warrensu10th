@@ -12,13 +12,13 @@ function GameOverState:update(dt)
 
         for i = 10, 1, -1 do
             local score = self.highScores[i].score or 0
-            print(self.score, score)
+
             if self.score > score then
                 highScoreIndex = i
                 highScore = true
             end
         end
-        print(highScore)
+
         if highScore then
             gSounds['high-score']:play()
             gStateMachine:change('enter-high-score', {

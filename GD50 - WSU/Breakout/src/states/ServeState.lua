@@ -19,6 +19,8 @@ function ServeState:update(dt)
     self.ball.y = self.paddle.y - 8
 
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+        
+        
         gStateMachine:change('play', {
             level = self.level,
             paddle = self.paddle,

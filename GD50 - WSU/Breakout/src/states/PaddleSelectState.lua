@@ -25,7 +25,7 @@ function PaddleSelectState:init()
 end
 
 function PaddleSelectState:update(dt)
-    print('hi')
+    
     if love.keyboard.wasPressed('left') then
         if self.currentPaddle == 1 then
             gSounds['no-select']:play()

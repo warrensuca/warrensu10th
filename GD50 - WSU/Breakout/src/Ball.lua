@@ -6,9 +6,9 @@ function Ball:init(skin)
     self.width = 8
     self.height = 8
 
-    self.dy = 0
-    self.dx = 0
-
+    self.dy = math.random(-200,200)
+    self.dx = math.random(50,200)
+    self.inPlay = true
     
 end
 
@@ -58,6 +58,7 @@ function Ball:update(dt)
 end
 
 function Ball:render()
+
     love.graphics.draw(gTextures['main'], gFrames['ball'][self.skin], self.x, self.y)
     
 end

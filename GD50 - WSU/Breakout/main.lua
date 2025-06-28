@@ -74,8 +74,9 @@ function love.load()
         ['paddles'] = GenerateQuadsPaddles(gTextures['main']),
         ['ball'] = GenerateQuadsBalls(gTextures['main']),
         ['brick'] = GenerateQuadsBricks(gTextures['main']),
-        ['hearts'] = GenerateQuads(gTextures['hearts'], 10, 9)
-
+        ['hearts'] = GenerateQuads(gTextures['hearts'], 10, 9),
+        ['powerup'] = GenerateQuadsPowerUps(gTextures['main']),
+        ['locked-brick'] = GenerateLockedBrick(gTextures['main'])
     }
 
     gStateMachine:change('start', {
@@ -195,8 +196,6 @@ function loadHighScores()
     end
 
 
-    for k, v in pairs(scores) do
-        print(k, v.name, v.score)
-    end
+
     return scores
 end

@@ -44,6 +44,8 @@ function Brick:init(x, y, color, tier)
     self.color = color
     self.tier = tier
 
+    self.locked = false
+
     self.psystem = love.graphics.newParticleSystem(gTextures['particle'], 64)
     self.psystem:setParticleLifetime(0.5,1)
     self.psystem:setLinearAcceleration(-15,0,15,80)
@@ -53,6 +55,7 @@ end
 
 
 function Brick:hit()
+
     self.psystem:setColors(
         paletteColors[self.color].r / 255,
         paletteColors[self.color].g / 255,
@@ -74,17 +77,23 @@ function Brick:hit()
 
 
 
-    
+
 end
 
 function Brick:update(dt)
     self.psystem:update(dt)
+    
 end
 
 function Brick:render()
     if self.inPlay then
+        if self.locked then
+
+            love.graphics.draw(gTextures['main'], gFrames['locked-brick'][1], self.x, self.y)
+        else
+            love.graphics.draw(gTextures['main'], gFrames['brick'][1+((self.color-1) * 4) + self.tier], self.x, self.y)
+        end
         
-        love.graphics.draw(gTextures['main'], gFrames['brick'][1+((self.color-1) * 4) + self.tier], self.x, self.y)
     end
 end
 
