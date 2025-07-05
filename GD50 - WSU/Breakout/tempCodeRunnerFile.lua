@@ -1,1 +1,0 @@
-['brick'] = GenerateQuadsBricks(gTextures['main']),
