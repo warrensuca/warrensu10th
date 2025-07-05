@@ -23,6 +23,10 @@ struct ContentView: View {
                 Section(){
                     TextField("Enter your word", text: $newWord)
                         .textInputAutocapitalization(.never)
+                        .onSubmit {
+                            
+                            addNewWord()
+                        }
                 }
                 Section {
                     ForEach(usedWords, id: \.self) {
@@ -42,10 +46,7 @@ struct ContentView: View {
                 }
             }
             .onAppear(perform: startGame)
-            .onSubmit {
-                
-                addNewWord()
-            }
+            
             .alert(errorTitle, isPresented: $showingError) {} message: {
                 Text(errorMessage)
             }
