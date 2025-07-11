@@ -49,6 +49,14 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
+            HStack {
+                NavigationLink("Add Expense") {
+                    AddView(expenses: expenses)
+                }
+                .padding()
+            }
+            
+                
 
             Text("Personal Expenses").font(.headline)
             List {
