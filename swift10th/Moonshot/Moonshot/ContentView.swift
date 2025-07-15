@@ -13,7 +13,7 @@ struct ContentView: View {
     let missions: [Mission] = Bundle.main.decode("missions.json")
     
     @State private var showingGrid = true
-    
+    @State private var notCurViewName = "List"
     var body: some View {
         NavigationStack{
             
@@ -28,11 +28,13 @@ struct ContentView: View {
             .background(.darkBackground)
             .toolbar {
                 ToolbarItem{
-                    Button("Toggle Different View") {
+                    Button("Toggle \(notCurViewName) View") {
                         showingGrid.toggle()
+                        notCurViewName = showingGrid ? "List" : "Scroll"
                     }
                 }
             }
+            
         }
     }
 }

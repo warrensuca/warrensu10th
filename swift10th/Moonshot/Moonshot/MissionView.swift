@@ -20,7 +20,7 @@ struct MissionView: View {
     
     
     var body: some View {
-        NavigationStack{
+
             ScrollView {
                 VStack {
                     Image(mission.image)
@@ -57,10 +57,10 @@ struct MissionView: View {
                 AstronautDisplayView(crew: crew)
             }
             .padding(.bottom)
-        }
-        .navigationTitle(mission.displayName)
-        .navigationBarTitleDisplayMode(.inline)
-        .background(.darkBackground)
+                    .navigationTitle(mission.displayName)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .background(.darkBackground)
+
     }
     
     init(mission: Mission, astronauts: [String: Astronaut]) {

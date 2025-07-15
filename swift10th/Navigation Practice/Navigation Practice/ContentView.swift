@@ -61,6 +61,8 @@ struct ContentView: View {
                 selection in
                 Text("You selected \(selection.name)")
             }
+
+            }
             
         }
     }
