@@ -41,7 +41,7 @@ class Activities {
 }
 
 struct ContentView: View {
-    private var matchStatus = ["No": "❌", "Yes": "✅"]
+
     @State private var activities = Activities()
     @State private var showingSheet = false
     var body: some View {
