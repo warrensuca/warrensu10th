@@ -68,6 +68,8 @@ struct CheckoutView: View {
             // handle the result
         } catch {
             print("Checkout failed: \(error.localizedDescription)")
+            
+            confirmationMessage = "There was an error, sorry"
         }
     }
         
