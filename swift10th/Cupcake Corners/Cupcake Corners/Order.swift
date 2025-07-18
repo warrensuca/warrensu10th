@@ -40,16 +40,27 @@ class Order: Codable {
             }
         }
     }
+    private var letters = ["a","b","c","d","e","f","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+    
+    private var digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
     var name = ""
     var streetAddress = ""
     var city = ""
     var zip = ""
     var hasValidAddress: Bool {
-        if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
-            return false
-        }
 
-        return true
+        for letter in letters {
+            if name.contains(letter) || streetAddress.contains(letter) || city.contains(letter) {
+                return true
+            }
+        }
+        
+        for digit in digits {
+            if name.contains(digit) || streetAddress.contains(digit) || city.contains(digit) || zip.contains(digit){
+                return true
+            }
+        }
+        return false
     }
     
     var cost: Decimal {
