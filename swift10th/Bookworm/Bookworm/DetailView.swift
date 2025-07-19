@@ -13,7 +13,7 @@ struct DetailView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
     @State private var showingDeleteAlert = false
-    
+
     
     var body: some View {
         ScrollView {
@@ -40,14 +40,22 @@ struct DetailView: View {
 
             RatingView(rating: .constant(book.rating))
                 .font(.largeTitle)
+                .padding()
+            
+            let date = book.date.formatted(date: .complete, time: .omitted)
+            Text("Added on \(date)")
         }
         .navigationTitle(book.title)
         .navigationBarTitleDisplayMode(.inline)
         .scrollBounceBehavior(.basedOnSize)
         .toolbar {
-            Button("Delete this book", systemImage: "trash") {
-                showingDeleteAlert = true
+            ToolbarItem{
+                Button("Delete this book", systemImage: "trash") {
+                    showingDeleteAlert = true
+                }
+                
             }
+
         }
         .alert("Delete book", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive, action: deleteBook)

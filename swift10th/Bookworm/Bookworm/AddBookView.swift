@@ -19,6 +19,8 @@ struct AddBookView: View {
     
     let genres = ["Fantasy", "Horror", "Kids", "Mystery", "Poetry", "Romance", "Thriller"]
     
+    
+    
     var body: some View {
         NavigationStack{
             Form {
@@ -43,13 +45,15 @@ struct AddBookView: View {
                 }
             }
             .toolbar{
+                let newBook = Book(title: title, author: author, genre: genre, review: review, rating: rating)
+                
                 Button("Save") {
-                    let newBook = Book(title: title, author: author, genre: genre, review: review, rating: rating)
                     
+                    print(DateFormatter().string(from: newBook.date))
                     modelContext.insert(newBook)
                     try? modelContext.save()
                     dismiss()
-                }
+                }.disabled(newBook.isValid == false)
             
             }
             .navigationTitle("Bookworm")

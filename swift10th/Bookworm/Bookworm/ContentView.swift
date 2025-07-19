@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
-    @Query(sort: [SortDescriptor(\Book.title)]) var books: [Book]
+    @Query(sort: [SortDescriptor(\Book.rating, order: .reverse)]) var books: [Book]
     
     @State private var showingSheet = false
     var body: some View {
@@ -23,6 +23,7 @@ struct ContentView: View {
                             VStack(alignment: .leading) {
                                 Text(book.title)
                                     .font(.headline)
+                                    .foregroundStyle(book.rating == 1 ? .red : .black)
                                 
                                 Text(book.author)
                                     .foregroundStyle(.secondary)
@@ -30,12 +31,27 @@ struct ContentView: View {
                         }
                     }
                 }
+                
                 .onDelete(perform: deleteBooks)
                 
                 
             }
+            
             .navigationDestination(for: Book.self) {book in  DetailView(book: book)}
- 
+            .navigationTitle("Bookworm")
+            .toolbar {
+                ToolbarItem {
+                    Button("Add Book") {
+                        showingSheet.toggle()
+                    }
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    EditButton()
+                }
+            }
+            .sheet(isPresented: $showingSheet) {
+                AddBookView()
+            }
         }
     }
     func deleteBooks(at offsets: IndexSet) {
