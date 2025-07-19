@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
-    @Query var books: [Book]
+    @Query(sort: [SortDescriptor(\Book.title)]) var books: [Book]
     
     @State private var showingSheet = false
     var body: some View {
@@ -30,23 +30,25 @@ struct ContentView: View {
                         }
                     }
                 }
+                .onDelete(perform: deleteBooks)
+                
+                
             }
-            
-            Text("Count: \(books.count)")
-                .navigationTitle("Bookworm")
-                .toolbar {
-                    ToolbarItem {
-                        Button("Add Book") {
-                            showingSheet.toggle()
-                        }
-                    }
-                }
-                .sheet(isPresented: $showingSheet) {
-                    AddBookView()
-                }
+            .navigationDestination(for: Book.self) {book in  DetailView(book: book)}
+ 
+        }
+    }
+    func deleteBooks(at offsets: IndexSet) {
+        for offset in offsets {
+            // find this book in our query
+            let book = books[offset]
+
+            // delete it from the context
+            modelContext.delete(book)
         }
     }
 }
+
 
 #Preview {
     ContentView()
