@@ -77,3 +77,4 @@ struct CheckoutView: View {
 #Preview {
     CheckoutView(order: Order())
 }
+

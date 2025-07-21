@@ -48,19 +48,52 @@ class Order: Codable {
     var city = ""
     var zip = ""
     var hasValidAddress: Bool {
+        
+        var nameValid = false
+        var addressValid = false
+        var cityValid = false
 
+        
         for letter in letters {
-            if name.contains(letter) || streetAddress.contains(letter) || city.contains(letter) {
-                return true
+            if name.contains(letter) || name.contains(letter.uppercased()){
+                nameValid = true
+                break
+            }
+        }
+        
+        for letter in letters {
+            if streetAddress.contains(letter) || streetAddress.contains(letter.uppercased()){
+                addressValid = true
+                break
+            }
+        }
+        
+        for letter in letters {
+            if city.contains(letter) || city.contains(letter.uppercased()){
+                cityValid = true
+                break
             }
         }
         
         for digit in digits {
-            if name.contains(digit) || streetAddress.contains(digit) || city.contains(digit) || zip.contains(digit){
-                return true
+            if name.contains(digit){
+                nameValid = true
+                break
             }
         }
-        return false
+        for digit in digits {
+            if streetAddress.contains(digit){
+                addressValid = true
+                break
+            }
+        }
+        for digit in digits {
+            if city.contains(digit){
+                cityValid = true
+                break
+            }
+        }
+        return nameValid && addressValid && cityValid
     }
     
     var cost: Decimal {
