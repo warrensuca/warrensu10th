@@ -4,20 +4,22 @@
 //
 //  Created by warren su on 7/3/25.
 //
-
+import SwiftData
 import SwiftUI
 
 
 
 
 struct AddView: View {
+    @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
     @State private var name = "Expense Name"
     @State private var type = "Personal"
     @State private var amount = 0.0
     
     
-    var expenses: Expenses
+
+    
     let types = ["Business", "Personal"]
     var body: some View {
         NavigationStack {
@@ -37,8 +39,10 @@ struct AddView: View {
             }
             .toolbar {
                 Button("Save") {
-                    expenses.items.append(ExpenseItem(name: name, type: type, amount: amount))
-                    
+                    let item = ExpenseItem(name: name, type: type, amount: amount)
+                    modelContext.insert(item)
+                    //try? modelContext.save()
+                    print("Saving item: \(item.name), \(item.type), \(item.amount)")
                     dismiss()
                 }
                 
@@ -52,5 +56,9 @@ struct AddView: View {
 }
 
 #Preview {
-    AddView(expenses: Expenses())
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: ExpenseItem.self, configurations: config)
+    
+    return AddView()
+        .modelContainer(container)
 }
