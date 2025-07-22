@@ -34,10 +34,13 @@ struct WordView: View {
     
     @State var word = ""
     var row: Int
+    
+    
     @State var colors = [Color.white,Color.white,Color.white,Color.white,Color.white]
     @FocusState var focused: Bool
-    
+    @Binding var gameEnd: Bool
     @Binding var currRow: Int
+    @Binding var currCount: Int
     var targetWord: String
     
     
@@ -51,10 +54,14 @@ struct WordView: View {
                 
             }
             TextField("enter word", text: $word).focused($focused, equals: true)
+                
                 .onAppear {
                   DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                       self.focused = currRow == row
                   }
+                }
+                .onChange(of: word) {
+                    word = word.uppercased()
                 }
                 .onChange(of: currRow) {
                     self.focused = currRow == row
@@ -62,9 +69,15 @@ struct WordView: View {
                 .autocorrectionDisabled()
                 .frame(width:0,height:0)
                 .onSubmit {
+                    
                     if word.count == 5{
-                        colors = checkAnswer(correctWord: targetWord)
                         currRow += 1
+                        colors = checkAnswer(correctWord: targetWord)
+                        
+                        
+                    }
+                    else {
+                        self.focused = true
                     }
                 }
             
@@ -73,7 +86,7 @@ struct WordView: View {
     }
     
     func getLetter(i: Int) -> Character{
-        print(word.count)
+
         if i >= word.count {
             return " "
         }
@@ -90,9 +103,10 @@ struct WordView: View {
         for i in 0..<5 {
             
             let index = word.index(word.startIndex, offsetBy: i)
-            print(word[index], correctWord[index])
+            
             if word[index] == correctWord[index] {
                 out.append(Color.green)
+                currCount += 1
             }
             else if correctWord.contains(word[index]) {
                 out.append(Color.yellow)
@@ -101,10 +115,13 @@ struct WordView: View {
                 out.append(Color.white)
             }
         }
+        gameEnd = currCount == 5 || currRow == 6
         return out
     }
 }
 
+
+
 #Preview {
-    WordView(row: 0, currRow: .constant(0), targetWord: "Hello")
+    WordView(row: 0, gameEnd: .constant(false), currRow: .constant(0), currCount: .constant(0), targetWord: "HELLO")
 }
