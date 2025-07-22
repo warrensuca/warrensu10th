@@ -46,10 +46,10 @@ struct ContentView: View {
     
     
     @Environment(\.modelContext) var modelContext
-    @State private var sortOrder = SortDescriptor(\ExpenseItem.amount)
+    @State private var sortOrder = [SortDescriptor(\ExpenseItem.amount)]
     @State private var currentDisplayType = "All"
     
-    @Query(sort: [SortDescriptor(\ExpenseItem.amount)]) var expenses: [ExpenseItem]
+    @Query var expenses: [ExpenseItem]
         
     
     @State private var showingSheet = false
@@ -58,15 +58,13 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             
-            DebugView()
+            //DebugView()
             DisplayView(sortOrder: sortOrder, currentDisplayType: currentDisplayType)
                 .navigationTitle("iExpense")
                 .toolbar {
-                    Button("Add expense", systemImage: "plus") {
-                        showingSheet = true
-                    }
                     
-                    Menu("Filter", systemImage: "question") {
+                    
+                    Menu("Filter") {
                         Picker("Filter", selection: $currentDisplayType) {
                             Text("Business")
                                 .tag("Business")
@@ -88,7 +86,9 @@ struct ContentView: View {
                                 .tag([SortDescriptor(\ExpenseItem.amount, order: .reverse)])
                         }
                     }
-                    
+                    Button("Add expense", systemImage: "plus") {
+                        showingSheet = true
+                    }
                     
                 }
             

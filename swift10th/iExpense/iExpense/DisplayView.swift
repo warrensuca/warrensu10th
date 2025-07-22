@@ -13,11 +13,11 @@ struct DisplayView: View {
     
     @Query var expenses: [ExpenseItem]
     var currentDisplayType: String
-    var sortOrder: SortDescriptor<ExpenseItem>
+    var sortOrder: [SortDescriptor<ExpenseItem>]
     
     
-    init(sortOrder: SortDescriptor<ExpenseItem>, currentDisplayType: String) {
-        _expenses = Query(filter: #Predicate<ExpenseItem> {item in item.type == currentDisplayType || currentDisplayType == "All"}, sort: [sortOrder])
+    init(sortOrder: [SortDescriptor<ExpenseItem>], currentDisplayType: String) {
+        _expenses = Query(filter: #Predicate<ExpenseItem> {item in item.type == currentDisplayType || currentDisplayType == "All"}, sort: sortOrder)
         self.currentDisplayType = currentDisplayType
         self.sortOrder = sortOrder
     }
@@ -112,7 +112,7 @@ extension View {
     sampleItems.forEach { context.insert($0) }
 
     return DisplayView(
-        sortOrder: SortDescriptor(\ExpenseItem.amount),
+        sortOrder: [SortDescriptor(\ExpenseItem.amount)],
         currentDisplayType: "All"
     )
     .modelContainer(container)
