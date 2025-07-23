@@ -9,8 +9,8 @@ import SwiftUI
 struct TileView: View {
     var letter: Character
     var color: Color
-    
-    
+    @Binding var inTransition: Bool
+
     
     var body: some View{
         
@@ -20,14 +20,28 @@ struct TileView: View {
             Rectangle()
                 .frame(width: 65, height:65)
                 .foregroundStyle(.gray)
+                .rotation3DEffect(.degrees(inTransition ? 180: 0), axis: (x:0, y: 1, z: 0))
+                
+                
+
             Rectangle()
                 .frame(width: 60, height:60)
+                .foregroundStyle(.white)
+                .rotation3DEffect(.degrees(inTransition ? 180: 0), axis: (x:0, y: 1, z: 0))
+                .opacity(inTransition ? 0 : 1)
+                
+            Rectangle()
+                .frame(width: 60, height: 60)
                 .foregroundStyle(color)
+                .rotation3DEffect(.degrees(inTransition ? 180: 0), axis: (x:0, y: 1, z: 0))
+                .opacity(inTransition ? 1 : 0)
+                
             
             Text("\(letter)")
                 .font(.system(size: 60))
-            
+                
         }
+        
     }
 }
 struct WordView: View {
@@ -43,13 +57,15 @@ struct WordView: View {
     @Binding var currCount: Int
     var targetWord: String
     
-    
+    @State var inTransition = false
+
     var body: some View {
         VStack(alignment: .center){
             HStack{
                 ForEach(0..<5, id: \.self) { i in
 
-                    TileView(letter: getLetter(i: i), color: colors[i])
+                    TileView(letter: getLetter(i: i), color: colors[i], inTransition: $inTransition)
+                        .animation(.spring(duration: 0.25, bounce: 0.5), value: word)
                 }
                 
             }
@@ -69,12 +85,22 @@ struct WordView: View {
                 .autocorrectionDisabled()
                 .frame(width:0,height:0)
                 .onSubmit {
+                    let checker = UITextChecker()
+                    let range = NSRange(location: 0, length: word.utf16.count)
                     
-                    if word.count == 5{
+                    
+                    let tempWord = word.lowercased()
+                    let misspelledRange = checker.rangeOfMisspelledWord(in: tempWord, range: range, startingAt: 0, wrap: false, language: "en")
+                    let allGood = misspelledRange.location == NSNotFound
+
+                    if word.count == 5 && allGood{
+                        
+                        withAnimation(.easeIn(duration: 1.5)){
+                            inTransition = true
+                        }
                         currRow += 1
                         colors = checkAnswer(correctWord: targetWord)
-                        
-                        
+
                     }
                     else {
                         self.focused = true
@@ -120,7 +146,20 @@ struct WordView: View {
     }
 }
 
+struct flipModifer: ViewModifier {
+    let amount: Double
+    
+    func body(content: Content) -> some View {
+        content
+            .rotationEffect(.degrees(amount))
+    }
+}
 
+extension AnyTransition {
+    static var flip: AnyTransition {
+        .modifier(active: flipModifer(amount: 90), identity: flipModifer(amount: 0))
+    }
+}
 
 #Preview {
     WordView(row: 0, gameEnd: .constant(false), currRow: .constant(0), currCount: .constant(0), targetWord: "HELLO")

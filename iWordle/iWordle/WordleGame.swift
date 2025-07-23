@@ -16,7 +16,7 @@ struct WordleGame: View {
     var body: some View {
         NavigationStack{
             VStack{
-                ForEach(0..<6) { i in 
+                ForEach(0..<6) { i in
                     WordView(row: i, gameEnd: $gameEnd, currRow: $currRow, currCount: $currCount, targetWord: targetWord)
                         .padding(5)
                     }
@@ -27,14 +27,15 @@ struct WordleGame: View {
             .alert(currCount == 5 ? "You have won!" : "You have lost...", isPresented: $gameEnd) {
                     Button("Ok") {}
             } message: {Text("The word was \(targetWord)")}
-                
+
             }
-            
+        
         }
     
     func startGame() {
         targetWord = allWords.randomElement()?.uppercased() ?? "HELLO"
         print(targetWord)
+        
     }
 }
 
