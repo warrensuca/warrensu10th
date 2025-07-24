@@ -33,7 +33,15 @@ struct WordleGame: View {
         }
     
     func startGame() {
-        targetWord = allWords.randomElement()?.uppercased() ?? "HELLO"
+        targetWord = allWords.randomElement() ?? "hello"
+        let checker = UITextChecker()
+        let range = NSRange(location: 0, length: targetWord.utf16.count)
+        var misspelledRange = checker.rangeOfMisspelledWord(in: targetWord, range: range, startingAt: 0, wrap: false, language: "en")
+        while misspelledRange.location != NSNotFound {
+            misspelledRange = checker.rangeOfMisspelledWord(in: targetWord, range: range, startingAt: 0, wrap: false, language: "en")
+            targetWord = allWords.randomElement() ?? "hello"
+        }
+        targetWord = targetWord.uppercased()
         print(targetWord)
         
     }

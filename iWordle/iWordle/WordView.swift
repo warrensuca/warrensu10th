@@ -47,6 +47,7 @@ struct TileView: View {
 struct WordView: View {
     
     @State var word = ""
+    
     var row: Int
     
     
@@ -125,17 +126,24 @@ struct WordView: View {
     
     func checkAnswer(correctWord: String) -> [Color]{
         var out = [Color]()
+        var letters = [Character: Int]()
+        for letter in correctWord {
+
+            letters[letter] = (letters[letter] ?? 0) + 1
+        }
         
         for i in 0..<5 {
             
             let index = word.index(word.startIndex, offsetBy: i)
-            
-            if word[index] == correctWord[index] {
+            print(word[index], letters[word[index]] ?? 0)
+            if word[index] == correctWord[index] && letters[word[index]] ?? 0 > 0 {
                 out.append(Color.green)
                 currCount += 1
+                letters[word[index]]! -= 1
             }
-            else if correctWord.contains(word[index]) {
+            else if correctWord.contains(word[index]) && letters[word[index]] ?? 0 > 0 {
                 out.append(Color.yellow)
+                letters[word[index]]! -= 1
             }
             else {
                 out.append(Color.white)
@@ -162,5 +170,5 @@ extension AnyTransition {
 }
 
 #Preview {
-    WordView(row: 0, gameEnd: .constant(false), currRow: .constant(0), currCount: .constant(0), targetWord: "HELLO")
+    WordView(row: 0, gameEnd: .constant(false), currRow: .constant(0), currCount: .constant(0), targetWord: "AGIST")
 }
