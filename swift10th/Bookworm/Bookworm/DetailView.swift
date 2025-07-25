@@ -50,7 +50,7 @@ struct DetailView: View {
         .scrollBounceBehavior(.basedOnSize)
         .toolbar {
             ToolbarItem{
-                Button("Delete this book", systemImage: "trash") {
+                Button("Delete", systemImage: "trash") {
                     showingDeleteAlert = true
                 }
                 

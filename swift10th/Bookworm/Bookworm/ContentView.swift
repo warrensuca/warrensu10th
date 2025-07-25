@@ -41,7 +41,7 @@ struct ContentView: View {
             .navigationTitle("Bookworm")
             .toolbar {
                 ToolbarItem {
-                    Button("Add Book") {
+                    Button("Add Book ") {
                         showingSheet.toggle()
                     }
                 }
