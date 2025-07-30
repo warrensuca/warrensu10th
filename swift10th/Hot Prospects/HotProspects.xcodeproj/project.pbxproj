@@ -16,6 +16,7 @@
 		51766B7F2BEB917A00E3A166 /* Prospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51766B7E2BEB917A00E3A166 /* Prospect.swift */; };
 		51766B822BEB92DF00E3A166 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 51766B812BEB92DF00E3A166 /* CodeScanner */; };
 		A4E6E36C2E39BFE00054940A /* ProspectEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E6E36B2E39BFE00054940A /* ProspectEditView.swift */; };
+		A4EA91952E39EB8600411C80 /* SortedProspectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EA91942E39EB8600411C80 /* SortedProspectsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		51766B7C2BEB912E00E3A166 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		51766B7E2BEB917A00E3A166 /* Prospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospect.swift; sourceTree = "<group>"; };
 		A4E6E36B2E39BFE00054940A /* ProspectEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectEditView.swift; sourceTree = "<group>"; };
+		A4EA91942E39EB8600411C80 /* SortedProspectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedProspectsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +47,7 @@
 		51766B602BEB910800E3A166 = {
 			isa = PBXGroup;
 			children = (
+				A4EA91942E39EB8600411C80 /* SortedProspectsView.swift */,
 				51766B6B2BEB910800E3A166 /* HotProspects */,
 				51766B6A2BEB910800E3A166 /* Products */,
 			);
@@ -161,6 +164,7 @@
 				51766B7F2BEB917A00E3A166 /* Prospect.swift in Sources */,
 				51766B7B2BEB912A00E3A166 /* ProspectsView.swift in Sources */,
 				51766B6F2BEB910800E3A166 /* ContentView.swift in Sources */,
+				A4EA91952E39EB8600411C80 /* SortedProspectsView.swift in Sources */,
 				A4E6E36C2E39BFE00054940A /* ProspectEditView.swift in Sources */,
 				51766B6D2BEB910800E3A166 /* HotProspectsApp.swift in Sources */,
 			);

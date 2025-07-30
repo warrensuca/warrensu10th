@@ -14,14 +14,16 @@ struct ProspectsView: View {
     enum FilterType {
         case none, contacted, uncontacted
     }
-
+    
+    
+    
     @Query(sort: \Prospect.name) var prospects: [Prospect]
     @Environment(\.modelContext) var modelContext
     @State private var selectedProspects = Set<Prospect>()
     @State private var isShowingScanner = false
-
+    
     let filter: FilterType
-
+    @State private var sortOrder: [SortDescriptor<Prospect>]
     var title: String {
         switch filter {
         case .none:
@@ -36,52 +38,50 @@ struct ProspectsView: View {
     var body: some View {
         NavigationStack {
                     
-            List(selection: $selectedProspects) {
-                ForEach(prospects) { prospect in
-                    NavigationLink("Edit") {
+            List(prospects, selection: $selectedProspects) { prospect in
+                    NavigationLink {
                         ProspectEditView(prospect: prospect)
                     } label: {
-                        
-                        HStack(){
-                            VStack {
+                        HStack {
+                            VStack(alignment: .leading) {
                                 Text(prospect.name)
                                     .font(.headline)
+
                                 Text(prospect.emailAddress)
                                     .foregroundStyle(.secondary)
                             }
-                            Spacer()
-                            Image(systemName: "pencil")
-                                .foregroundStyle(prospect.isContacted ? .blue : .gray)
-                        }
-                        .swipeActions {
-                            Button("Delete", systemImage: "trash", role: .destructive) {
-                                modelContext.delete(prospect)
-                            }
-                            
-                            if prospect.isContacted {
-                                Button("Mark Uncontacted", systemImage: "person.crop.circle.badge.xmark") {
-                                    prospect.isContacted.toggle()
-                                }
-                                .tint(.blue)
-                            } else {
-                                Button("Mark Contacted", systemImage: "person.crop.circle.fill.badge.checkmark") {
-                                    prospect.isContacted.toggle()
-                                }
-                                .tint(.green)
-                                
-                                Button("Remind Me", systemImage: "bell") {
-                                    addNotification(for: prospect)
-                                }
-                                .tint(.orange)
-                            }
-                        }
-                        .tag(prospect)
-                        
-                    }
-                    
-                }
 
-            }
+                            if filter == .none, prospect.isContacted {
+                                Spacer()
+                                Image(systemName: "checkmark.circle")
+                            }
+                        }
+                    }
+                    .swipeActions {
+                        Button("Delete", systemImage: "trash", role: .destructive) {
+                            modelContext.delete(prospect)
+                        }
+
+                        if prospect.isContacted {
+                            Button("Mark Uncontacted", systemImage: "person.crop.circle.badge.xmark") {
+                                prospect.isContacted.toggle()
+                            }
+                            .tint(.blue)
+                        } else {
+                            Button("Mark Contacted", systemImage: "person.crop.circle.fill.badge.checkmark") {
+                                prospect.isContacted.toggle()
+                            }
+                            .tint(.green)
+
+                            Button("Remind Me", systemImage: "bell") {
+                                addNotification(for: prospect)
+                            }
+                            .tint(.orange)
+                        }
+                    }
+
+                    .tag(prospect)
+                }
                 
                
             .navigationTitle(title)
@@ -97,7 +97,7 @@ struct ProspectsView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     EditButton()
                 }
-
+                
                 if selectedProspects.isEmpty == false {
                     ToolbarItem(placement: .bottomBar) {
                         Button("Delete Selected", action: delete)
@@ -110,15 +110,18 @@ struct ProspectsView: View {
         }
     }
 
-    init(filter: FilterType) {
+    init(filter: FilterType, sortOrder: [SortDescriptor<Prospect>]) {
         self.filter = filter
-
+        self.sortOrder = sortOrder
         if filter != .none {
             let showContactedOnly = filter == .contacted
 
             _prospects = Query(filter: #Predicate {
                 $0.isContacted == showContactedOnly
-            }, sort: [SortDescriptor(\Prospect.name)])
+            }, sort: sortOrder)
+        }
+        else {
+            _prospects = Query(sort: sortOrder)
         }
     }
 
@@ -129,9 +132,9 @@ struct ProspectsView: View {
         case .success(let result):
             let details = result.string.components(separatedBy: "\n")
             guard details.count == 2 else { return }
-
+            print(prospects.count)
             let person = Prospect(name: details[0], emailAddress: details[1], isContacted: false)
-
+            
             modelContext.insert(person)
         case .failure(let error):
             print("Scanning failed: \(error.localizedDescription)")
@@ -179,7 +182,3 @@ struct ProspectsView: View {
     }
 }
 
-#Preview {
-    ProspectsView(filter: .none)
-        .modelContainer(for: Prospect.self)
-}
