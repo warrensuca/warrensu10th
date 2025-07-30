@@ -35,39 +35,59 @@ struct ProspectsView: View {
 
     var body: some View {
         NavigationStack {
-            List(prospects, selection: $selectedProspects) { prospect in
-                VStack(alignment: .leading) {
-                    Text(prospect.name)
-                        .font(.headline)
-                    Text(prospect.emailAddress)
-                        .foregroundStyle(.secondary)
-                }
-                .swipeActions {
-                    Button("Delete", systemImage: "trash", role: .destructive) {
-                        modelContext.delete(prospect)
+                    
+            List(selection: $selectedProspects) {
+                ForEach(prospects) { prospect in
+                    NavigationLink("Edit") {
+                        ProspectEditView(prospect: prospect)
+                    } label: {
+                        
+                        HStack(){
+                            VStack {
+                                Text(prospect.name)
+                                    .font(.headline)
+                                Text(prospect.emailAddress)
+                                    .foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            Image(systemName: "pencil")
+                                .foregroundStyle(prospect.isContacted ? .blue : .gray)
+                        }
+                        .swipeActions {
+                            Button("Delete", systemImage: "trash", role: .destructive) {
+                                modelContext.delete(prospect)
+                            }
+                            
+                            if prospect.isContacted {
+                                Button("Mark Uncontacted", systemImage: "person.crop.circle.badge.xmark") {
+                                    prospect.isContacted.toggle()
+                                }
+                                .tint(.blue)
+                            } else {
+                                Button("Mark Contacted", systemImage: "person.crop.circle.fill.badge.checkmark") {
+                                    prospect.isContacted.toggle()
+                                }
+                                .tint(.green)
+                                
+                                Button("Remind Me", systemImage: "bell") {
+                                    addNotification(for: prospect)
+                                }
+                                .tint(.orange)
+                            }
+                        }
+                        .tag(prospect)
+                        
                     }
-
-                    if prospect.isContacted {
-                        Button("Mark Uncontacted", systemImage: "person.crop.circle.badge.xmark") {
-                            prospect.isContacted.toggle()
-                        }
-                        .tint(.blue)
-                    } else {
-                        Button("Mark Contacted", systemImage: "person.crop.circle.fill.badge.checkmark") {
-                            prospect.isContacted.toggle()
-                        }
-                        .tint(.green)
-
-                        Button("Remind Me", systemImage: "bell") {
-                            addNotification(for: prospect)
-                        }
-                        .tint(.orange)
-                    }
+                    
                 }
-                .tag(prospect)
+
             }
+                
+               
             .navigationTitle(title)
             .toolbar {
+                
+                
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Scan", systemImage: "qrcode.viewfinder") {
                         isShowingScanner = true

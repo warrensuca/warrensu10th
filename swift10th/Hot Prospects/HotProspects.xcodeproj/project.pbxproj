@@ -15,6 +15,7 @@
 		51766B7D2BEB912E00E3A166 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51766B7C2BEB912E00E3A166 /* MeView.swift */; };
 		51766B7F2BEB917A00E3A166 /* Prospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51766B7E2BEB917A00E3A166 /* Prospect.swift */; };
 		51766B822BEB92DF00E3A166 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 51766B812BEB92DF00E3A166 /* CodeScanner */; };
+		A4E6E36C2E39BFE00054940A /* ProspectEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E6E36B2E39BFE00054940A /* ProspectEditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		51766B7A2BEB912A00E3A166 /* ProspectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectsView.swift; sourceTree = "<group>"; };
 		51766B7C2BEB912E00E3A166 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		51766B7E2BEB917A00E3A166 /* Prospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospect.swift; sourceTree = "<group>"; };
+		A4E6E36B2E39BFE00054940A /* ProspectEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectEditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 			children = (
 				51766B6C2BEB910800E3A166 /* HotProspectsApp.swift */,
 				51766B6E2BEB910800E3A166 /* ContentView.swift */,
+				A4E6E36B2E39BFE00054940A /* ProspectEditView.swift */,
 				51766B7A2BEB912A00E3A166 /* ProspectsView.swift */,
 				51766B7C2BEB912E00E3A166 /* MeView.swift */,
 				51766B7E2BEB917A00E3A166 /* Prospect.swift */,
@@ -109,7 +112,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					51766B682BEB910800E3A166 = {
 						CreatedOnToolsVersion = 15.3;
@@ -158,6 +161,7 @@
 				51766B7F2BEB917A00E3A166 /* Prospect.swift in Sources */,
 				51766B7B2BEB912A00E3A166 /* ProspectsView.swift in Sources */,
 				51766B6F2BEB910800E3A166 /* ContentView.swift in Sources */,
+				A4E6E36C2E39BFE00054940A /* ProspectEditView.swift in Sources */,
 				51766B6D2BEB910800E3A166 /* HotProspectsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,6 +204,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = B5C26XE59E;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -263,6 +268,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = B5C26XE59E;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -292,7 +298,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HotProspects/Preview Content\"";
-				DEVELOPMENT_TEAM = B5C26XE59E;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We want to save your QR code.";
@@ -322,7 +327,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HotProspects/Preview Content\"";
-				DEVELOPMENT_TEAM = B5C26XE59E;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We want to save your QR code.";
