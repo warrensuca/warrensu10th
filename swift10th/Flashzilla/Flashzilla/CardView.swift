@@ -31,7 +31,7 @@ struct CardView: View {
                 )
                 .shadow(radius:10)
             
-            VStack{
+            ZStack{
                 if accessibilityVoiceOverEnabled {
                     Text(front ? card.prompt : card.answer)
                         .font(.largeTitle)
@@ -64,12 +64,21 @@ struct CardView: View {
                 }
                 .onEnded { _ in
                     if abs(offset.width) > 100 {
+                        
+                        print(offset.width)
+                        if offset.width < 0 {
+
+                            card.correct = false
+                        }
+                        print(card.correct)
                         removal?()
                     }
                     else {
                         slidingBack = true
                         offset = .zero
                     }
+                    
+                    
                 }
             )
         .onTapGesture {

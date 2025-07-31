@@ -4,7 +4,7 @@
 //
 //  Created by warren su on 7/30/25.
 //
-
+import SwiftData
 import SwiftUI
 extension View {
     func stacked(at position: Int, in total: Int) -> some View {
@@ -18,9 +18,10 @@ struct ContentView: View {
     @Environment(\.accessibilityDifferentiateWithoutColor) var accessibilityDifferentiateWithoutColor
     @Environment(\.accessibilityVoiceOverEnabled) var accessibilityVoiceOverEnabled
     @Environment(\.scenePhase) var scenePhase
-    
+    @Environment(\.modelContext) var modelContext
+
     @State private var isActive = true
-    @State private var cards = [Card]()
+    @Query private var cards: [Card]
     @State private var showingEditScreen = false
     
     
@@ -41,10 +42,14 @@ struct ContentView: View {
                     .clipShape(.capsule)
                 
                 ZStack{
-                    ForEach(0..<cards.count, id: \.self) {index in
-                        CardView(card: cards[index]) {
+                    ForEach(Array(cards.enumerated()), id: \.element.id) { index, card in
+                        CardView(card: card) {
+                            
+                            
                             withAnimation {
-                                removeCard(at: index)
+
+                                removeCard(card: card)
+     
                             }
                         }
                             .stacked(at: index, in: cards.count)
@@ -92,7 +97,7 @@ struct ContentView: View {
                     HStack {
                         Button {
                             withAnimation {
-                                removeCard(at: cards.count - 1)
+                                removeCard(card: cards.last)
                             }
                         } label: {
                             Image(systemName: "xmark.circle")
@@ -107,7 +112,7 @@ struct ContentView: View {
 
                         Button {
                             withAnimation {
-                                removeCard(at: cards.count - 1)
+                                removeCard(card: cards.last)
                             }
                         } label: {
                             Image(systemName: "checkmark.circle")
@@ -126,6 +131,7 @@ struct ContentView: View {
                 timeRemaining = max(0, timeRemaining-1)
             }
         }
+        
         .onChange(of: scenePhase) {
             //isActive = scenePhase == .active
             
@@ -143,28 +149,30 @@ struct ContentView: View {
         
         
     }
-    func loadData() {
-        if let data = UserDefaults.standard.data(forKey: "Cards") {
-            if let decoded = try? JSONDecoder().decode([Card].self, from: data) {
-                cards = decoded
-            }
-        }
-    }
+
     
-    func removeCard(at index: Int) {
-        guard index >= 0 else {return}
-        
-        cards.remove(at: index)
+    func removeCard(card: Card?) {
+        guard let card else { return }
+        print("yes \(card.correct)")
+        modelContext.delete(card)
+
+        if card.correct == false {
+            let newCard = Card(prompt: card.prompt, answer: card.answer)
+            modelContext.insert(newCard)
+        }
+
+        try? modelContext.save()
         if cards.isEmpty {
             isActive = false
         }
+
     }
     
     func resetCards() {
-        cards = Array<Card>(repeating: .example, count: 10)
+
         timeRemaining = 100
         isActive = true
-        loadData()
+
     }
 }
 

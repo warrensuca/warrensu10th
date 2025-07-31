@@ -4,14 +4,24 @@
 //
 //  Created by warren su on 7/30/25.
 //
-
 import Foundation
+import SwiftData
 
-struct Card: Codable, Identifiable{
+@Model
+class Card: Identifiable {
     var id = UUID()
     var prompt: String
     var answer: String
-    
-    static let example = Card(prompt: "Who played the 13th Doctor in Doctor Who?", answer: "Jodie Whittaker")
-    
+    var correct = true
+    init(prompt: String, answer: String) {
+        self.prompt = prompt
+        self.answer = answer
+    }
+
+    init(card: Card) {
+        prompt = card.prompt
+        answer = card.answer
+    }
+
+    static let example = Card(prompt: "What is Swift?", answer: "A high-level programming language.")
 }

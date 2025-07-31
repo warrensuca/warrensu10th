@@ -4,12 +4,13 @@
 //
 //  Created by warren su on 7/30/25.
 //
-
+import SwiftData
 import SwiftUI
 
 struct EditCards: View {
     @Environment(\.dismiss) var dismiss
-    @State private var cards = [Card]()
+    @Environment(\.modelContext) var modelContext
+    @Query private var cards: [Card]
     @State private var newPrompt = ""
     @State private var newAnswer = ""
 
@@ -38,29 +39,17 @@ struct EditCards: View {
             .toolbar {
                 Button("Done", action: done)
             }
-            .onAppear(perform: loadData)
+
         }
     }
 
     func done() {
-        newPrompt = ""
-        newAnswer = ""
+        
         dismiss()
     }
 
-    func loadData() {
-        if let data = UserDefaults.standard.data(forKey: "Cards") {
-            if let decoded = try? JSONDecoder().decode([Card].self, from: data) {
-                cards = decoded
-            }
-        }
-    }
 
-    func saveData() {
-        if let data = try? JSONEncoder().encode(cards) {
-            UserDefaults.standard.set(data, forKey: "Cards")
-        }
-    }
+
 
     func addCard() {
         let trimmedPrompt = newPrompt.trimmingCharacters(in: .whitespaces)
@@ -68,13 +57,17 @@ struct EditCards: View {
         guard trimmedPrompt.isEmpty == false && trimmedAnswer.isEmpty == false else { return }
 
         let card = Card(prompt: trimmedPrompt, answer: trimmedAnswer)
-        cards.insert(card, at: 0)
-        saveData()
+        
+        modelContext.insert(card)
+        try? modelContext.save()
+        newPrompt = ""
+        newAnswer = ""
     }
 
     func removeCards(at offsets: IndexSet) {
-        cards.remove(atOffsets: offsets)
-        saveData()
+        for offset in offsets{
+            modelContext.delete(cards[offset])
+        }
     }
 }
 
