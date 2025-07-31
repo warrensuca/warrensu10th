@@ -10,7 +10,7 @@ import SwiftUI
 struct CardView: View {
     @State private var offset = CGSize.zero
     @State private var front = true
-    
+    @State private var slidingBack = false
     @Environment(\.accessibilityDifferentiateWithoutColor) var accessibilityDifferentiateWithoutColor
     @Environment(\.accessibilityVoiceOverEnabled) var accessibilityVoiceOverEnabled
     let card: Card
@@ -27,7 +27,7 @@ struct CardView: View {
                 .background (
                     accessibilityDifferentiateWithoutColor ? nil :
                     RoundedRectangle(cornerRadius: 25)
-                        .fill(offset.width > 0 ? .green : .red)
+                        .fill(slidingBack ? (offset.width > 0 ? .green : .red) : (offset.width < 0 ? .red : .green))
                 )
                 .shadow(radius:10)
             
@@ -60,12 +60,14 @@ struct CardView: View {
             DragGesture()
                 .onChanged { gesture in
                     offset = gesture.translation
+                    slidingBack = false
                 }
                 .onEnded { _ in
                     if abs(offset.width) > 100 {
                         removal?()
                     }
                     else {
+                        slidingBack = true
                         offset = .zero
                     }
                 }

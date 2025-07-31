@@ -20,8 +20,8 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     
     @State private var isActive = true
-    @State private var cards = Array<Card>(repeating: .example, count: 10)
-    
+    @State private var cards = [Card]()
+    @State private var showingEditScreen = false
     
     
     @State private var timeRemaining = 100
@@ -53,19 +53,38 @@ struct ContentView: View {
                     }
                     
                 }
+                if cards.isEmpty {
+                    Button("Start Again") {
+                        resetCards()
+                    }
+                    .padding()
+                    .background(.white)
+                    .foregroundStyle(.black)
+                    .clipShape(.capsule)
+                }
             }
             .allowsHitTesting(timeRemaining > 0)
             
-            if cards.isEmpty {
-                Button("Start Again") {
-                    resetCards()
-                }
-                .padding()
-                .background(.white)
-                .foregroundStyle(.black)
-                .clipShape(.capsule)
-            }
             
+            VStack {
+                HStack {
+                    Spacer()
+
+                    Button {
+                        showingEditScreen = true
+                    } label: {
+                        Image(systemName: "plus.circle")
+                            .padding()
+                            .background(.black.opacity(0.7))
+                            .clipShape(.circle)
+                    }
+                }
+
+                Spacer()
+            }
+            .foregroundStyle(.white)
+            .font(.largeTitle)
+            .padding()
             if accessibilityDifferentiateWithoutColor || accessibilityVoiceOverEnabled{
                 VStack {
                     Spacer()
@@ -118,9 +137,20 @@ struct ContentView: View {
             }
             
         }
+        .sheet(isPresented: $showingEditScreen, onDismiss: resetCards) {
+            EditCards()
+        }
         
         
     }
+    func loadData() {
+        if let data = UserDefaults.standard.data(forKey: "Cards") {
+            if let decoded = try? JSONDecoder().decode([Card].self, from: data) {
+                cards = decoded
+            }
+        }
+    }
+    
     func removeCard(at index: Int) {
         guard index >= 0 else {return}
         
@@ -134,6 +164,7 @@ struct ContentView: View {
         cards = Array<Card>(repeating: .example, count: 10)
         timeRemaining = 100
         isActive = true
+        loadData()
     }
 }
 
