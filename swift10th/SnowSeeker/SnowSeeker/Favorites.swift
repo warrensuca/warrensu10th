@@ -4,7 +4,7 @@
 //
 //  Created by warren su on 8/1/25.
 //
-import SwiftData
+
 import SwiftUI
 
 @Observable
@@ -14,6 +14,13 @@ class Favorites {
     private let key = "Favorites"
     
     init() {
+        if let data = UserDefaults.standard.data(forKey: key) {
+            if let decoded = try? JSONDecoder().decode(Set<String>.self, from: data) {
+                resorts = decoded
+                return
+            }
+        }
+        
         resorts = []
     }
     
@@ -32,6 +39,10 @@ class Favorites {
     }
     
     func save() {
+        let encoder = JSONEncoder()
         
+        if let data = try? encoder.encode(resorts) {
+            UserDefaults.standard.set(data, forKey: key)
+        }
     }
 }

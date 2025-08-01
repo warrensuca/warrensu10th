@@ -21,9 +21,23 @@ struct ContentView: View {
         }
         
     }
+    
+    @State private var sortProperty = 0
+    
+    var sortedResorts: [Resort] {
+        if sortProperty == 0 {
+            resorts
+        }
+        else if sortProperty == 1 {
+            resorts.sorted {$0.name < $1.name}
+        }
+        else {
+            resorts.sorted {$0.country < $1.country}
+        }
+    }
     var body: some View {
         NavigationSplitView {
-            List(resorts) { resort in
+            List(sortedResorts) { resort in
                 NavigationLink(value: resort) {
                     HStack {
                         Image(resort.country)
@@ -53,6 +67,19 @@ struct ContentView: View {
                         }
                         
                     }
+                }
+            }
+            .toolbar {
+                Menu("Sort", systemImage: "arrow.up.arrow.down") {
+                    Picker("Sort Order", selection: $sortProperty) {
+                        Text("Default")
+                            .tag(0)
+                        Text("Alphabetical")
+                            .tag(1)
+                        Text("Country")
+                            .tag(2)
+                    }
+                    
                 }
             }
             .navigationTitle("SnowSeeker")

@@ -19,11 +19,13 @@ struct ResortView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                ZStack{
+                ZStack(alignment: .bottomLeading){
                     Image(decorative: resort.id)
                         .resizable()
                         .scaledToFit()
-                    Text(resort.imageCredit)
+
+                        Text("Credit: \(resort.imageCredit)")
+
                 }
                 
                 HStack {

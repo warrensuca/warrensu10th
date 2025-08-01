@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		A4CF3CF12E3CC628009229C8 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CF3CF02E3CC628009229C8 /* Favorites.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		A4CF3C962E3CAA83009229C8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -31,7 +27,6 @@
 		A4CF3C852E3CAA80009229C8 /* SnowSeeker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnowSeeker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4CF3C952E3CAA83009229C8 /* SnowSeekerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnowSeekerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4CF3C9F2E3CAA83009229C8 /* SnowSeekerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnowSeekerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A4CF3CF02E3CC628009229C8 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -80,7 +75,6 @@
 		A4CF3C7C2E3CAA80009229C8 = {
 			isa = PBXGroup;
 			children = (
-				A4CF3CF02E3CC628009229C8 /* Favorites.swift */,
 				A4CF3C872E3CAA80009229C8 /* SnowSeeker */,
 				A4CF3C982E3CAA83009229C8 /* SnowSeekerTests */,
 				A4CF3CA22E3CAA83009229C8 /* SnowSeekerUITests */,
@@ -242,7 +236,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4CF3CF12E3CC628009229C8 /* Favorites.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
