@@ -15,7 +15,7 @@ struct ButtonTileView: View {
     
     var body: some View{
         Button {
-            colorIndex += 1
+            colorIndex = (colorIndex+1)%3
         } label: {
             ZStack{
                 
@@ -23,17 +23,11 @@ struct ButtonTileView: View {
                 Rectangle()
                     .frame(width: 65, height:65)
                     .foregroundStyle(.gray)
-                
-                
-                
-                
+
                 Rectangle()
                     .frame(width: 60, height:60)
-                    .foregroundStyle(colors[colorIndex%3])
-                
-                
-                
-                
+                    .foregroundStyle(colors[colorIndex])
+
                 Text("\(letter)")
                     .font(.system(size: 60))
                     .foregroundStyle(.black)
@@ -49,6 +43,8 @@ struct WordleSolve: View {
     @State var word = ""
     @FocusState var focused: Bool
     @State var spellCheck = false
+    @State var foundWord = ""
+    @State var wordDisplays = [(String, [Int])]()
     var body: some View {
         VStack(alignment: .center){
             HStack{
@@ -83,13 +79,52 @@ struct WordleSolve: View {
                     spellCheck = !allGood
                     self.focused = true
                     
+                    if allGood {
+                        wordDisplays.append((word, colorIndexes))                    }
                 }
+            
+            ForEach(Array(wordDisplays.enumerated()), id: \.offset) { index, item in
+                let word = item.0
+                let indexes = item.1
+                
+                
+                let colors = [Color.white,Color.yellow,Color.green]
+                
+                HStack{
+                    ForEach(0..<5, id: \.self) { i in
+
+                        ZStack{
+                            
+                            
+                            Rectangle()
+                                .frame(width: 65, height:65)
+                                .foregroundStyle(.gray)
+
+                            Rectangle()
+                                .frame(width: 60, height:60)
+                                .foregroundStyle(colors[indexes[i]])
+
+                            Text("\(word.getLetter(i: i))")
+                                .font(.system(size: 60))
+                                .foregroundStyle(.black)
+                            
+                        }
+
+                    }
+                    
+                }
+            }
+            Button("Find Word") {
+                foundWord = findWord()
+            }.buttonStyle(.borderedProminent)
             
         }.alert("Incorrect spelling", isPresented: $spellCheck) {
             Button("Ok") { }
         } message: {
             Text("This word does not exist")
         }
+        
+        
         
     }
     
@@ -103,6 +138,10 @@ struct WordleSolve: View {
             return word[index]
         }
         
+    }
+    
+    func findWord() -> String {
+        return ""
     }
 }
 
