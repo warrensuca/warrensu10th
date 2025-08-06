@@ -27,7 +27,7 @@ func getWords() -> [String]{
     if let fileURL = Bundle.main.url(forResource: "valid-wordle-words", withExtension: "txt"){
         if let wordleWords = try? String(contentsOf: fileURL, encoding: .utf8) {
             let allWords = wordleWords.components(separatedBy: "\n")
-            
+            print(allWords.count)
             return allWords
         }
     }

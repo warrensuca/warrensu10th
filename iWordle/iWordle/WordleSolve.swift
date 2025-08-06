@@ -83,6 +83,7 @@ struct WordleSolve: View {
                     .autocorrectionDisabled()
                     .frame(width:0,height:0)
                     .onSubmit {
+                        print(allWords.contains("waste"))
                         wrongSpelling = Set(allWords).contains(submittedWord.lowercased()) == false
                         self.focused = true
                         
@@ -147,24 +148,29 @@ struct WordleSolve: View {
     
     
     func findWords() -> [String] {
+        submittedWord = submittedWord.lowercased()
         print("hello")
         var foundWords = [String]()
         
         var greens = [Int]()
         var yellows = [Int]()
         var greys = [Int]()
+        var required = [Character: Int]()
         
         for i in 0..<5 {
             if colorIndexes[i] == 2 {
                 greens.append(i)
+                required[submittedWord.getLetter(i: i), default: 0] += 1
             }
             
             else if colorIndexes[i] == 1 {
                 yellows.append(i)
+                required[submittedWord.getLetter(i: i), default: 0] += 1
             }
             
             else {
                 greys.append(i)
+                
             }
         }
         print(greens)
@@ -175,7 +181,7 @@ struct WordleSolve: View {
         
         
         var possibleWords = [String]()
-        submittedWord = submittedWord.lowercased()
+        
         
         for word in allWords {
             
@@ -208,7 +214,10 @@ struct WordleSolve: View {
 
             
             for i in greys {
-                if word.contains(submittedWord.getLetter(i: i)) {
+                let letterCount = word.filter{$0 == submittedWord.getLetter(i: i)}.count
+                print(word, submittedWord.getLetter(i: i))
+                print(letterCount, required[submittedWord.getLetter(i: i), default: 0])
+                if letterCount > required[submittedWord.getLetter(i: i), default: 0] {
                     found = false
                     break
                 }
@@ -224,10 +233,12 @@ struct WordleSolve: View {
             
         }
         
-        submittedWord = submittedWord.uppercased()
+        submittedWord = ""
+        colorIndexes = [0,0,0,0,0]
+        
         allWords = possibleWords
         
-         
+        
         
 
         return foundWords
