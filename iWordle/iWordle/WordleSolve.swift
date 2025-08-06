@@ -51,95 +51,93 @@ struct WordleSolve: View {
     @State private var colorIndexes = [0,0,0,0,0]
     @State private var submittedWord = ""
     @FocusState private var focused: Bool
-    @State private var spellCheck = false
+    @State private var wrongSpelling = false
     @State private var answers = [String]()
     @State private var wordDisplays = [(String, [Int])]()
     
-    @State  var allWords: [String]
+    @State var allWords: [String]
     
-    
+    @State var unusedVowels = ["a", "e", "i", "o", "u"]
     
     var body: some View {
-        VStack(alignment: .center){
-            HStack{
-                ForEach(0..<5, id: \.self) { i in
-
-                    ButtonTileView(letter:  submittedWord.getLetter(i: i), colorIndex: $colorIndexes[i])
-                        
-                }
-                
-            }
-            TextField("enter word", text: $submittedWord).focused($focused, equals: true)
-                
-                .onAppear {
-                  DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                      self.focused = true
-                  }
-                }
-                .onChange(of: submittedWord) {
-                    submittedWord = submittedWord.uppercased()
-                }
-                .autocorrectionDisabled()
-                .frame(width:0,height:0)
-                .onSubmit {
-                    let checker = UITextChecker()
-                    let range = NSRange(location: 0, length: submittedWord.utf16.count)
-                    
-                    
-                    let tempWord = submittedWord.lowercased()
-                    let misspelledRange = checker.rangeOfMisspelledWord(in: tempWord, range: range, startingAt: 0, wrap: false, language: "en")
-                    let allGood = misspelledRange.location == NSNotFound
-
-                    spellCheck = !allGood
-                    self.focused = true
-                    
-                    if allGood {
-                        wordDisplays.append((submittedWord, colorIndexes))}
-                }
-            
-            ForEach(Array(wordDisplays.enumerated()), id: \.offset) { index, item in
-                let word = item.0
-                let indexes = item.1
-                
-                
-                let colors = [Color.white,Color.yellow,Color.green]
-                
+        NavigationStack{
+            VStack(alignment: .center){
                 HStack{
                     ForEach(0..<5, id: \.self) { i in
-
-                        ZStack{
-                            
-                            
-                            Rectangle()
-                                .frame(width: 65, height:65)
-                                .foregroundStyle(.gray)
-
-                            Rectangle()
-                                .frame(width: 60, height:60)
-                                .foregroundStyle(colors[indexes[i]])
-                            let letter = word.getLetter(i: i)
-                            Text("\(letter)")
-                                .font(.system(size: 60))
-                                .foregroundStyle(.black)
-                            
-                        }
-
+                        
+                        ButtonTileView(letter:  submittedWord.getLetter(i: i), colorIndex: $colorIndexes[i])
+                        
                     }
                     
-                }.frame(height:100)
+                }
+                TextField("enter word", text: $submittedWord).focused($focused, equals: true)
+                
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                            self.focused = true
+                        }
+                    }
+                    .onChange(of: submittedWord) {
+                        submittedWord = submittedWord.uppercased()
+                    }
+                    .autocorrectionDisabled()
+                    .frame(width:0,height:0)
+                    .onSubmit {
+                        wrongSpelling = Set(allWords).contains(submittedWord.lowercased()) == false
+                        self.focused = true
+                        
+                        if wrongSpelling == false  {
+                            wordDisplays.append((submittedWord, colorIndexes))}
+                        answers = findWords()
+                        print(answers)
+                    }
+                VStack(alignment: .leading){
+                    ForEach(Array(wordDisplays.enumerated()), id: \.offset) { index, item in
+                        let word = item.0
+                        let indexes = item.1
+                        
+                        
+                        let colors = [Color.white,Color.yellow,Color.green]
+                        
+                        HStack{
+                            ForEach(0..<5, id: \.self) { i in
+                                
+                                ZStack{
+                                    
+                                    
+                                    Rectangle()
+                                        .frame(width: 26, height:26)
+                                        .foregroundStyle(.gray)
+                                    
+                                    Rectangle()
+                                        .frame(width: 25, height:25)
+                                        .foregroundStyle(colors[indexes[i]])
+                                    let letter = word.getLetter(i: i)
+                                    Text("\(letter)")
+                                        .font(.system(size: 12))
+                                        .foregroundStyle(.black)
+                                        .bold()
+                                    
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                }
+                
+                
+                NavigationLink("See Options") {
+                    OptionsView(words: answers)
+                }.buttonStyle(.borderedProminent)
+                
+            }.alert("Incorrect spelling", isPresented: $wrongSpelling) {
+                Button("Ok") { }
+            } message: {
+                Text("This word does not exist")
             }
-            Button("Find Words") {
-                answers = findWords()
-                print(answers)
-            }.buttonStyle(.borderedProminent)
             
-        }.alert("Incorrect spelling", isPresented: $spellCheck) {
-            Button("Ok") { }
-        } message: {
-            Text("This word does not exist")
         }
-        
-        
         
     }
     
@@ -182,25 +180,32 @@ struct WordleSolve: View {
         for word in allWords {
             
 
-            var found = false
+            var found = true
             for i in greens {
-                if word.getLetter(i: i) == submittedWord.getLetter(i: i) {
-                    found = true
+                if word.getLetter(i: i) != submittedWord.getLetter(i: i) {
+                    found = false
                     break
                 }
             }
 
-            if found == false && greens.count != 0 {
+            if found == false{
                 continue
             }
             
             for i in yellows {
                 
-                if submittedWord.getLetter(i: i) != word.getLetter(i: i) && word.contains(submittedWord.getLetter(i: i)) {
-                    found = true
+                if submittedWord.getLetter(i: i) == word.getLetter(i: i) || word.contains(submittedWord.getLetter(i: i)) == false {
+                    found = false
+                    break
                 }
                                 
             }
+            
+            if found == false{
+                continue
+            }
+            
+
             
             for i in greys {
                 if word.contains(submittedWord.getLetter(i: i)) {
@@ -209,6 +214,7 @@ struct WordleSolve: View {
                 }
             }
             
+      
             
             if found {
                 foundWords.append(word)
@@ -221,7 +227,9 @@ struct WordleSolve: View {
         submittedWord = submittedWord.uppercased()
         allWords = possibleWords
         
+         
         
+
         return foundWords
     }
 }

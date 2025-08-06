@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    var allWords = getWords()
     var body: some View {
         NavigationStack{
-            NavigationLink("Game") {
-                WordleGame(allWords: getWords())
+            Form{
+                NavigationLink("Game") {
+                    WordleGame(allWords: allWords)
+                }
+                NavigationLink("Solve") {
+                    WordleSolve(allWords: allWords)
+                }
             }
         }
     }
