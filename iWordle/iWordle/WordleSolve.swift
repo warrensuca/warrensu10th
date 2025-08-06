@@ -37,42 +37,56 @@ struct ButtonTileView: View {
         }
     }
 }
-
+extension String {
+    func getLetter(i: Int) -> Character {
+        if i >= self.count {
+            return " "
+        } else {
+            let index = self.index(self.startIndex, offsetBy: i)
+            return self[index]
+        }
+    }
+}
 struct WordleSolve: View {
     @State private var colorIndexes = [0,0,0,0,0]
-    @State var word = ""
-    @FocusState var focused: Bool
-    @State var spellCheck = false
-    @State var foundWord = ""
-    @State var wordDisplays = [(String, [Int])]()
+    @State private var submittedWord = ""
+    @FocusState private var focused: Bool
+    @State private var spellCheck = false
+    @State private var answers = [String]()
+    @State private var wordDisplays = [(String, [Int])]()
+    
+    @State  var allWords: [String]
+    
+    
+    
     var body: some View {
         VStack(alignment: .center){
             HStack{
                 ForEach(0..<5, id: \.self) { i in
 
-                    ButtonTileView(letter: getLetter(i: i), colorIndex: $colorIndexes[i])
+                    ButtonTileView(letter:  submittedWord.getLetter(i: i), colorIndex: $colorIndexes[i])
                         
                 }
                 
             }
-            TextField("enter word", text: $word).focused($focused, equals: true)
+            TextField("enter word", text: $submittedWord).focused($focused, equals: true)
                 
                 .onAppear {
                   DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                       self.focused = true
                   }
                 }
-                .onChange(of: word) {
-                    word = word.uppercased()
+                .onChange(of: submittedWord) {
+                    submittedWord = submittedWord.uppercased()
                 }
                 .autocorrectionDisabled()
                 .frame(width:0,height:0)
                 .onSubmit {
                     let checker = UITextChecker()
-                    let range = NSRange(location: 0, length: word.utf16.count)
+                    let range = NSRange(location: 0, length: submittedWord.utf16.count)
                     
                     
-                    let tempWord = word.lowercased()
+                    let tempWord = submittedWord.lowercased()
                     let misspelledRange = checker.rangeOfMisspelledWord(in: tempWord, range: range, startingAt: 0, wrap: false, language: "en")
                     let allGood = misspelledRange.location == NSNotFound
 
@@ -80,7 +94,7 @@ struct WordleSolve: View {
                     self.focused = true
                     
                     if allGood {
-                        wordDisplays.append((word, colorIndexes))                    }
+                        wordDisplays.append((submittedWord, colorIndexes))}
                 }
             
             ForEach(Array(wordDisplays.enumerated()), id: \.offset) { index, item in
@@ -103,8 +117,8 @@ struct WordleSolve: View {
                             Rectangle()
                                 .frame(width: 60, height:60)
                                 .foregroundStyle(colors[indexes[i]])
-
-                            Text("\(word.getLetter(i: i))")
+                            let letter = word.getLetter(i: i)
+                            Text("\(letter)")
                                 .font(.system(size: 60))
                                 .foregroundStyle(.black)
                             
@@ -112,10 +126,11 @@ struct WordleSolve: View {
 
                     }
                     
-                }
+                }.frame(height:100)
             }
-            Button("Find Word") {
-                foundWord = findWord()
+            Button("Find Words") {
+                answers = findWords()
+                print(answers)
             }.buttonStyle(.borderedProminent)
             
         }.alert("Incorrect spelling", isPresented: $spellCheck) {
@@ -128,24 +143,90 @@ struct WordleSolve: View {
         
     }
     
-    func getLetter(i: Int) -> Character{
-
-        if i >= word.count {
-            return " "
+    
+    
+    
+    
+    
+    func findWords() -> [String] {
+        print("hello")
+        var foundWords = [String]()
+        
+        var greens = [Int]()
+        var yellows = [Int]()
+        var greys = [Int]()
+        
+        for i in 0..<5 {
+            if colorIndexes[i] == 2 {
+                greens.append(i)
+            }
+            
+            else if colorIndexes[i] == 1 {
+                yellows.append(i)
+            }
+            
+            else {
+                greys.append(i)
+            }
         }
-        else{
-            let index = word.index(word.startIndex, offsetBy: i)
-            return word[index]
+        print(greens)
+        print(yellows)
+        print(greys)
+        
+        
+        
+        
+        var possibleWords = [String]()
+        submittedWord = submittedWord.lowercased()
+        
+        for word in allWords {
+            
+
+            var found = false
+            for i in greens {
+                if word.getLetter(i: i) == submittedWord.getLetter(i: i) {
+                    found = true
+                    break
+                }
+            }
+
+            if found == false && greens.count != 0 {
+                continue
+            }
+            
+            for i in yellows {
+                
+                if submittedWord.getLetter(i: i) != word.getLetter(i: i) && word.contains(submittedWord.getLetter(i: i)) {
+                    found = true
+                }
+                                
+            }
+            
+            for i in greys {
+                if word.contains(submittedWord.getLetter(i: i)) {
+                    found = false
+                    break
+                }
+            }
+            
+            
+            if found {
+                foundWords.append(word)
+                possibleWords.append(word)
+            }
+            
+            
         }
         
-    }
-    
-    func findWord() -> String {
-        return ""
+        submittedWord = submittedWord.uppercased()
+        allWords = possibleWords
+        
+        
+        return foundWords
     }
 }
 
 
 #Preview {
-    WordleSolve()
+    WordleSolve(allWords: getWords())
 }
