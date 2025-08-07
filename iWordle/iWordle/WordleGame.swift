@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WordleGame: View {
     var allWords: [String]
+    var allAnswerWords: [String]
     @State var targetWord = "Hello"
     @State private var currRow = 0
     @State private var currCount = 0
@@ -33,7 +34,7 @@ struct WordleGame: View {
         }
     
     func startGame() {
-        targetWord = allWords.randomElement() ?? "hello"
+        targetWord = allAnswerWords.randomElement() ?? "hello"
         let checker = UITextChecker()
         let range = NSRange(location: 0, length: targetWord.utf16.count)
         var misspelledRange = checker.rangeOfMisspelledWord(in: targetWord, range: range, startingAt: 0, wrap: false, language: "en")
@@ -49,5 +50,5 @@ struct WordleGame: View {
 
 
 #Preview {
-    WordleGame(allWords: getWords(), targetWord: "Hello")
+    WordleGame(allWords: getWords(), allAnswerWords: getAnswerWords(), targetWord: "Hello")
 }

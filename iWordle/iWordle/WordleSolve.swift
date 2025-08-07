@@ -56,7 +56,7 @@ struct WordleSolve: View {
     @State private var wordDisplays = [(String, [Int])]()
     
     @State var allWords: [String]
-    
+    var allAnswerWords: [String]
     @State var unusedVowels = ["a", "e", "i", "o", "u"]
     
     var body: some View {
@@ -129,7 +129,7 @@ struct WordleSolve: View {
                 
                 
                 NavigationLink("See Options") {
-                    OptionsView(words: answers)
+                    OptionsView(words: answers, answerWords: allAnswerWords)
                 }.buttonStyle(.borderedProminent)
                 
             }.alert("Incorrect spelling", isPresented: $wrongSpelling) {
@@ -247,5 +247,5 @@ struct WordleSolve: View {
 
 
 #Preview {
-    WordleSolve(allWords: getWords())
+    WordleSolve(allWords: getWords(), allAnswerWords: getAnswerWords())
 }
