@@ -6,49 +6,59 @@
 //
 import SwiftData
 import SwiftUI
-
+import Foundation
 struct ResultsView: View {
-    @Query var results: [SolveRun]
     
+    @Environment(\.modelContext) private var modelContext
     @State var sortOrder: [SortDescriptor<SolveRun>]
-    let emojiRating = [7: "❌"]
     
+    @State var deletingHistory = false
     var body: some View {
         NavigationStack{
-            List {
-                ForEach(results, id: \.self) {result in
-                    NavigationLink {
-                        WordleDisplay(wordDisplays: result.wordDisplays, sizeMultiplier: 3)
-                    } label: {
-                        HStack{
-                            Text(result.date.formatted(date: .complete, time: .omitted))
-                            Text("Solved in: \(result.attempts)")
-                        }
-                    }
-                }
-            }
+
+                ResultsListView(sortOrder: sortOrder)
+                    .alert("Are you sure?", isPresented: $deletingHistory) {
+                        Button("Yes") {deleteAllData()}
+                    } message: {Text("If you delete your history of solves, it is impossible to recover")}
+                
+
                 .toolbar {
-                    Menu("Sort", systemImage: "arrow.up.arrow.down") {
-                        Picker("Sort Order", selection: $sortOrder) {
+                    ToolbarItem{
+                        Menu("Sort", systemImage: "arrow.up.arrow.down") {
+                            Picker("Sort Order", selection: $sortOrder) {
+                                
+                                Text("Efficiency")
+                                    .tag([SortDescriptor(\SolveRun.attempts), SortDescriptor(\SolveRun.date)])
+                                Text("Oldest")
+                                    .tag([SortDescriptor(\SolveRun.date)])
+                                Text("Most Recent")
+                                    .tag([SortDescriptor(\SolveRun.date, order: .reverse)])
+                            }
                             
-                            Text("Efficiency")
-                                .tag([SortDescriptor(\SolveRun.attempts), SortDescriptor(\SolveRun.date)])
-                            Text("Oldest")
-                                .tag([SortDescriptor(\SolveRun.date)])
-                            Text("Most Recent")
-                                .tag([SortDescriptor(\SolveRun.date, order: .reverse)])
                         }
-                        
                     }
-                }
+                    ToolbarItem{
+                        Button {
+                            deletingHistory = true
+                        } label: {
+                            Image(systemName: "trash")
+                                .foregroundStyle(.red)
+                        }
+                    }
+            }
         }
     }
     
-    
-    init(sortOrder: [SortDescriptor<SolveRun>]){
-        self.sortOrder = sortOrder
-        _results = Query(sort: sortOrder)
+    func deleteAllData() {
+        do {
+            try modelContext.delete(model: SolveRun.self)
+
+
+        } catch {
+            print("Failed to delete all data: \(error.localizedDescription)")
+        }
     }
+    
 }
 
 #Preview {

@@ -10,11 +10,11 @@ import Foundation
 @Model
 class SolveRun{
     var attempts: Int
-    @Transient var wordDisplays = [(String, [Int])]()
+    var wordDisplays = [[String: [Int]]]()
     var date = Date()
     
     
-    init(attempts: Int, wordDisplays: [(String, [Int])]){
+    init(attempts: Int, wordDisplays: [[String: [Int]]]){
         self.attempts = attempts
         self.wordDisplays = wordDisplays
         self.date = Date()

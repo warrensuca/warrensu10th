@@ -25,15 +25,16 @@ struct ContentView: View {
                         Text("Game")
                             .font(.headline)
                             .scaledToFit()
-                    }
-                    .padding()
+                    }.background(.gray)
+                    
+                    
+                }.padding()
                     .border(.black)
-                    .overlay(
-                        RoundedRectangle(cornerRadius:10)
-                            .stroke(.black)
-                        )
-                    .frame(height:200)
-                }
+                    .clipShape(.rect(cornerRadius: 10))
+                    
+            
+                    .frame(height:180)
+                    .frame(maxWidth: .infinity)
                 
                 Rectangle()
                     .frame(height: 2)
@@ -51,12 +52,19 @@ struct ContentView: View {
                         Text("Solve")
                             .font(.headline)
                             .scaledToFit()
-                    }
+                    }.background(.gray)
                 }.clipShape(.rect(cornerRadius: 10))
                     .padding()
-                    .frame(height:225)
+                    .frame(height:205)
                 
                     .frame(maxWidth: .infinity)
+                
+                
+                
+                Rectangle()
+                    .frame(height: 2)
+                    
+                    .padding(.vertical)
                 NavigationLink() {
                     ResultsView(sortOrder: [SortDescriptor(\SolveRun.date, order: .reverse)])
                 } label: {
@@ -65,18 +73,21 @@ struct ContentView: View {
                             .resizable()
                             .scaledToFit()
                         
-                        Text("Solve")
+                        Text("Past Runs")
                             .font(.headline)
                             .scaledToFit()
                     }
+                    .background(.gray)
                 }.clipShape(.rect(cornerRadius: 10))
                     .padding()
-                    .frame(height:225)
+                    .frame(height:205)
                 
                     .frame(maxWidth: .infinity)
                 
             }
+            .navigationTitle("iWordle")
         }
+        
     }
 }
 

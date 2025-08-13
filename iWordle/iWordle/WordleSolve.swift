@@ -47,6 +47,9 @@ extension String {
         }
     }
 }
+
+
+
 struct WordleSolve: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
@@ -56,12 +59,12 @@ struct WordleSolve: View {
     @FocusState private var focused: Bool
     @State private var wrongSpelling = false
     @State private var answers = [String]()
-    @State private var wordDisplays = [(String, [Int])]()
+    @State private var wordDisplays = [[String: [Int]]]()
     
     @State var allWords: [String]
     var allAnswerWords: [String]
     @State var unusedVowels = ["a", "e", "i", "o", "u"]
-    
+    @State var solved = false
     var body: some View {
         NavigationStack{
             VStack(alignment: .center){
@@ -91,25 +94,49 @@ struct WordleSolve: View {
                         self.focused = true
                         
                         if wrongSpelling == false  {
-                            wordDisplays.append((submittedWord, colorIndexes))}
+                            wordDisplays.append([submittedWord: colorIndexes])}
                         answers = findWords()
                         print(answers)
                     }
                 VStack(alignment: .leading){
                     WordleDisplay(wordDisplays: wordDisplays)
                     }
-                .toolbar {
-                    Button("Save & Dismiss") {
-                        saveRun()
-                        
-                    }
-                }
                 
                 NavigationLink("See Options") {
                     OptionsView(words: answers, answerWords: allAnswerWords)
                 }.buttonStyle(.borderedProminent)
+
+                Text("Solved?")
+                HStack {
+                    Button("✅") {
+                        solved = true
+                    }
+                    Button("❌") {
+                        solved = false
+                    }
+                }
                 
-            }.alert("Invalid word", isPresented: $wrongSpelling) {
+                .toolbar {
+                    
+                    
+                    Button("Save & Dismiss") {
+                        saveRun()
+                    }
+                    
+                    let tempStack = VStack{
+                        Text(solved ? "Solved!" : "Not solved...")
+                        WordleDisplay(wordDisplays: wordDisplays, sizeMultiplier: 3.0)
+                    }
+                    
+                }
+                
+                
+                
+            }
+            
+            
+            
+            .alert("Invalid word", isPresented: $wrongSpelling) {
                 Button("Ok") { }
             } message: {
                 Text("This word is not a possibility")
@@ -123,8 +150,10 @@ struct WordleSolve: View {
     
     
     func saveRun() {
-        let newRun = SolveRun(attempts: wordDisplays.count, wordDisplays: wordDisplays)
+        let newRun = SolveRun(attempts: solved ? wordDisplays.count : 7, wordDisplays: wordDisplays)
+        
         modelContext.insert(newRun)
+        try? modelContext.save() 
         dismiss()
     }
     
