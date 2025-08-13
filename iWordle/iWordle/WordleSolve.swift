@@ -48,6 +48,9 @@ extension String {
     }
 }
 struct WordleSolve: View {
+    @Environment(\.modelContext) var modelContext
+    @Environment(\.dismiss) var dismiss
+    
     @State private var colorIndexes = [0,0,0,0,0]
     @State private var submittedWord = ""
     @FocusState private var focused: Bool
@@ -83,7 +86,7 @@ struct WordleSolve: View {
                     .autocorrectionDisabled()
                     .frame(width:0,height:0)
                     .onSubmit {
-                        print(allWords.contains("waste"))
+                        
                         wrongSpelling = Set(allWords).contains(submittedWord.lowercased()) == false
                         self.focused = true
                         
@@ -93,49 +96,23 @@ struct WordleSolve: View {
                         print(answers)
                     }
                 VStack(alignment: .leading){
-                    ForEach(Array(wordDisplays.enumerated()), id: \.offset) { index, item in
-                        let word = item.0
-                        let indexes = item.1
+                    WordleDisplay(wordDisplays: wordDisplays)
+                    }
+                .toolbar {
+                    Button("Save & Dismiss") {
+                        saveRun()
                         
-                        
-                        let colors = [Color.white,Color.yellow,Color.green]
-                        
-                        HStack{
-                            ForEach(0..<5, id: \.self) { i in
-                                
-                                ZStack{
-                                    
-                                    
-                                    Rectangle()
-                                        .frame(width: 26, height:26)
-                                        .foregroundStyle(.gray)
-                                    
-                                    Rectangle()
-                                        .frame(width: 25, height:25)
-                                        .foregroundStyle(colors[indexes[i]])
-                                    let letter = word.getLetter(i: i)
-                                    Text("\(letter)")
-                                        .font(.system(size: 12))
-                                        .foregroundStyle(.black)
-                                        .bold()
-                                    
-                                }
-                                
-                            }
-                            
-                        }
                     }
                 }
-                
                 
                 NavigationLink("See Options") {
                     OptionsView(words: answers, answerWords: allAnswerWords)
                 }.buttonStyle(.borderedProminent)
                 
-            }.alert("Incorrect spelling", isPresented: $wrongSpelling) {
+            }.alert("Invalid word", isPresented: $wrongSpelling) {
                 Button("Ok") { }
             } message: {
-                Text("This word does not exist")
+                Text("This word is not a possibility")
             }
             
         }
@@ -145,7 +122,11 @@ struct WordleSolve: View {
     
     
     
-    
+    func saveRun() {
+        let newRun = SolveRun(attempts: wordDisplays.count, wordDisplays: wordDisplays)
+        modelContext.insert(newRun)
+        dismiss()
+    }
     
     func findWords() -> [String] {
         submittedWord = submittedWord.lowercased()
