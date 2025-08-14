@@ -69,7 +69,7 @@ struct ContentView: View {
                     ResultsView(sortOrder: [SortDescriptor(\SolveRun.date, order: .reverse)])
                 } label: {
                     VStack {
-                        Image(.wordleSolvedImage1)
+                        Image(.wordleNoLetter)
                             .resizable()
                             .scaledToFit()
                         

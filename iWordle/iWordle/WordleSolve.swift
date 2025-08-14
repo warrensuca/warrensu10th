@@ -67,7 +67,7 @@ struct WordleSolve: View {
     @State var solved = false
     @State var askForSolvedWord = false
     @State var solvedWord = ""
-    
+    @State var tempCount = 0
     var body: some View {
         NavigationStack{
             VStack(alignment: .center){
@@ -117,6 +117,7 @@ struct WordleSolve: View {
                     Button("✅") {
                         solved = true
                         askForSolvedWord = true
+                        tempCount += 1
                     }
                     Button("❌") {
                         solved = false
@@ -124,6 +125,7 @@ struct WordleSolve: View {
                 }.alert("What was the word?!", isPresented: $askForSolvedWord) {
                     
                     TextField("Enter Word", text: $solvedWord)
+                    
                 }
                 .padding()
                 
@@ -165,7 +167,7 @@ struct WordleSolve: View {
             
         }
         
-        if askForSolvedWord {
+        if tempCount > 0 {
             wordDisplays.append([solvedWord: [2,2,2,2,2]])
         }
         print(solvedWord)

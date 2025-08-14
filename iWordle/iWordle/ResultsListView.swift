@@ -22,7 +22,7 @@ struct ResultsListView: View {
         List {
             ForEach(results, id: \.self) {result in
                 NavigationLink {
-                    WordleDisplay(wordDisplays: result.wordDisplays, sizeMultiplier: 3.0)
+                    WordleDisplay(wordDisplays: result.wordDisplays, sizeMultiplier: 2.7)
                 } label: {
                     HStack{
                         
