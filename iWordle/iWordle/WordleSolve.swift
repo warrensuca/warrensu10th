@@ -65,6 +65,9 @@ struct WordleSolve: View {
     var allAnswerWords: [String]
     @State var unusedVowels = ["a", "e", "i", "o", "u"]
     @State var solved = false
+    @State var askForSolvedWord = false
+    @State var solvedWord = ""
+    
     var body: some View {
         NavigationStack{
             VStack(alignment: .center){
@@ -105,16 +108,24 @@ struct WordleSolve: View {
                 NavigationLink("See Options") {
                     OptionsView(words: answers, answerWords: allAnswerWords)
                 }.buttonStyle(.borderedProminent)
+                    .padding()
 
-                Text("Solved?")
+                
                 HStack {
+                    Text("Solved?")
+                    
                     Button("✅") {
                         solved = true
+                        askForSolvedWord = true
                     }
                     Button("❌") {
                         solved = false
                     }
+                }.alert("What was the word?!", isPresented: $askForSolvedWord) {
+                    
+                    TextField("Enter Word", text: $solvedWord)
                 }
+                .padding()
                 
                 .toolbar {
                     
@@ -123,10 +134,8 @@ struct WordleSolve: View {
                         saveRun()
                     }
                     
-                    let tempStack = VStack{
-                        Text(solved ? "Solved!" : "Not solved...")
-                        WordleDisplay(wordDisplays: wordDisplays, sizeMultiplier: 3.0)
-                    }
+                    
+                    
                     
                 }
                 
@@ -150,6 +159,17 @@ struct WordleSolve: View {
     
     
     func saveRun() {
+        
+        if let match = wordDisplays.first(where: { $0.values.contains([2,2,2,2,2]) }) {
+            solvedWord = match.keys.first ?? ""
+            
+        }
+        
+        if askForSolvedWord {
+            wordDisplays.append([solvedWord: [2,2,2,2,2]])
+        }
+        print(solvedWord)
+        solved = solved || solvedWord != ""
         let newRun = SolveRun(attempts: solved ? wordDisplays.count : 7, wordDisplays: wordDisplays)
         
         modelContext.insert(newRun)

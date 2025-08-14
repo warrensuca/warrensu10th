@@ -30,11 +30,11 @@ struct ContentView: View {
                     
                 }.padding()
                     .border(.black)
-                    .clipShape(.rect(cornerRadius: 10))
+                    .clipShape(.rect)
                     
             
-                    .frame(height:180)
-                    .frame(maxWidth: .infinity)
+                    .frame(height:180.0)
+                  .frame(maxWidth: .infinity)
                 
                 Rectangle()
                     .frame(height: 2)

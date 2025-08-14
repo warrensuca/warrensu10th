@@ -27,7 +27,7 @@ struct ResultsListView: View {
                     HStack{
                         
                         Text(dateFormatter.string(from: result.date))
-                        Text("Solved in: \(result.attempts)")
+                        Text(result.attempts < 7 ? "Solved in: \(result.attempts)" : "Not solved")
                         Text(emojiRating[min(result.attempts,7)] ?? " " )
                     }
                 }
