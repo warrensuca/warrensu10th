@@ -15,24 +15,23 @@ struct ContentView: View {
     
     var filteredResorts: [Resort] {
         if searchText.isEmpty {
-            resorts
+            return resorts
         } else {
-            resorts.filter {$0.name.localizedStandardContains(searchText)}
+            return resorts.filter { $0.name.localizedStandardContains(searchText) }
         }
-        
     }
+
     
     @State private var sortProperty = 0
     
     var sortedResorts: [Resort] {
-        if sortProperty == 0 {
-            resorts
-        }
-        else if sortProperty == 1 {
-            resorts.sorted {$0.name < $1.name}
-        }
-        else {
-            resorts.sorted {$0.country < $1.country}
+        switch sortProperty {
+        case 1:
+            return resorts.sorted { $0.name < $1.name }
+        case 2:
+            return resorts.sorted { $0.country < $1.country }
+        default:
+            return resorts
         }
     }
     var body: some View {
