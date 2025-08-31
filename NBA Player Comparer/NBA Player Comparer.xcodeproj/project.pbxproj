@@ -7,62 +7,62 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
-		A4EC8E6C2E2F42F600F038F4 /* PBXContainerItemProxy */ = {
+		A47435312E62CCDB00ECF7F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = A4EC8E532E2F42F300F038F4 /* Project object */;
+			containerPortal = A47435182E62CCD800ECF7F3 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A4EC8E5A2E2F42F300F038F4;
-			remoteInfo = iWordle;
+			remoteGlobalIDString = A474351F2E62CCD800ECF7F3;
+			remoteInfo = "NBA Player Comparer";
 		};
-		A4EC8E762E2F42F600F038F4 /* PBXContainerItemProxy */ = {
+		A474353B2E62CCDB00ECF7F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = A4EC8E532E2F42F300F038F4 /* Project object */;
+			containerPortal = A47435182E62CCD800ECF7F3 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A4EC8E5A2E2F42F300F038F4;
-			remoteInfo = iWordle;
+			remoteGlobalIDString = A474351F2E62CCD800ECF7F3;
+			remoteInfo = "NBA Player Comparer";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A4EC8E5B2E2F42F300F038F4 /* iWordle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iWordle.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A4EC8E6B2E2F42F600F038F4 /* iWordleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iWordleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A4EC8E752E2F42F600F038F4 /* iWordleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iWordleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A47435202E62CCD800ECF7F3 /* NBA Player Comparer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NBA Player Comparer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A47435302E62CCDB00ECF7F3 /* NBA Player ComparerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NBA Player ComparerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A474353A2E62CCDB00ECF7F3 /* NBA Player ComparerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NBA Player ComparerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A4EC8E5D2E2F42F300F038F4 /* iWordle */ = {
+		A47435222E62CCD800ECF7F3 /* NBA Player Comparer */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = iWordle;
+			path = "NBA Player Comparer";
 			sourceTree = "<group>";
 		};
-		A4EC8E6E2E2F42F600F038F4 /* iWordleTests */ = {
+		A47435332E62CCDB00ECF7F3 /* NBA Player ComparerTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = iWordleTests;
+			path = "NBA Player ComparerTests";
 			sourceTree = "<group>";
 		};
-		A4EC8E782E2F42F600F038F4 /* iWordleUITests */ = {
+		A474353D2E62CCDB00ECF7F3 /* NBA Player ComparerUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = iWordleUITests;
+			path = "NBA Player ComparerUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A4EC8E582E2F42F300F038F4 /* Frameworks */ = {
+		A474351D2E62CCD800ECF7F3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A4EC8E682E2F42F600F038F4 /* Frameworks */ = {
+		A474352D2E62CCDB00ECF7F3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A4EC8E722E2F42F600F038F4 /* Frameworks */ = {
+		A47435372E62CCDB00ECF7F3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -72,22 +72,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A4EC8E522E2F42F300F038F4 = {
+		A47435172E62CCD800ECF7F3 = {
 			isa = PBXGroup;
 			children = (
-				A4EC8E5D2E2F42F300F038F4 /* iWordle */,
-				A4EC8E6E2E2F42F600F038F4 /* iWordleTests */,
-				A4EC8E782E2F42F600F038F4 /* iWordleUITests */,
-				A4EC8E5C2E2F42F300F038F4 /* Products */,
+				A47435222E62CCD800ECF7F3 /* NBA Player Comparer */,
+				A47435332E62CCDB00ECF7F3 /* NBA Player ComparerTests */,
+				A474353D2E62CCDB00ECF7F3 /* NBA Player ComparerUITests */,
+				A47435212E62CCD800ECF7F3 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		A4EC8E5C2E2F42F300F038F4 /* Products */ = {
+		A47435212E62CCD800ECF7F3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A4EC8E5B2E2F42F300F038F4 /* iWordle.app */,
-				A4EC8E6B2E2F42F600F038F4 /* iWordleTests.xctest */,
-				A4EC8E752E2F42F600F038F4 /* iWordleUITests.xctest */,
+				A47435202E62CCD800ECF7F3 /* NBA Player Comparer.app */,
+				A47435302E62CCDB00ECF7F3 /* NBA Player ComparerTests.xctest */,
+				A474353A2E62CCDB00ECF7F3 /* NBA Player ComparerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,134 +95,134 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A4EC8E5A2E2F42F300F038F4 /* iWordle */ = {
+		A474351F2E62CCD800ECF7F3 /* NBA Player Comparer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A4EC8E7F2E2F42F600F038F4 /* Build configuration list for PBXNativeTarget "iWordle" */;
+			buildConfigurationList = A47435442E62CCDB00ECF7F3 /* Build configuration list for PBXNativeTarget "NBA Player Comparer" */;
 			buildPhases = (
-				A4EC8E572E2F42F300F038F4 /* Sources */,
-				A4EC8E582E2F42F300F038F4 /* Frameworks */,
-				A4EC8E592E2F42F300F038F4 /* Resources */,
+				A474351C2E62CCD800ECF7F3 /* Sources */,
+				A474351D2E62CCD800ECF7F3 /* Frameworks */,
+				A474351E2E62CCD800ECF7F3 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				A4EC8E5D2E2F42F300F038F4 /* iWordle */,
+				A47435222E62CCD800ECF7F3 /* NBA Player Comparer */,
 			);
-			name = iWordle;
+			name = "NBA Player Comparer";
 			packageProductDependencies = (
 			);
-			productName = iWordle;
-			productReference = A4EC8E5B2E2F42F300F038F4 /* iWordle.app */;
+			productName = "NBA Player Comparer";
+			productReference = A47435202E62CCD800ECF7F3 /* NBA Player Comparer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A4EC8E6A2E2F42F600F038F4 /* iWordleTests */ = {
+		A474352F2E62CCDB00ECF7F3 /* NBA Player ComparerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A4EC8E822E2F42F600F038F4 /* Build configuration list for PBXNativeTarget "iWordleTests" */;
+			buildConfigurationList = A47435472E62CCDB00ECF7F3 /* Build configuration list for PBXNativeTarget "NBA Player ComparerTests" */;
 			buildPhases = (
-				A4EC8E672E2F42F600F038F4 /* Sources */,
-				A4EC8E682E2F42F600F038F4 /* Frameworks */,
-				A4EC8E692E2F42F600F038F4 /* Resources */,
+				A474352C2E62CCDB00ECF7F3 /* Sources */,
+				A474352D2E62CCDB00ECF7F3 /* Frameworks */,
+				A474352E2E62CCDB00ECF7F3 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A4EC8E6D2E2F42F600F038F4 /* PBXTargetDependency */,
+				A47435322E62CCDB00ECF7F3 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				A4EC8E6E2E2F42F600F038F4 /* iWordleTests */,
+				A47435332E62CCDB00ECF7F3 /* NBA Player ComparerTests */,
 			);
-			name = iWordleTests;
+			name = "NBA Player ComparerTests";
 			packageProductDependencies = (
 			);
-			productName = iWordleTests;
-			productReference = A4EC8E6B2E2F42F600F038F4 /* iWordleTests.xctest */;
+			productName = "NBA Player ComparerTests";
+			productReference = A47435302E62CCDB00ECF7F3 /* NBA Player ComparerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A4EC8E742E2F42F600F038F4 /* iWordleUITests */ = {
+		A47435392E62CCDB00ECF7F3 /* NBA Player ComparerUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A4EC8E852E2F42F600F038F4 /* Build configuration list for PBXNativeTarget "iWordleUITests" */;
+			buildConfigurationList = A474354A2E62CCDB00ECF7F3 /* Build configuration list for PBXNativeTarget "NBA Player ComparerUITests" */;
 			buildPhases = (
-				A4EC8E712E2F42F600F038F4 /* Sources */,
-				A4EC8E722E2F42F600F038F4 /* Frameworks */,
-				A4EC8E732E2F42F600F038F4 /* Resources */,
+				A47435362E62CCDB00ECF7F3 /* Sources */,
+				A47435372E62CCDB00ECF7F3 /* Frameworks */,
+				A47435382E62CCDB00ECF7F3 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A4EC8E772E2F42F600F038F4 /* PBXTargetDependency */,
+				A474353C2E62CCDB00ECF7F3 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				A4EC8E782E2F42F600F038F4 /* iWordleUITests */,
+				A474353D2E62CCDB00ECF7F3 /* NBA Player ComparerUITests */,
 			);
-			name = iWordleUITests;
+			name = "NBA Player ComparerUITests";
 			packageProductDependencies = (
 			);
-			productName = iWordleUITests;
-			productReference = A4EC8E752E2F42F600F038F4 /* iWordleUITests.xctest */;
+			productName = "NBA Player ComparerUITests";
+			productReference = A474353A2E62CCDB00ECF7F3 /* NBA Player ComparerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A4EC8E532E2F42F300F038F4 /* Project object */ = {
+		A47435182E62CCD800ECF7F3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
-					A4EC8E5A2E2F42F300F038F4 = {
+					A474351F2E62CCD800ECF7F3 = {
 						CreatedOnToolsVersion = 16.2;
 					};
-					A4EC8E6A2E2F42F600F038F4 = {
+					A474352F2E62CCDB00ECF7F3 = {
 						CreatedOnToolsVersion = 16.2;
-						TestTargetID = A4EC8E5A2E2F42F300F038F4;
+						TestTargetID = A474351F2E62CCD800ECF7F3;
 					};
-					A4EC8E742E2F42F600F038F4 = {
+					A47435392E62CCDB00ECF7F3 = {
 						CreatedOnToolsVersion = 16.2;
-						TestTargetID = A4EC8E5A2E2F42F300F038F4;
+						TestTargetID = A474351F2E62CCD800ECF7F3;
 					};
 				};
 			};
-			buildConfigurationList = A4EC8E562E2F42F300F038F4 /* Build configuration list for PBXProject "iWordle" */;
+			buildConfigurationList = A474351B2E62CCD800ECF7F3 /* Build configuration list for PBXProject "NBA Player Comparer" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = A4EC8E522E2F42F300F038F4;
+			mainGroup = A47435172E62CCD800ECF7F3;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = A4EC8E5C2E2F42F300F038F4 /* Products */;
+			productRefGroup = A47435212E62CCD800ECF7F3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A4EC8E5A2E2F42F300F038F4 /* iWordle */,
-				A4EC8E6A2E2F42F600F038F4 /* iWordleTests */,
-				A4EC8E742E2F42F600F038F4 /* iWordleUITests */,
+				A474351F2E62CCD800ECF7F3 /* NBA Player Comparer */,
+				A474352F2E62CCDB00ECF7F3 /* NBA Player ComparerTests */,
+				A47435392E62CCDB00ECF7F3 /* NBA Player ComparerUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A4EC8E592E2F42F300F038F4 /* Resources */ = {
+		A474351E2E62CCD800ECF7F3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A4EC8E692E2F42F600F038F4 /* Resources */ = {
+		A474352E2E62CCDB00ECF7F3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A4EC8E732E2F42F600F038F4 /* Resources */ = {
+		A47435382E62CCDB00ECF7F3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -232,21 +232,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A4EC8E572E2F42F300F038F4 /* Sources */ = {
+		A474351C2E62CCD800ECF7F3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A4EC8E672E2F42F600F038F4 /* Sources */ = {
+		A474352C2E62CCDB00ECF7F3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A4EC8E712E2F42F600F038F4 /* Sources */ = {
+		A47435362E62CCDB00ECF7F3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -256,20 +256,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A4EC8E6D2E2F42F600F038F4 /* PBXTargetDependency */ = {
+		A47435322E62CCDB00ECF7F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A4EC8E5A2E2F42F300F038F4 /* iWordle */;
-			targetProxy = A4EC8E6C2E2F42F600F038F4 /* PBXContainerItemProxy */;
+			target = A474351F2E62CCD800ECF7F3 /* NBA Player Comparer */;
+			targetProxy = A47435312E62CCDB00ECF7F3 /* PBXContainerItemProxy */;
 		};
-		A4EC8E772E2F42F600F038F4 /* PBXTargetDependency */ = {
+		A474353C2E62CCDB00ECF7F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A4EC8E5A2E2F42F300F038F4 /* iWordle */;
-			targetProxy = A4EC8E762E2F42F600F038F4 /* PBXContainerItemProxy */;
+			target = A474351F2E62CCD800ECF7F3 /* NBA Player Comparer */;
+			targetProxy = A474353B2E62CCDB00ECF7F3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		A4EC8E7D2E2F42F600F038F4 /* Debug */ = {
+		A47435422E62CCDB00ECF7F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -332,7 +332,7 @@
 			};
 			name = Debug;
 		};
-		A4EC8E7E2E2F42F600F038F4 /* Release */ = {
+		A47435432E62CCDB00ECF7F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -388,14 +388,14 @@
 			};
 			name = Release;
 		};
-		A4EC8E802E2F42F600F038F4 /* Debug */ = {
+		A47435452E62CCDB00ECF7F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"iWordle/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NBA Player Comparer/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -403,13 +403,12 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "warren-sui-made-it.iWordle";
+				PRODUCT_BUNDLE_IDENTIFIER = "warren-sui-made-it.NBA-Player-Comparer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -417,14 +416,14 @@
 			};
 			name = Debug;
 		};
-		A4EC8E812E2F42F600F038F4 /* Release */ = {
+		A47435462E62CCDB00ECF7F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"iWordle/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NBA Player Comparer/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -432,13 +431,12 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "warren-sui-made-it.iWordle";
+				PRODUCT_BUNDLE_IDENTIFIER = "warren-sui-made-it.NBA-Player-Comparer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -446,7 +444,7 @@
 			};
 			name = Release;
 		};
-		A4EC8E832E2F42F600F038F4 /* Debug */ = {
+		A47435482E62CCDB00ECF7F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -455,16 +453,16 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "warren-sui-made-it.iWordleTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "warren-sui-made-it.NBA-Player-ComparerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iWordle.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iWordle";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NBA Player Comparer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NBA Player Comparer";
 			};
 			name = Debug;
 		};
-		A4EC8E842E2F42F600F038F4 /* Release */ = {
+		A47435492E62CCDB00ECF7F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -473,87 +471,87 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "warren-sui-made-it.iWordleTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "warren-sui-made-it.NBA-Player-ComparerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iWordle.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iWordle";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NBA Player Comparer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NBA Player Comparer";
 			};
 			name = Release;
 		};
-		A4EC8E862E2F42F600F038F4 /* Debug */ = {
+		A474354B2E62CCDB00ECF7F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "warren-sui-made-it.iWordleUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "warren-sui-made-it.NBA-Player-ComparerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = iWordle;
+				TEST_TARGET_NAME = "NBA Player Comparer";
 			};
 			name = Debug;
 		};
-		A4EC8E872E2F42F600F038F4 /* Release */ = {
+		A474354C2E62CCDB00ECF7F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "warren-sui-made-it.iWordleUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "warren-sui-made-it.NBA-Player-ComparerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = iWordle;
+				TEST_TARGET_NAME = "NBA Player Comparer";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A4EC8E562E2F42F300F038F4 /* Build configuration list for PBXProject "iWordle" */ = {
+		A474351B2E62CCD800ECF7F3 /* Build configuration list for PBXProject "NBA Player Comparer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A4EC8E7D2E2F42F600F038F4 /* Debug */,
-				A4EC8E7E2E2F42F600F038F4 /* Release */,
+				A47435422E62CCDB00ECF7F3 /* Debug */,
+				A47435432E62CCDB00ECF7F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A4EC8E7F2E2F42F600F038F4 /* Build configuration list for PBXNativeTarget "iWordle" */ = {
+		A47435442E62CCDB00ECF7F3 /* Build configuration list for PBXNativeTarget "NBA Player Comparer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A4EC8E802E2F42F600F038F4 /* Debug */,
-				A4EC8E812E2F42F600F038F4 /* Release */,
+				A47435452E62CCDB00ECF7F3 /* Debug */,
+				A47435462E62CCDB00ECF7F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A4EC8E822E2F42F600F038F4 /* Build configuration list for PBXNativeTarget "iWordleTests" */ = {
+		A47435472E62CCDB00ECF7F3 /* Build configuration list for PBXNativeTarget "NBA Player ComparerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A4EC8E832E2F42F600F038F4 /* Debug */,
-				A4EC8E842E2F42F600F038F4 /* Release */,
+				A47435482E62CCDB00ECF7F3 /* Debug */,
+				A47435492E62CCDB00ECF7F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A4EC8E852E2F42F600F038F4 /* Build configuration list for PBXNativeTarget "iWordleUITests" */ = {
+		A474354A2E62CCDB00ECF7F3 /* Build configuration list for PBXNativeTarget "NBA Player ComparerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A4EC8E862E2F42F600F038F4 /* Debug */,
-				A4EC8E872E2F42F600F038F4 /* Release */,
+				A474354B2E62CCDB00ECF7F3 /* Debug */,
+				A474354C2E62CCDB00ECF7F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A4EC8E532E2F42F300F038F4 /* Project object */;
+	rootObject = A47435182E62CCD800ECF7F3 /* Project object */;
 }
