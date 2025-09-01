@@ -31,4 +31,23 @@ class Player: Codable, Identifiable {
             "\(firstName) \(lastName)"
         }
     
+    init(firstName: String, lastName: String, points: Double, assists: Double, rebounds: Double, steals: Double, blocks: Double) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.points = points
+        self.assists = assists
+        self.rebounds = rebounds
+        self.steals = steals
+        self.blocks = blocks
+        
+    }
+    static let samplePlayer = Player(
+            firstName: "LeBron",
+            lastName: "James",
+            points: 27.1,
+            assists: 7.4,
+            rebounds: 7.5,
+            steals: 1.6,
+            blocks: 0.8
+        )
 }

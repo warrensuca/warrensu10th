@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+
+
+
 struct ContentView: View {
     
     @State private var players = [Player]()
@@ -24,7 +27,7 @@ struct ContentView: View {
     }
     
     func fetchPlayer() async {
-        var results = [Player]()
+        
         
         guard let url = URL(string: "https://api.balldontlie.io/v1/stats")
         else {
