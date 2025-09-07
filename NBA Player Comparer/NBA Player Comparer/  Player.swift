@@ -7,17 +7,10 @@
 
 import Foundation
 
-@Observable
+
 class Player: Codable, Identifiable {
-    enum CodingKeys: String, CodingKey {
-        case _firstName = "first_name"
-        case _lastName = "last_name"
-        case _points = "Points"
-        case _assists = "Assists"
-        case _rebounds = "Rebounds"
-        case _steals = "Steals"
-        case _blocks = "Blocks"
-    }
+    
+        
     let id = UUID()
     var firstName: String
     var lastName: String
@@ -30,7 +23,16 @@ class Player: Codable, Identifiable {
     var fullName: String {
             "\(firstName) \(lastName)"
         }
-    
+    enum CodingKeys: String, CodingKey {
+            case id
+            case firstName = "first_name"
+            case lastName = "last_name"
+            case points = "pts"
+            case assists = "ast"
+            case rebounds = "reb"
+            case steals = "stl"
+            case blocks = "blk"
+    }
     init(firstName: String, lastName: String, points: Double, assists: Double, rebounds: Double, steals: Double, blocks: Double) {
         self.firstName = firstName
         self.lastName = lastName
@@ -50,4 +52,7 @@ class Player: Codable, Identifiable {
             steals: 1.6,
             blocks: 0.8
         )
+    static func == (lhs: Player, rhs: Player) -> Bool {
+           lhs.id == rhs.id
+       }
 }
