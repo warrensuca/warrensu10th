@@ -23,3 +23,9 @@ davis = playercareerstats.PlayerCareerStats(player_id="203076")
 print(davis.get_normalized_dict())
 print('\n')
 print(davis.get_normalized_dict()['SeasonTotalsRegularSeason'][0])
+davisDict = davis.get_normalized_dict()
+avgPoints = 0
+seasons = davisDict['SeasonTotalsRegularSeason']
+for i in range(len(seasons)):
+    avgPoints += seasons[i]['PTS']
+print(avgPoints/len(seasons))
