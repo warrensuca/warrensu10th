@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A4D8E2632E72036C00A3A20E /* PythonKit in Frameworks */ = {isa = PBXBuildFile; productRef = A4D8E2622E72036C00A3A20E /* PythonKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		A4F4C6AC2E71DDC3006895B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4D8E2632E72036C00A3A20E /* PythonKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +77,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A4D8E2612E72036300A3A20E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A4F4C6942E71DDBF006895B9 = {
 			isa = PBXGroup;
 			children = (
 				A4F4C69F2E71DDBF006895B9 /* NBA Player Comparer (Mac) */,
 				A4F4C6AE2E71DDC3006895B9 /* NBA Player Comparer (Mac)Tests */,
 				A4F4C6B82E71DDC3006895B9 /* NBA Player Comparer (Mac)UITests */,
+				A4D8E2612E72036300A3A20E /* Frameworks */,
 				A4F4C69E2E71DDBF006895B9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +125,7 @@
 			);
 			name = "NBA Player Comparer (Mac)";
 			packageProductDependencies = (
+				A4D8E2622E72036C00A3A20E /* PythonKit */,
 			);
 			productName = "NBA Player Comparer (Mac)";
 			productReference = A4F4C69D2E71DDBF006895B9 /* NBA Player Comparer (Mac).app */;
@@ -401,6 +415,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "NBA-Player-Comparer--Mac--Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -426,6 +441,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "NBA-Player-Comparer--Mac--Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -555,6 +571,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A4D8E2622E72036C00A3A20E /* PythonKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A4F4C6ED2E71E0A1006895B9 /* XCRemoteSwiftPackageReference "PythonKit" */;
+			productName = PythonKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A4F4C6952E71DDBF006895B9 /* Project object */;
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PythonKit
 
 struct ContentView: View {
     var body: some View {
@@ -19,6 +20,15 @@ struct ContentView: View {
     }
 }
 
+func createAllPlayers() -> PythonObject {
+    
+    let sys = Python.import("sys")
+    sys.path().append("/Users/warrensu/Programming/warrensu10th/NBA Player Comparer (Mac)")
+    let file = Python.import("NBA_API_Scraping")
+    let all_ids = fetchAllPlayerIDs()
+    var players = [PythonObject]
+    for id
+}
 #Preview {
     ContentView()
 }

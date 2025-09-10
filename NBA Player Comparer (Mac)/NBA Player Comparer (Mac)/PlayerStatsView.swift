@@ -40,7 +40,8 @@ struct PlayerStatsView: View {
                             .frame(height:10)
                         Text("\(stats[i])")
                         
-                            .font(Font.custom("Ruigslay", size: 15))
+                            .font(.custom("Ruigslay", size: 15))
+                        
                     }
                     
                 }
