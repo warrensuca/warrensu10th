@@ -12,28 +12,29 @@ for i in range(len(nba_players)):
 
 
     ids.append(nba_players[i]['id'])
-print(nba_players[:5])
-print(ids[:5])
+#print(nba_players[:10])
+print(ids[:10])
 
 statsSeason = leaguedashplayerstats.LeagueDashPlayerStats(season='2024-25')
+print(statsSeason.get_normalized_dict()["LeagueDashPlayerStats"])
+
+
+            
+
 df = statsSeason.get_data_frames()[0]
 
 
 davis = playercareerstats.PlayerCareerStats(player_id="203076")
-print(davis.get_normalized_dict().keys())
-print('\n')
-print(davis.get_normalized_dict()['SeasonTotalsRegularSeason'][0])
-print(davis.get_normalized_dict()['CareerTotalsRegularSeason'][0])
+
+#print(davis.get_normalized_dict().keys())
+#print('\n')
 davisDict = davis.get_normalized_dict()
+#print(davis.get_normalized_dict()['CareerTotalsRegularSeason'][0]['PTS'])
 avgPoints = 0
 seasons = davisDict['SeasonTotalsRegularSeason']
-for i in range(len(seasons)):
-    avgPoints += seasons[i]['PTS']/seasons[i]['GP']
-print(avgPoints/len(seasons))
 
-davisAdv = boxscoreadvancedv2.BoxScoreAdvancedV2(player_id = "203076")
-davisAdvDict = davisAdv.get_dict()
-print(davisAdvDict)
+
+
 class Player:
     def __init__(self, id):
         self.id = id
