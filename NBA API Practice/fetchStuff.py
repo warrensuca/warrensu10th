@@ -6,7 +6,7 @@ from nba_api.stats.endpoints import leaguedashplayerstats
 from nba_api.stats.endpoints import boxscoreadvancedv2
 
 import json
-
+from collections import defaultdict
 def fetchAllPlayerIDs():
     ids = []
     nba_players = players.get_active_players()
@@ -72,51 +72,71 @@ def getProccesableJson():
     output = []
     ids_set = set(fetchAllPlayerIDs())
     statsSeason = leaguedashplayerstats.LeagueDashPlayerStats(season='2024-25')
+    teamAbbreviations = set([
+            "ATL", "BOS", "BKN", "CHA", "CHI", "CLE", "DAL", "DEN", 
+            "DET", "GSW", "HOU", "IND", "LAC", "LAL", "MEM", "MIA", 
+            "MIL", "MIN", "NOP", "NYK", "OKC", "ORL", "PHI", "PHX", 
+            "POR", "SAC", "SAS", "TOR", "UTA", "WAS"
+        ])#filter out gleague guys
+    
+    playerRepeatCount = defaultdict(int)
+    tempDict = {}
     #print(statsSeason.get_normalized_dict()["LeagueDashPlayerStats"][:2])
 
     for playerProfile in statsSeason.get_normalized_dict()["LeagueDashPlayerStats"]:
-        if playerProfile['PLAYER_NAME'] != None and playerProfile['PLAYER_ID'] in ids_set and playerProfile['GP'] > 0:
+        print(playerProfile)
+        if (playerProfile['PLAYER_NAME'] != None and playerProfile['PLAYER_ID'] in ids_set and playerProfile['GP'] > 0
+        and playerProfile['TEAM_ABBREVIATION'] in teamAbbreviations):
+            playerRepeatCount[playerProfile['PLAYER_ID']] += 1
+            if playerRepeatCount[playerProfile['PLAYER_ID']] == 1:
+                
+                tempDict[playerProfile['PLAYER_ID']] = [
+                playerProfile['PTS'],
+                playerProfile['REB'],
+                playerProfile['AST'],
+                playerProfile['STL'],
+                playerProfile['BLK'],
+                playerProfile['GP']]
+            else:
+                
+                
+                tempDict[playerProfile['PLAYER_ID']][0] += playerProfile['PTS']
+                
+
+                tempDict[playerProfile['PLAYER_ID']][1] += playerProfile['REB']
+                
+
+                tempDict[playerProfile['PLAYER_ID']][2] += playerProfile['AST']
+                
+
+                tempDict[playerProfile['PLAYER_ID']][3] += playerProfile['STL']
+                
+
+                tempDict[playerProfile['PLAYER_ID']][4] += playerProfile['BLK']
+
+                tempDict[playerProfile['PLAYER_ID']][5] += playerProfile['GP']
+    
+    coveredPlayers = set()
+    for playerProfile in statsSeason.get_normalized_dict()["LeagueDashPlayerStats"]:
+
+        if (playerProfile['PLAYER_NAME'] != None and playerProfile['PLAYER_ID'] in ids_set and playerProfile['GP'] > 0
+            and playerProfile['TEAM_ABBREVIATION'] in teamAbbreviations and playerProfile['PLAYER_ID']):
+            
             player_data = {
                 "id": playerProfile['PLAYER_ID'],
                 "name": playerProfile['PLAYER_NAME'],
                 "imageURL": "https://cdn.nba.com/headshots/nba/latest/1040x760/{}.png".format(playerProfile['PLAYER_ID']),
-                "PPG": round(playerProfile['PTS']/playerProfile['GP'],1),
-                "RPG": round(playerProfile['REB']/playerProfile['GP'],1),
-                "AST": round(playerProfile['AST']/playerProfile['GP'],1),
-                "STL": round(playerProfile['STL']/playerProfile['GP'],1),
-                "BLK": round(playerProfile['BLK']/playerProfile['GP'],1),
+                "PPG": round(tempDict[playerProfile['PLAYER_ID']][0]/tempDict[playerProfile['PLAYER_ID']][5],1),
+                "RPG": round(tempDict[playerProfile['PLAYER_ID']][1]/tempDict[playerProfile['PLAYER_ID']][5],1),
+                "AST": round(tempDict[playerProfile['PLAYER_ID']][2]/tempDict[playerProfile['PLAYER_ID']][5],1),
+                "STL": round(tempDict[playerProfile['PLAYER_ID']][3]/tempDict[playerProfile['PLAYER_ID']][5],1),
+                "BLK": round(tempDict[playerProfile['PLAYER_ID']][4]/tempDict[playerProfile['PLAYER_ID']][5],1),
                 "FG%": playerProfile['FG_PCT'],
                 "3P%": playerProfile['FG3_PCT'],
             }
+            
             output.append(player_data)
     #print(output)
+    
     return json.dumps(output, indent = 2)
-print(getProccesableJson())
-def fetchAllPlayerJson():
-    ids = fetchAllPlayerIDs()
-    
-    players_json = []
-
-    for id in ids:
-        try:
-            player = Player(id)
-            #print(id)
-            player_data = {
-                "id": player.id,
-                "name": player.getName(),
-                "imageURL": player.getImageURL(),
-                "PPG": player.getPPG(),
-                "RPG": player.getRPG(),
-                "AST": player.getAST(),
-                "STL": player.getSTL(),
-                "FG%": player.getPCT(),
-                "3P%": player.get3PCT(),
-            }
-            
-        except Exception as e:
-            print("invalid player id", id)
-            
-        else:
-            players_json.append(player_data)
-    return players_json
-    
+print(getProccesableJson()[-1])
