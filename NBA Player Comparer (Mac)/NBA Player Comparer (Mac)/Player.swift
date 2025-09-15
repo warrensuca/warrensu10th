@@ -8,50 +8,60 @@
 import Foundation
 
 
-class Player: Codable, Identifiable {
+class Player: Codable {
     
         
-    let id = UUID()
-    var firstName: String
-    var lastName: String
-    var points: Double
-    var assists: Double
-    var rebounds: Double
-    var steals: Double
-    var blocks: Double
     
-    var fullName: String {
-            "\(firstName) \(lastName)"
+    let id: Int                  // from JSON "id"
+    let name: String             // from JSON "name"
+    let imageURL: String            // from JSON "imageURL"
+    let points: Double           // from JSON "PPG"
+    let rebounds: Double         // from JSON "RPG"
+    let assists: Double          // from JSON "AST"
+    let steals: Double           // from JSON "STL"
+    let blocks: Double           // from JSON "BLK"
+    let fieldGoalPct: Double     // from JSON "FG%"
+    let threePointPct: Double    // from JSON "3P%"
+
+    init(id: Int, name: String, imageURL: String, points: Double, rebounds: Double, assists: Double, steals: Double, blocks: Double, fieldGoalPct: Double, threePointPct: Double) {
+            self.id = id
+            self.name = name
+            self.imageURL = imageURL
+            self.points = points
+            self.rebounds = rebounds
+            self.assists = assists
+            self.steals = steals
+            self.blocks = blocks
+            self.fieldGoalPct = fieldGoalPct
+            self.threePointPct = threePointPct
         }
-    enum CodingKeys: String, CodingKey {
-            case id
-            case firstName = "first_name"
-            case lastName = "last_name"
-            case points = "pts"
-            case assists = "ast"
-            case rebounds = "reb"
-            case steals = "stl"
-            case blocks = "blk"
-    }
-    init(firstName: String, lastName: String, points: Double, assists: Double, rebounds: Double, steals: Double, blocks: Double) {
-        self.firstName = firstName
-        self.lastName = lastName
-        self.points = points
-        self.assists = assists
-        self.rebounds = rebounds
-        self.steals = steals
-        self.blocks = blocks
-        
-    }
+    
     static let samplePlayer = Player(
-            firstName: "LeBron",
-            lastName: "James",
+            id: 2544,
+            name: "LeBron James",
+            imageURL: "https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png",
             points: 27.1,
-            assists: 7.4,
             rebounds: 7.5,
+            assists: 7.4,
             steals: 1.6,
-            blocks: 0.8
+            blocks: 0.8,
+            fieldGoalPct: 0.505,
+            threePointPct: 0.345
         )
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case imageURL
+        case points = "PPG"
+        case rebounds = "RPG"
+        case assists = "AST"
+        case steals = "STL"
+        case blocks = "BLK"
+        case fieldGoalPct = "FG%"
+        case threePointPct = "3P%"
+    }
+    
     static func == (lhs: Player, rhs: Player) -> Bool {
            lhs.id == rhs.id
        }

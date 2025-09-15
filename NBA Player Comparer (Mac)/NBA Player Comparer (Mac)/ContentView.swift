@@ -9,6 +9,7 @@ import SwiftUI
 import PythonKit
 
 struct ContentView: View {
+    var players = loadPlayers()
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -20,15 +21,24 @@ struct ContentView: View {
     }
 }
 
-func createAllPlayers() -> PythonObject {
+func loadPlayers() -> [Player] {
     
-    let sys = Python.import("sys")
-    sys.path().append("/Users/warrensu/Programming/warrensu10th/NBA Player Comparer (Mac)")
-    let file = Python.import("NBA_API_Scraping")
-    let all_ids = fetchAllPlayerIDs()
-    var players = [PythonObject]
-    for id
+    guard let url = Bundle.main.url(forResource: "stats", withExtension: "json") else {
+        print("❌ stats.json not found")
+        return []
+    }
+    do {
+        let data = try Data(contentsOf: url)
+        let players = try JSONDecoder().decode([Player].self, from: data)
+        return players
+    } catch {
+        print("❌ Failed to decode stats.json: \(error)")
+        return []
+    }
+    
 }
+
+
 #Preview {
     ContentView()
 }

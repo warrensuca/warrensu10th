@@ -21,12 +21,22 @@ struct PlayerStatsView: View {
     
     var body: some View {
         NavigationStack {
-            Text("\(player.fullName)")
+            
+            AsyncImage(url: URL(string: player.imageURL)) { image in
+                image.resizable()
+                
+            } placeholder: {
+                ProgressView()
+                
+            }
+            .frame(width: 50, height: 50)
+            
+            Text("\(player.name)")
                 .font(.title2)
             
-            var playerAttributes = [player.points, player.assists, player.rebounds, player.steals, player.blocks]
+            let playerAttributes = [player.points, player.assists, player.rebounds, player.steals, player.blocks, player.fieldGoalPct, player.threePointPct]
 
-            var stats = ["PPG", "AST", "REB", "STL", "BLK"]
+            let stats = ["PPG", "AST", "REB", "STL", "BLK", "FG%", "3FG%"]
             ForEach(0..<5, id: \.self) {i in
                 ZStack {
                     Rectangle()
