@@ -84,7 +84,7 @@ def getProccesableJson():
     #print(statsSeason.get_normalized_dict()["LeagueDashPlayerStats"][:2])
 
     for playerProfile in statsSeason.get_normalized_dict()["LeagueDashPlayerStats"]:
-        print(playerProfile)
+        
         if (playerProfile['PLAYER_NAME'] != None and playerProfile['PLAYER_ID'] in ids_set and playerProfile['GP'] > 0
         and playerProfile['TEAM_ABBREVIATION'] in teamAbbreviations):
             playerRepeatCount[playerProfile['PLAYER_ID']] += 1
@@ -120,7 +120,7 @@ def getProccesableJson():
     for playerProfile in statsSeason.get_normalized_dict()["LeagueDashPlayerStats"]:
 
         if (playerProfile['PLAYER_NAME'] != None and playerProfile['PLAYER_ID'] in ids_set and playerProfile['GP'] > 0
-            and playerProfile['TEAM_ABBREVIATION'] in teamAbbreviations and playerProfile['PLAYER_ID']):
+            and playerProfile['TEAM_ABBREVIATION'] in teamAbbreviations and playerProfile['PLAYER_ID'] not in coveredPlayers):
             
             player_data = {
                 "id": playerProfile['PLAYER_ID'],
@@ -136,7 +136,9 @@ def getProccesableJson():
             }
             
             output.append(player_data)
+            coveredPlayers.add(playerProfile['PLAYER_ID'])
     #print(output)
-    
+    with open("BasicStatsJsonFile.json", "w") as json_file:
+        json.dump(output, json_file, indent=4)
     return json.dumps(output, indent = 2)
-print(getProccesableJson()[-1])
+print(getProccesableJson())
