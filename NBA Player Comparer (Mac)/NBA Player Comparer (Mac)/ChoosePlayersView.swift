@@ -8,10 +8,36 @@
 import SwiftUI
 
 struct ChoosePlayersView: View {
-    var players = [Player]
-    @State var searchText
+    var playerNames: [String]
+    
+    @Binding var selectedPlayer: Player
+    
+    var players: [Player]
+    @State private var searchText = ""
+    var filteredNames: [String] {
+        if searchText.isEmpty {
+            playerNames
+        }
+        else {
+            playerNames.filter {$0.localizedStandardContains(searchText)}
+        }
+}
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            List(filteredNames, id: \.self) {name in
+                Button(action: {
+                    
+                    if let player = players.first(where: { $0.name == name }) {
+                        selectedPlayer = player
+                    }
+                })
+                {
+                    Text(name)
+                }
+            }
+            .searchable(text: $searchText, prompt: "Searching for something")
+            .navigationTitle("Searching")
+        }
     }
 }
 
