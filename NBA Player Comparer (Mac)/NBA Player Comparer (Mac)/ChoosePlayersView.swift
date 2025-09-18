@@ -10,9 +10,11 @@ import SwiftUI
 struct ChoosePlayersView: View {
     var playerNames: [String]
     
-    @Binding var selectedPlayer: Player
-    
-    var players: [Player]
+    //@Binding var selectedPlayer: Player
+    @State private var selectedPlayer = 0
+    @Environment(\.dismiss) var dismiss
+    var totalPlayers: [Player]
+    @Binding var playerList: [Player]
     @State private var searchText = ""
     var filteredNames: [String] {
         if searchText.isEmpty {
@@ -24,12 +26,19 @@ struct ChoosePlayersView: View {
 }
     var body: some View {
         NavigationStack {
+            VStack{
+                Button("Selection for Player \(selectedPlayer )") {
+                    selectedPlayer = 1 - selectedPlayer
+                }
+            }
+            
             List(filteredNames, id: \.self) {name in
                 Button(action: {
                     
-                    if let player = players.first(where: { $0.name == name }) {
-                        selectedPlayer = player
+                    if let player = totalPlayers.first(where: { $0.name == name }) {
+                        playerList[selectedPlayer] = player
                     }
+                    dismiss()
                 })
                 {
                     Text(name)

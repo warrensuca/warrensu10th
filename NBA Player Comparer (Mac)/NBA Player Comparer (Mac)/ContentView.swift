@@ -11,46 +11,42 @@ import PythonKit
 struct ContentView: View {
     var players = loadPlayers()
     
-    @State private var selectedPlayer1 = Player.samplePlayer
-    @State private var selectedPlayer2 = Player.samplePlayer
     
+    @State private var currentPlayers = [Player.samplePlayer, Player.samplePlayer];
     
-    @State var showingSheet1 = false
-    @State var showingSheet2 = false
+    @State var showingSheet = false
+    
     
     var body: some View {
         NavigationStack {
             HStack{
-                var colorLists = getColorCodes(player1: selectedPlayer1, player2: selectedPlayer2)
-                PlayerStatsView(player: selectedPlayer1, colorList: colorLists[0])
-                PlayerStatsView(player: selectedPlayer1, colorList: colorLists[1])
+                @State var colorLists = getColorCodes(player1: currentPlayers[0], player2: currentPlayers[1])
+                PlayerStatsView(player: currentPlayers[0], colorList: colorLists[0])
+                Rectangle()
+                    .frame(width:5)
+                PlayerStatsView(player: currentPlayers[1], colorList: colorLists[1])
             }
             .toolbar {
                 ToolbarItemGroup {
-                    Button("Choose Player 1") {
-                        showingSheet1.toggle()
+                    Button() {
+                        showingSheet.toggle()
+                    } label: {
+                        Image(systemName: "plus.circle.fill")
                     }
-                    Button("Choose Player 2") {
-                        showingSheet2.toggle()
-                    }
+                    
+                    
                 }
             }
-            .sheet(isPresented: $showingSheet1) {
+            .sheet(isPresented: $showingSheet) {
                 ChoosePlayersView(
                     playerNames: players.map { $0.name },
-                    selectedPlayer: $selectedPlayer1,
-                    players: players
+                    totalPlayers: players,
+                    playerList: $currentPlayers
+                    
                     
                 )
             }
-            .sheet(isPresented: $showingSheet2) {
-                ChoosePlayersView(
-                    playerNames: players.map { $0.name },
-                    selectedPlayer: $selectedPlayer2,
-                    players: players
-                    
-                )
-            }
+            
         
         }
     }
