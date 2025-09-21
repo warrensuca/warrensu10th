@@ -58,7 +58,9 @@ func getColorCodes(player1: Player, player2: Player) -> [[Color]] {
         player1.assists,
         player1.rebounds,
         player1.steals,
-        player1.blocks
+        player1.blocks,
+        player1.fieldGoalPct,
+        player1.threePointPct
     ]
     
     let attributes2 = [
@@ -66,7 +68,9 @@ func getColorCodes(player1: Player, player2: Player) -> [[Color]] {
         player2.assists,
         player2.rebounds,
         player2.steals,
-        player2.blocks
+        player2.blocks,
+        player2.fieldGoalPct,
+        player2.threePointPct
     ]
     
     var colors1: [Color] = []

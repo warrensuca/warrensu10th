@@ -33,7 +33,7 @@ struct PlayerStatsView: View {
                 Image("\(player.id)")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 100)
+                    .frame(height: 120)
                     
                     
                 
@@ -41,20 +41,21 @@ struct PlayerStatsView: View {
                     .font(.title2)
                 
                 
-                let playerAttributes = [player.points, player.assists, player.rebounds, player.steals, player.blocks, player.fieldGoalPct, player.threePointPct]
+                let playerAttributes = [player.points, player.assists, player.rebounds, player.steals, player.blocks, 100*player.fieldGoalPct, 100*player.threePointPct]
                 
                 let stats = ["PPG", "AST", "REB", "STL", "BLK", "FG%", "3FG%"]
-                ForEach(0..<5, id: \.self) {i in
+                ForEach(0..<7, id: \.self) {i in
                     ZStack {
                         Rectangle()
                             .foregroundStyle(colorList[i])
                             .shadow(radius: 10)
-                            .frame(width:60, height:60)
+                            .frame(width:70, height:70)
                             
                         VStack{
                             Text("\(playerAttributes[i].formatted())")
                             
                                 .font(.custom("Sprintura", size: 20))
+                                
                             Spacer()
                                 .frame(height:10)
                             Text("\(stats[i])")
@@ -73,5 +74,5 @@ struct PlayerStatsView: View {
 }
 
 #Preview {
-    PlayerStatsView(player: .samplePlayer, colorList: [Color.green, Color.green, Color.green, Color.accentGreen, Color.red, ])
+    PlayerStatsView(player: .samplePlayer, colorList: [Color.green, Color.green, Color.green, Color.green, Color.red, Color.accentGreen, Color.red, ])
 }

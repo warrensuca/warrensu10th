@@ -27,7 +27,7 @@ struct ChoosePlayersView: View {
     var body: some View {
         NavigationStack {
             VStack{
-                Button("Selection for Player \(selectedPlayer )") {
+                Button("Selection for Player \(selectedPlayer + 1)") {
                     selectedPlayer = 1 - selectedPlayer
                 }
             }

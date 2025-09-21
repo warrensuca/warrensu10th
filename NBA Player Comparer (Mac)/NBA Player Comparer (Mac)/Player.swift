@@ -40,13 +40,13 @@ class Player: Codable {
             id: 2544,
             name: "LeBron James",
             imageURL: "https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png",
-            points: 27.1,
-            rebounds: 7.5,
-            assists: 7.4,
-            steals: 1.6,
-            blocks: 0.8,
-            fieldGoalPct: 0.505,
-            threePointPct: 0.345
+            points: 24.4,
+            rebounds: 7.8,
+            assists: 8.2,
+            steals: 1.0,
+            blocks: 0.6,
+            fieldGoalPct: 0.513,
+            threePointPct: 0.376
         )
     
     enum CodingKeys: String, CodingKey {
