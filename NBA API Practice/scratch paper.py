@@ -3,20 +3,26 @@ from nba_api.stats.endpoints import playercareerstats
 
 from nba_api.stats.endpoints import leaguedashplayerstats
 from nba_api.stats.endpoints import boxscoreadvancedv2
+import numpy as np
 
-# get_players returns a list of dictionaries, each representing a player.
+my_2d_list = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
 nba_players = players.get_active_players()
-print("Number of players fetched: {}".format(len(nba_players)))
+numpy_array = np.array(my_2d_list)
+
+column_averages = np.average(numpy_array, axis=0)
+print(column_averages[:-1])
+#print("Number of players fetched: {}".format(len(nba_players)))
 ids = []
 for i in range(len(nba_players)):
 
 
     ids.append(nba_players[i]['id'])
 #print(nba_players[:10])
-print(ids[:10])
+#print(ids[:10])
 
 statsSeason = leaguedashplayerstats.LeagueDashPlayerStats(season='2024-25')
-print(statsSeason.get_normalized_dict()["LeagueDashPlayerStats"])
+#print(statsSeason.get_normalized_dict()["LeagueDashPlayerStats"])
 
 
             

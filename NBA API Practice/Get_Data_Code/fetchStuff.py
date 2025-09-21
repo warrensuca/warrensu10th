@@ -8,6 +8,7 @@ from nba_api.stats.endpoints import leaguedashplayerstats
 from nba_api.stats.endpoints import boxscoreadvancedv2
 
 import json
+import numpy as np
 from collections import defaultdict
 def fetchAllPlayerIDs():
     ids = []
@@ -70,7 +71,7 @@ print(davis.getName())
 print(davis.getPPG())
 print(davis.getSTL())
 
-def getProccesableJson():
+def getDictofPlayerStats():
     output = []
     ids_set = set(fetchAllPlayerIDs())
     statsSeason = leaguedashplayerstats.LeagueDashPlayerStats(season='2024-25')
@@ -118,6 +119,20 @@ def getProccesableJson():
 
                 tempDict[playerProfile['PLAYER_ID']][5] += playerProfile['GP']
     
+    
+    return tempDict
+
+def getProccesableJson():
+    output = []
+    ids_set = set(fetchAllPlayerIDs())
+    statsSeason = leaguedashplayerstats.LeagueDashPlayerStats(season='2024-25')
+    teamAbbreviations = set([
+            "ATL", "BOS", "BKN", "CHA", "CHI", "CLE", "DAL", "DEN", 
+            "DET", "GSW", "HOU", "IND", "LAC", "LAL", "MEM", "MIA", 
+            "MIL", "MIN", "NOP", "NYK", "OKC", "ORL", "PHI", "PHX", 
+            "POR", "SAC", "SAS", "TOR", "UTA", "WAS"
+        ])#filter out gleague guys
+    statsDict = getDictofPlayerStats()
     coveredPlayers = set()
     for playerProfile in statsSeason.get_normalized_dict()["LeagueDashPlayerStats"]:
 
@@ -128,22 +143,22 @@ def getProccesableJson():
                 "id": playerProfile['PLAYER_ID'],
                 "name": playerProfile['PLAYER_NAME'],
                 "imageURL": "https://cdn.nba.com/headshots/nba/latest/1040x760/{}.png".format(playerProfile['PLAYER_ID']),
-                "PPG": round(tempDict[playerProfile['PLAYER_ID']][0]/tempDict[playerProfile['PLAYER_ID']][5],1),
-                "RPG": round(tempDict[playerProfile['PLAYER_ID']][1]/tempDict[playerProfile['PLAYER_ID']][5],1),
-                "AST": round(tempDict[playerProfile['PLAYER_ID']][2]/tempDict[playerProfile['PLAYER_ID']][5],1),
-                "STL": round(tempDict[playerProfile['PLAYER_ID']][3]/tempDict[playerProfile['PLAYER_ID']][5],1),
-                "BLK": round(tempDict[playerProfile['PLAYER_ID']][4]/tempDict[playerProfile['PLAYER_ID']][5],1),
+                "PPG": round(statsDict[playerProfile['PLAYER_ID']][0]/statsDict[playerProfile['PLAYER_ID']][5],1),
+                "RPG": round(statsDict[playerProfile['PLAYER_ID']][1]/statsDict[playerProfile['PLAYER_ID']][5],1),
+                "AST": round(statsDict[playerProfile['PLAYER_ID']][2]/statsDict[playerProfile['PLAYER_ID']][5],1),
+                "STL": round(statsDict[playerProfile['PLAYER_ID']][3]/statsDict[playerProfile['PLAYER_ID']][5],1),
+                "BLK": round(statsDict[playerProfile['PLAYER_ID']][4]/statsDict[playerProfile['PLAYER_ID']][5],1),
                 "FG%": playerProfile['FG_PCT'],
                 "3P%": playerProfile['FG3_PCT'],
             }
             
             output.append(player_data)
             coveredPlayers.add(playerProfile['PLAYER_ID'])
-    #print(output)
+    
     with open("BasicStatsJsonFile.json", "w") as json_file:
         json.dump(output, json_file, indent=4)
     return json.dumps(output, indent = 2)
-print(getProccesableJson())
+
 
 def downloadImage(id):
     url = "https://cdn.nba.com/headshots/nba/latest/1040x760/{}.png".format(id)
@@ -167,4 +182,36 @@ def downloadAllPlayerImages():
             and playerProfile['TEAM_ABBREVIATION'] in teamAbbreviations and playerProfile['PLAYER_ID'] not in coveredPlayers):
             downloadImage(playerProfile['PLAYER_ID'])
 
-            
+def getLeagueAverages():
+    statsDict = getDictofPlayerStats()
+    #print(statsDict)
+    out = {"PPG": 0, "RPG": 0, "AST": 0, "STL": 0, "BLK": 0}
+    outKeys = list(out.keys())
+    statsArr = list(statsDict.values())
+    #print(statsArr)
+    averageTotal = np.average(statsArr, axis = 0)
+    for i in range(len(averageTotal)-1) :
+        out[outKeys[i]] += round(float(averageTotal[i]/averageTotal[-1]),2)
+    
+    return out
+    
+print(getLeagueAverages())
+def getSTD():
+    statsDict = getDictofPlayerStats()
+    out = {"PPG": 0, "RPG": 0, "AST": 0, "STL": 0, "BLK": 0}
+    outKeys = list(out.keys())
+
+    statsArr = np.array(list(statsDict.values())[:-1], dtype=float) 
+    GP = statsArr[:, -1] 
+
+    # per-game stats
+    perGameStats = statsArr[:] / GP[:, None]  
+
+    # compute std for each stat (axis=0 = across players)
+    stds = np.std(perGameStats, axis=0)
+
+    for i, key in enumerate(outKeys):
+        out[key] = round(float(stds[i]), 2)
+
+    return out
+print(getSTD())
