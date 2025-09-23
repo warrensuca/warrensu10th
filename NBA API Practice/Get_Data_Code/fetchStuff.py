@@ -17,7 +17,7 @@ def fetchAllPlayerIDs():
 
 
         ids.append(nba_players[i]['id'])
-    print("Number of players fetched: {}".format(len(nba_players)))
+   #print("Number of players fetched: {}".format(len(nba_players)))
     return ids
     
 
@@ -201,11 +201,11 @@ def getSTD():
     out = {"PPG": 0, "RPG": 0, "AST": 0, "STL": 0, "BLK": 0}
     outKeys = list(out.keys())
 
-    statsArr = np.array(list(statsDict.values())[:-1], dtype=float) 
+    statsArr = np.array(list(statsDict.values()), dtype=float) 
     GP = statsArr[:, -1] 
 
     # per-game stats
-    perGameStats = statsArr[:] / GP[:, None]  
+    perGameStats = statsArr[:, :-1] / GP[:, None]  
 
     # compute std for each stat (axis=0 = across players)
     stds = np.std(perGameStats, axis=0)
@@ -215,3 +215,27 @@ def getSTD():
 
     return out
 print(getSTD())
+
+def getPlayerScaledStats(id):
+    statsDict = getDictofPlayerStats()
+    leagueAverages = list(getLeagueAverages().values())
+    std = list(getSTD().values())
+
+    stats = [statsDict[id][x]/statsDict[id][-1] for x in range(len(statsDict[id])-1)]
+    print(stats)
+    scaledStats = []
+    for i in range(len(stats)):
+        scaledStats.append((stats[i]-leagueAverages[i])/std[i])
+    
+    return scaledStats
+
+#print(getPlayerScaledStats(2544))
+
+def getSimilarity(id1, id2):
+    #vector projection cosine similarity
+    player1 = np.array(getPlayerScaledStats(id1))
+    player2 = np.array(getPlayerScaledStats(id2))
+
+    return np.dot(player1, player2)/(np.linalg.norm(player1)*np.linalg.norm(player2))
+print(getSimilarity(2544, 1631094)) #lebron with banchero, many people say banchero is the best
+print(getSimilarity(2544, 201939)) #lebron with curry, pretty different players
