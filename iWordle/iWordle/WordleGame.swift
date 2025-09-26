@@ -16,12 +16,14 @@ struct WordleGame: View {
     @State private var gameEnd = false
     var body: some View {
         NavigationStack{
-            VStack{
+            VStack(spacing: 0){
                 ForEach(0..<6) { i in
                     WordView(row: i, gameEnd: $gameEnd, currRow: $currRow, currCount: $currCount, targetWord: targetWord)
-                        .padding(5)
+                        .frame(height:80)
                     }
-                }
+                
+                
+            }
             .onAppear(){
                 startGame()
             }
