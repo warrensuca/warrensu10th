@@ -268,4 +268,4 @@ print(getSimilarity(2544, 1631094)) #lebron with banchero, many people say banch
 print(getSimilarity(203954, 201939)) #embied with curry, pretty different players
 print(getSimilarity(2544, 1629029)) #lebron with luka, pretty simillar players
 
-print(getSimilarity(203497, 1629027))
+print(getSimilarity(203497, 1629027)) #gobert with trae young
