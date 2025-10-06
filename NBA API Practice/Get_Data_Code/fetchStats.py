@@ -234,7 +234,7 @@ def getPlayerScaledStats(id):
 #print(getPlayerScaledStats(2544))
 
 def getPlayerAverages():
-    data = json.load(open("BasicStatsJsonFile.json"))
+    statsData = json.load(open("BasicStatsJsonFile.json"))
 
     
 
@@ -247,15 +247,25 @@ def getPlayerAverages():
                         "FG%": player["FG%"],
                         "3P%": player["3P%"]
                     } 
-                for player in data}
+                for player in statsData}
+    shotData = json.load(open("ShotData.json"))
+    playerKeys = statsDict.keys()
+    for id, shots in shotData.items():
+        id = int(id)
+        if id in playerKeys:
+            statsDict[id]["%2Shots"] = round(shots[2], 1) 
+            statsDict[id]["%3Shots"] = round(shots[3], 1) 
     return statsDict
 #print(getPlayerAverages())
+
+
 def getSimilarity(id1, id2):
     #vector projection cosine similarity
     statsDict = getPlayerAverages()
     
     player1 = np.array(list(statsDict[id1].values()))
     player2 = np.array(list(statsDict[id2].values()))
+    print(player1, player2)
     vProjectionSimilarity = np.dot(player1, player2)/(np.linalg.norm(player1)*np.linalg.norm(player2))
 
     #euclidean distance 
@@ -264,7 +274,7 @@ def getSimilarity(id1, id2):
 
 
     return 0.8 * vProjectionSimilarity + 0.2 * euclideanSimilarity #arbitrary scale, trial and error
-print(getSimilarity(2544, 1631094)) #lebron with banchero, many people say banchero is the best
+print(getSimilarity(2544, 1631094)) #lebron with banchero, many people say banchero is the most similar to lebron
 print(getSimilarity(203954, 201939)) #embied with curry, pretty different players
 print(getSimilarity(2544, 1629029)) #lebron with luka, pretty simillar players
 
