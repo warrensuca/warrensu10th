@@ -121,7 +121,8 @@ def getDictofPlayerStats():
     
     
     return tempDict
-
+#print(getDictofPlayerStats())
+#print(getDictofPlayerStats()[2544])
 def getProccesableJson():
     output = []
     ids_set = set(fetchAllPlayerIDs())
@@ -184,18 +185,19 @@ def downloadAllPlayerImages():
 
 def getLeagueAverages():
     statsDict = getDictofPlayerStats()
-    #print(statsDict)
     out = {"PPG": 0, "RPG": 0, "AST": 0, "STL": 0, "BLK": 0}
     outKeys = list(out.keys())
-    statsArr = list(statsDict.values())
-    #print(statsArr)
-    averageTotal = np.average(statsArr, axis = 0)
-    for i in range(len(averageTotal)-1) :
-        out[outKeys[i]] += round(float(averageTotal[i]/averageTotal[-1]),2)
-    
+    statsArr = np.array(list(statsDict.values()), dtype=float)  # shape: (num_players, 6)
+
+    totals = np.sum(statsArr, axis=0)   
+    totalGP = totals[-1]
+
+    for i, key in enumerate(outKeys):
+        out[key] = round(float(totals[i] / totalGP), 2)  
+
     return out
     
-print(getLeagueAverages())
+#print(getLeagueAverages())
 def getSTD():
     statsDict = getDictofPlayerStats()
     out = {"PPG": 0, "RPG": 0, "AST": 0, "STL": 0, "BLK": 0}
@@ -214,7 +216,7 @@ def getSTD():
         out[key] = round(float(stds[i]), 2)
 
     return out
-print(getSTD())
+#print(getSTD())
 
 def getPlayerScaledStats(id):
     statsDict = getDictofPlayerStats()
@@ -222,7 +224,7 @@ def getPlayerScaledStats(id):
     std = list(getSTD().values())
 
     stats = [statsDict[id][x]/statsDict[id][-1] for x in range(len(statsDict[id])-1)]
-    print(stats)
+    #print(stats)
     scaledStats = []
     for i in range(len(stats)):
         scaledStats.append((stats[i]-leagueAverages[i])/std[i])
@@ -231,11 +233,39 @@ def getPlayerScaledStats(id):
 
 #print(getPlayerScaledStats(2544))
 
+def getPlayerAverages():
+    data = json.load(open("BasicStatsJsonFile.json"))
+
+    
+
+    statsDict = {player["id"]: {
+                        "PPG": player["PPG"],
+                        "RPG": player["RPG"],
+                        "AST": player["AST"],
+                        "STL": player["STL"],
+                        "BLK": player["BLK"],
+                        "FG%": player["FG%"],
+                        "3P%": player["3P%"]
+                    } 
+                for player in data}
+    return statsDict
+#print(getPlayerAverages())
 def getSimilarity(id1, id2):
     #vector projection cosine similarity
-    player1 = np.array(getPlayerScaledStats(id1))
-    player2 = np.array(getPlayerScaledStats(id2))
+    statsDict = getPlayerAverages()
+    
+    player1 = np.array(list(statsDict[id1].values()))
+    player2 = np.array(list(statsDict[id2].values()))
+    vProjectionSimilarity = np.dot(player1, player2)/(np.linalg.norm(player1)*np.linalg.norm(player2))
 
-    return np.dot(player1, player2)/(np.linalg.norm(player1)*np.linalg.norm(player2))
+    #euclidean distance 
+
+    euclideanSimilarity = 1 / (1 + np.linalg.norm(player1 - player2))
+
+
+    return 0.8 * vProjectionSimilarity + 0.2 * euclideanSimilarity #arbitrary scale, trial and error
 print(getSimilarity(2544, 1631094)) #lebron with banchero, many people say banchero is the best
-print(getSimilarity(2544, 201939)) #lebron with curry, pretty different players
+print(getSimilarity(203954, 201939)) #embied with curry, pretty different players
+print(getSimilarity(2544, 1629029)) #lebron with luka, pretty simillar players
+
+print(getSimilarity(203497, 1629027))
