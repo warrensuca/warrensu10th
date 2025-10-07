@@ -125,6 +125,9 @@ struct WordleSolve: View {
                 }.alert("What was the word?!", isPresented: $askForSolvedWord) {
                     
                     TextField("Enter Word", text: $solvedWord)
+                        .onChange(of: solvedWord) {
+                            solvedWord = solvedWord.uppercased()
+                        }
                     
                 }
                 .padding()
