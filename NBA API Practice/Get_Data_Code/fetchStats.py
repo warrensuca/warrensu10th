@@ -257,8 +257,12 @@ def getPlayerAverages():
             statsDict[id]["%3Shots"] = round(shots[3], 1) 
     return statsDict
 #print(getPlayerAverages())
-
-
+def combineJsonFiles():
+    data = getPlayerAverages()
+    with open("fullStats.json", "w") as json_file:
+        json.dump(data, json_file, indent=4)
+    return json.dumps(data, indent = 2)
+combineJsonFiles()
 def getSimilarity(id1, id2):
     #vector projection cosine similarity
     statsDict = getPlayerAverages()
@@ -279,3 +283,5 @@ print(getSimilarity(203954, 201939)) #embied with curry, pretty different player
 print(getSimilarity(2544, 1629029)) #lebron with luka, pretty simillar players
 
 print(getSimilarity(203497, 1629027)) #gobert with trae young
+
+
