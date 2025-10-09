@@ -34,6 +34,20 @@ func loadPlayers() -> [Player] {
     }
     
 }
+func load_STD_players() -> [Player] {
+    guard let url = Bundle.main.url(forResource: "std_scaled_stats", withExtension: "json") else {
+        print("❌ std_scaled_stats.json not found")
+        return []
+    }
+    do {
+        let data = try Data(contentsOf: url)
+        let players = try JSONDecoder().decode([Player].self, from: data)
+        return players
+    } catch {
+        print("❌ Failed to decode std_scaled_stats.json: \(error)")
+        return []
+    }
+}
 #Preview {
     ContentView()
 }

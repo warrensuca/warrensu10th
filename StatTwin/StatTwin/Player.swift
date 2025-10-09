@@ -24,8 +24,8 @@ class Player: Codable {
     let fieldGoalPct: Double
     let threePointPct: Double
     let pct2Shots: Double
-    let pct3Shots: Double
-    init(id: Int, name: String, imageURL: String, points: Double, rebounds: Double, assists: Double, steals: Double, blocks: Double, fieldGoalPct: Double, threePointPct: Double, pct2Shots: Double, pct3Shots: Double) {
+    
+    init(id: Int, name: String, imageURL: String, points: Double, rebounds: Double, assists: Double, steals: Double, blocks: Double, fieldGoalPct: Double, threePointPct: Double, pct2Shots: Double) {
             self.id = id
             self.name = name
             self.imageURL = imageURL
@@ -36,8 +36,8 @@ class Player: Codable {
             self.blocks = blocks
             self.fieldGoalPct = fieldGoalPct
             self.threePointPct = threePointPct
-            self.pct2Shots = pct2Shots / 100
-            self.pct3Shots = pct3Shots / 100
+            self.pct2Shots = pct2Shots
+            
         }
     
     static let samplePlayer = Player(
@@ -51,8 +51,8 @@ class Player: Codable {
             blocks: 0.6,
             fieldGoalPct: 0.513,
             threePointPct: 0.376,
-            pct2Shots: 77.1,
-            pct3Shots: 22.9,
+            pct2Shots: 77.1
+           
         )
     
     enum CodingKeys: String, CodingKey {
@@ -67,7 +67,7 @@ class Player: Codable {
         case fieldGoalPct = "FG%"
         case threePointPct = "3P%"
         case pct2Shots = "%2Shots"
-        case pct3Shots = "%3Shots"
+
     }
     
     static func == (lhs: Player, rhs: Player) -> Bool {
