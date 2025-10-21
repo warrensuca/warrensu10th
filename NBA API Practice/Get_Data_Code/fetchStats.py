@@ -191,6 +191,7 @@ def getPlayerAverages():
     
 
     statsDict = {player["id"]: {
+                        "name": player["name"],
                         "PPG": player["PPG"],
                         "RPG": player["RPG"],
                         "AST": player["AST"],
@@ -202,20 +203,22 @@ def getPlayerAverages():
                 for player in statsData}
     shotData = json.load(open("ShotData.json"))
     playerKeys = statsDict.keys()
-    for id, shots in shotData.items():
-        id = int(id)
-        if id in playerKeys:
-            statsDict[id]["%2Shots"] = round(shots[2], 1) / 100
+    for id in statsDict.keys():
+        id_int = int(id)
+        if str(id_int) in shotData and len(shotData[str(id_int)]) > 2:
+            statsDict[id_int]["%2Shots"] = round(shotData[str(id_int)][2], 1) / 100
+        else:
             
+            statsDict[id_int]["%2Shots"] = 0
 
     return statsDict
-#print(getPlayerAverages())
+
 def combineJsonFiles():
     data = getPlayerAverages()
     with open("fullStats.json", "w") as json_file:
         json.dump(data, json_file, indent=4)
     return json.dumps(data, indent = 2)
-
+#combineJsonFiles()
 
 
 def getLeagueAverages():
@@ -249,7 +252,8 @@ def getSTD():
         out[key] = round(float(stds[i]), 2)
 
     return out
-print(getSTD())
+#print(getSTD())
+
 
 def getPlayerScaledStats(id):
     statsDict = getPlayerAverages()
@@ -266,16 +270,71 @@ def getPlayerScaledStats(id):
     
     return scaledStats
 
-#print(getPlayerScaledStats(2544))
+def getDictPlayerScaledStats(id):
+    statsDict = getPlayerAverages()
+    
+    leagueAverages = list(getLeagueAverages().values())
+    std = list(getSTD().values())
+    out = {"PPG": 0, "RPG": 0, "AST": 0, "STL": 0, "BLK": 0, "FG%": 0 , "3P%": 0, "%2Shots": 0}
+    statKeys = list(out.keys())
+    stats = [statsDict[id].get(k, 0) for k in statKeys]
+    #print(stats)
+   
+    for i in range(1,len(statKeys)):
+        out[statKeys[i]] = ((stats[i]-leagueAverages[i])/std[i])
+    
+    return out
+
+print(getPlayerScaledStats(2544))
 
 def getPlayerScaledStatsJson():
+
+    full_averages = getPlayerAverages()
+    print(full_averages)
     ids = getPlayerAverages().keys()
     data = {}
+    
     for id in ids:
-        data[id] = getPlayerScaledStats(id)
+        data[id] = {}
+        data[id]['name'] = full_averages[id]['name']
+        data[id].update(getDictPlayerScaledStats(id))
+        
     with open("STD_scaled_stats.json", "w") as json_file:
         json.dump(data, json_file, indent=4)
     return json.dumps(data, indent = 2)
+
+#getPlayerScaledStatsJson()
+
+def format2_averages_json() :
+    
+    player_stats = getPlayerAverages()
+    print(player_stats)
+    data = []
+   
+    
+
+    for id, stats in player_stats.items():
+        player_data = {"id": int(id), "name": stats["name"]}
+        player_data.update(player_stats[id])
+        data.append(player_data)
+
+    with open("stats_2.json", "w") as json_file:
+        json.dump(data, json_file, indent=4)
+format2_averages_json()
+
+def format2_std_json() :
+    
+    full_averages = getPlayerAverages()
+    data = []
+
+    for id, stats in full_averages.items():
+        player_data = {"id": int(id), "name": stats["name"]}
+        player_data.update(getDictPlayerScaledStats(id))
+        data.append(player_data)
+
+    with open("STD_scaled_stats_2.json", "w") as json_file:
+        json.dump(data, json_file, indent=4)
+format2_std_json()
 
 def getSimilarity(id1, id2):
     #vector projection cosine similarity
