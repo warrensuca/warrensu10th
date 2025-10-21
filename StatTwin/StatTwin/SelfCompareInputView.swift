@@ -15,14 +15,14 @@ struct SelfCompareInputView: View {
     @State private var blk = 0.0
     @State private var fgPct = 0.0
     @State private var threePoint = 0.0
-    
+    @State private var pct2Shots = 0.0
     var body: some View {
         NavigationStack{
-            let attributeNames = ["PPG", "AST", "REB", "STL", "BLK", "FG%", "3P%"]
-            let attributes: [Binding<Double>] = [$ppg, $ast, $reb, $stl, $blk, $fgPct, $threePoint]
+            let attributeNames = ["PPG", "AST", "REB", "STL", "BLK", "FG%", "3P%", "%3P"]
+            let attributes: [Binding<Double>] = [$ppg, $ast, $reb, $stl, $blk, $fgPct, $threePoint, $pct2Shots]
             Form{
                 Section("Give them a rating 0-100") {
-                    ForEach(0..<7, id: \.self) { i in
+                    ForEach(0..<8, id: \.self) { i in
                         LabeledContent("\(attributeNames[i]): \(Int(attributes[i].wrappedValue))") {
                             VStack{
                                 

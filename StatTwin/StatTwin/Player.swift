@@ -15,23 +15,22 @@ class Player: Codable {
     
     let id: Int
     let name: String
-    let imageURL: String
+    
     let points: Double
-    let rebounds: Double
     let assists: Double
+    let rebounds: Double
     let steals: Double
     let blocks: Double
     let fieldGoalPct: Double
     let threePointPct: Double
     let pct2Shots: Double
     
-    init(id: Int, name: String, imageURL: String, points: Double, rebounds: Double, assists: Double, steals: Double, blocks: Double, fieldGoalPct: Double, threePointPct: Double, pct2Shots: Double) {
+    init(id: Int, name: String, points: Double, assists: Double, rebounds: Double, steals: Double, blocks: Double, fieldGoalPct: Double, threePointPct: Double, pct2Shots: Double) {
             self.id = id
             self.name = name
-            self.imageURL = imageURL
             self.points = points
-            self.rebounds = rebounds
             self.assists = assists
+            self.rebounds = rebounds
             self.steals = steals
             self.blocks = blocks
             self.fieldGoalPct = fieldGoalPct
@@ -43,10 +42,9 @@ class Player: Codable {
     static let samplePlayer = Player(
             id: 2544,
             name: "LeBron James",
-            imageURL: "https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png",
             points: 24.4,
-            rebounds: 7.8,
             assists: 8.2,
+            rebounds: 7.8,
             steals: 1.0,
             blocks: 0.6,
             fieldGoalPct: 0.513,
@@ -58,10 +56,9 @@ class Player: Codable {
     enum CodingKeys: String, CodingKey {
         case id
         case name
-        case imageURL
         case points = "PPG"
-        case rebounds = "RPG"
         case assists = "AST"
+        case rebounds = "RPG"
         case steals = "STL"
         case blocks = "BLK"
         case fieldGoalPct = "FG%"
