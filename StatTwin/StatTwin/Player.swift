@@ -9,7 +9,7 @@ import Foundation
 import Foundation
 
 
-class Player: Codable {
+class Player: Codable, Hashable {
     
         
     
@@ -70,4 +70,8 @@ class Player: Codable {
     static func == (lhs: Player, rhs: Player) -> Bool {
            lhs.id == rhs.id
        }
+    func hash(into hasher: inout Hasher) {
+
+            hasher.combine(id)
+        }
 }
