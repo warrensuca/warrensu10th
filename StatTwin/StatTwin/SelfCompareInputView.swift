@@ -16,6 +16,7 @@ struct SelfCompareInputView: View {
     @State private var fgPct = 0.0
     @State private var threePoint = 0.0
     @State private var pct2Shots = 0.0
+    @Binding var input_player: Player
     var body: some View {
         NavigationStack{
             let attributeNames = ["PPG", "AST", "REB", "STL", "BLK", "FG%", "3P%", "%3P"]
@@ -31,6 +32,9 @@ struct SelfCompareInputView: View {
                             }
                         }.padding()
                     }
+                    .onChange(of: attributes){
+                        input_player[0] = Player(id: 0000, name: "Your", points: attributes[0].wrappedValue / 2.5, assists: attributes[1].wrappedValue / 6.5, rebounds: attributes[2].wrappedValue / 6.5, steals: attributes[3].wrappedValue / 25, blocks: attributes[4].wrappedValue/25, fieldGoalPct: attributes[5].wrappedValue, threePointPct: attributes[6].wrappedValue, pct2Shots: 100-attributes[7].wrappedValue)
+                    }
                     
                 }
             }.navigationTitle("Your attributes?")
@@ -40,5 +44,6 @@ struct SelfCompareInputView: View {
 }
 
 #Preview {
-    SelfCompareInputView()
+    @State var lebron = Player.samplePlayer
+    SelfCompareInputView(input_player: $lebron)
 }

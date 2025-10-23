@@ -19,6 +19,7 @@ struct PlayerCompareInput: View {
     @State private var searchText = ""
     
     
+    @Binding var input_player: Player
     
     private var filteredPlayers: [Player] {
         if searchText.isEmpty {
@@ -29,12 +30,12 @@ struct PlayerCompareInput: View {
         }
     }
     
-    @State private var selectedPlayer: Player? = Player.samplePlayer
+    
     var body: some View {
         NavigationStack {
             
             
-            List(filteredPlayers, id: \.self, selection: $selectedPlayer) {player in
+            List(filteredPlayers, id: \.self, selection: $input_player) {player in
                 DisclosureGroup(player.name) {
                     VStack{
                         PlayerView(player_id: player.id)
@@ -56,5 +57,6 @@ struct PlayerCompareInput: View {
 }
 
 #Preview {
-    PlayerCompareInput()
+    @State var lebron = Player.samplePlayer
+    SelfCompareInputView(input_player: $lebron)
 }

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var input_player = (Player.samplePlayer, true) //player, and if he is a self or real player
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
