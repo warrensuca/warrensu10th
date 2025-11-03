@@ -35,7 +35,7 @@ struct PlayerCompareInput: View {
         NavigationStack {
             
             
-            List(filteredPlayers, id: \.self, selection: $input_player) {player in
+            List(filteredPlayers, selection: $input_player) {player in
                 DisclosureGroup(player.name) {
                     VStack{
                         PlayerView(player_id: player.id)

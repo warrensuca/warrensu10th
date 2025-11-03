@@ -9,10 +9,10 @@ import Foundation
 import Foundation
 
 
-class Player: Codable, Hashable {
+class Player: Codable, Hashable, Identifiable {
     
         
-    
+    let u_id = UUID()
     let id: Int
     let name: String
     
