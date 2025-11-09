@@ -131,7 +131,7 @@ func comparePlayer(v1: [Double], v2: [Double]) -> Double {
         temp.append(v1[i]-v2[i])
     }
     let euclideanSimilarity = 1 / (1 + getMagnitude(v: temp))
-    return 0.7 * vProjectionSimilarity + 0.3 * euclideanSimilarity
+    return 0.75 * vProjectionSimilarity + 0.25 * euclideanSimilarity
 
 }
 func dotProduct(v1: [Double], v2: [Double]) -> Double {
