@@ -52,6 +52,19 @@ class Player: Codable, Hashable, Identifiable {
             pct2Shots: 77.1
            
         )
+    static let samplePlayer2 = Player(
+            id: 1631094,
+            name: "Paolo Banchero",
+            points: 25.9,
+            assists: 4.8,
+            rebounds: 7.8,
+            steals: 0.8,
+            blocks: 0.6,
+            fieldGoalPct: 0.452,
+            threePointPct: 0.32,
+            pct2Shots: 0.789
+           
+        )
     
     enum CodingKeys: String, CodingKey {
         case id

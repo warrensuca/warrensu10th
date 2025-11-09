@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlayerView: View {
     var player_id: Int
-    var players = loadPlayers()
+    var players: [Player]
     var body: some View {
             
     
@@ -41,5 +41,5 @@ struct PlayerView: View {
 }
 
 #Preview {
-    PlayerView(player_id: 2544)
+    PlayerView(player_id: 2544, players: loadPlayers())
 }

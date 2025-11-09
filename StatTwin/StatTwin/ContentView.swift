@@ -8,16 +8,32 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var input_player = (Player.samplePlayer, true) //player, and if he is a self or real player
-    
+    @State var input_player = Player.samplePlayer 
+    var players = loadPlayers()
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            SelfCompareInputView(input_player: $input_player)
+            .tabItem {
+                Label("Self Input",
+                      systemImage: "1.circle")
+                
+            }
+
+            PlayerCompareInput(players: players, input_player: $input_player)
+            .tabItem {
+                Label("Player Input",
+                      systemImage: "2.circle")
+                
+            }
+            ResultView(basePlayer:input_player, players: players)
+            .tabItem {
+                Label("Results",
+                      systemImage: "2.circle")
+                
+                }
         }
-        .padding()
+    
+        
     }
 }
 func loadPlayers() -> [Player] {

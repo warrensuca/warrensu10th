@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlayerCompareInput: View {
 
-    var players = loadPlayers()
+    var players: [Player]
     
     @State private var isExpanded = false
     
@@ -35,10 +35,22 @@ struct PlayerCompareInput: View {
         NavigationStack {
             
             
-            List(filteredPlayers, selection: $input_player) {player in
+            List(filteredPlayers, id: \.id) {player in
                 DisclosureGroup(player.name) {
                     VStack{
-                        PlayerView(player_id: player.id)
+                        PlayerView(player_id: player.id, players: players)
+                        Button(action: {
+                            input_player = player
+                            dismiss()
+                        }) {
+                            Text("Select Player")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        .buttonStyle(.plain)
                     }
                     .padding()
                     .background(

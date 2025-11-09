@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct SelfCompareResultView: View {
+struct ResultView: View {
     var basePlayer: Player
-    var players = loadPlayers()
+    var players: [Player]
     var std_players = load_STD_players()
     
     @State var closestPlayerId: Int?
@@ -25,7 +25,7 @@ struct SelfCompareResultView: View {
             ScrollView {
                 VStack(spacing: 30) {
                     VStack(spacing: 15){
-                        Text("Your most similar player is:")
+                        Text(basePlayer.name == "You" ? "Your most similar player is:" : "\(basePlayer.name)'s most similar player is:" )
                             .font(.headline)
                             .foregroundColor(.secondary)
                         Text((closestPlayer ?? Player.samplePlayer).name)
@@ -36,7 +36,7 @@ struct SelfCompareResultView: View {
                     
                     Spacer()
                     VStack{
-                        PlayerView(player_id: closestPlayerId ?? Player.samplePlayer.id)
+                        PlayerView(player_id: closestPlayerId ?? Player.samplePlayer.id, players: players)
                     }
                     .padding()
                     .background(
@@ -71,11 +71,11 @@ struct SelfCompareResultView: View {
                 
                 closestPlayer = players.first(where: { $0.id == closestPlayerId})!
                 
-                let v1 = playerToVector(player: basePlayer)
-                let v2 = playerToVector(player: closestPlayer ?? Player.samplePlayer)
+                let v1 = playerToVector(player: basePlayer, std_players: std_players)
+                let v2 = playerToVector(player: closestPlayer ?? Player.samplePlayer, std_players: std_players)
                 similarityScore = comparePlayer(v1: v1, v2: v2)
                 
-                
+                print(comparePlayer(v1: playerToVector(player: Player.samplePlayer, std_players: std_players), v2: playerToVector(player: Player.samplePlayer2, std_players: std_players)))
             }
         }
     }
@@ -85,21 +85,36 @@ struct SelfCompareResultView: View {
 func findPlayerId(basePlayer: Player, players: [Player]) -> Int {
     var closestPlayer = players[0]
     var closestValue = 0.0
+    let v1 = playerToVector(player: basePlayer, std_players: players)
     for player in players {
-        let v1 = playerToVector(player: basePlayer)
-        let v2 = playerToVector(player: player)
-        let currVal = comparePlayer(v1: v1, v2: v2)
-        if (currVal > closestValue) {
-            closestValue = currVal
-            closestPlayer = player
+        if(player != basePlayer) {
+            
+            
+            let v2 = playerToVector(player: player, std_players: players)
+            let currVal = comparePlayer(v1: v1, v2: v2)
+            if (currVal > closestValue) {
+                closestValue = currVal
+                closestPlayer = player
+            }
         }
         
     }
     return closestPlayer.id
 }
 
-func playerToVector(player: Player) -> [Double]{
-    return [player.points, player.assists, player.rebounds, player.steals, player.blocks, player.fieldGoalPct, player.threePointPct]
+func playerToVector(player: Player, std_players: [Player]) -> [Double]{
+    //standardize then create vector
+    var standardized_player = player
+    for p in std_players {
+    
+        if (player.id == p.id) {
+            
+            standardized_player = p
+        }
+        
+    }
+    
+    return [standardized_player.points, standardized_player.assists, standardized_player.rebounds, standardized_player.steals, standardized_player.blocks, standardized_player.fieldGoalPct, standardized_player.threePointPct]
 }
 func comparePlayer(v1: [Double], v2: [Double]) -> Double {
     //vector projection cosine similarity
@@ -116,7 +131,7 @@ func comparePlayer(v1: [Double], v2: [Double]) -> Double {
         temp.append(v1[i]-v2[i])
     }
     let euclideanSimilarity = 1 / (1 + getMagnitude(v: temp))
-    return 0.8 * vProjectionSimilarity + 0.2 * euclideanSimilarity
+    return 0.7 * vProjectionSimilarity + 0.3 * euclideanSimilarity
 
 }
 func dotProduct(v1: [Double], v2: [Double]) -> Double {
@@ -134,5 +149,5 @@ func getMagnitude(v: [Double]) -> Double {
     return sqrt(v.reduce(0) { $0 + $1 * $1 })
 }
 #Preview {
-    SelfCompareResultView(basePlayer: Player.samplePlayer)
+    ResultView(basePlayer: Player.samplePlayer, players: loadPlayers())
 }

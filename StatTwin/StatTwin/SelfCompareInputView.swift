@@ -32,14 +32,34 @@ struct SelfCompareInputView: View {
                             }
                         }.padding()
                     }
-                    .onChange(of: attributes){
-                        input_player[0] = Player(id: 0000, name: "Your", points: attributes[0].wrappedValue / 2.5, assists: attributes[1].wrappedValue / 6.5, rebounds: attributes[2].wrappedValue / 6.5, steals: attributes[3].wrappedValue / 25, blocks: attributes[4].wrappedValue/25, fieldGoalPct: attributes[5].wrappedValue, threePointPct: attributes[6].wrappedValue, pct2Shots: 100-attributes[7].wrappedValue)
-                    }
                     
                 }
             }.navigationTitle("Your attributes?")
+                .onChange(of: ppg) { updatePlayer() }
+                .onChange(of: ast) { updatePlayer() }
+                .onChange(of: reb) { updatePlayer() }
+                .onChange(of: stl) { updatePlayer() }
+                .onChange(of: blk) { updatePlayer() }
+                .onChange(of: fgPct) { updatePlayer() }
+                .onChange(of: threePoint) { updatePlayer() }
+                .onChange(of: pct2Shots) { updatePlayer() }
+            }
         }
         
+        
+    private func updatePlayer() {
+        input_player = Player(
+            id: 0000,
+            name: "You",
+            points: ppg / 2.5,
+            assists: ast / 6.5,
+            rebounds: reb / 6.5,
+            steals: stl / 25,
+            blocks: blk / 25,
+            fieldGoalPct: fgPct,
+            threePointPct: threePoint,
+            pct2Shots: 100 - pct2Shots
+        )
     }
 }
 
