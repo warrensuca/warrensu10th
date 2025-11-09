@@ -236,7 +236,7 @@ def getLeagueAverages():
 
     return out
     
-print(getLeagueAverages())
+#print(getLeagueAverages())
 def getSTD():
     statsDict = getPlayerAverages()
     out = {"PPG": 0, "RPG": 0, "AST": 0, "STL": 0, "BLK": 0, "FG%": 0 , "3P%": 0, "%2Shots": 0}
@@ -252,7 +252,7 @@ def getSTD():
         out[key] = round(float(stds[i]), 2)
 
     return out
-#print(getSTD())
+
 
 
 def getPlayerScaledStats(id):
@@ -280,17 +280,17 @@ def getDictPlayerScaledStats(id):
     stats = [statsDict[id].get(k, 0) for k in statKeys]
     #print(stats)
    
-    for i in range(1,len(statKeys)):
+    for i in range(0,len(statKeys)):
         out[statKeys[i]] = ((stats[i]-leagueAverages[i])/std[i])
     
     return out
 
 print(getPlayerScaledStats(2544))
-
+print(getDictPlayerScaledStats(2544))
 def getPlayerScaledStatsJson():
 
     full_averages = getPlayerAverages()
-    print(full_averages)
+    
     ids = getPlayerAverages().keys()
     data = {}
     
@@ -303,12 +303,12 @@ def getPlayerScaledStatsJson():
         json.dump(data, json_file, indent=4)
     return json.dumps(data, indent = 2)
 
-#getPlayerScaledStatsJson()
+getPlayerScaledStatsJson()
 
 def format2_averages_json() :
     
     player_stats = getPlayerAverages()
-    print(player_stats)
+    
     data = []
    
     
@@ -320,7 +320,7 @@ def format2_averages_json() :
 
     with open("stats_2.json", "w") as json_file:
         json.dump(data, json_file, indent=4)
-format2_averages_json()
+#format2_averages_json()
 
 def format2_std_json() :
     
@@ -331,7 +331,7 @@ def format2_std_json() :
         player_data = {"id": int(id), "name": stats["name"]}
         player_data.update(getDictPlayerScaledStats(id))
         data.append(player_data)
-
+    
     with open("STD_scaled_stats_2.json", "w") as json_file:
         json.dump(data, json_file, indent=4)
 format2_std_json()
