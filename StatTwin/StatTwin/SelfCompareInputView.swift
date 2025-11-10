@@ -17,17 +17,19 @@ struct SelfCompareInputView: View {
     @State private var threePoint = 0.0
     @State private var pct2Shots = 0.0
     @Binding var input_player: Player
+    var limits = [50.0, 25.0, 25.0, 5, 5, 100, 100, 100]
+    var steps = [0.5, 0.5, 0.5, 0.1, 0.1, 1, 1, 1,1]
     var body: some View {
         NavigationStack{
             let attributeNames = ["PPG", "AST", "REB", "STL", "BLK", "FG%", "3P%", "%3P"]
             let attributes: [Binding<Double>] = [$ppg, $ast, $reb, $stl, $blk, $fgPct, $threePoint, $pct2Shots]
             Form{
-                Section("Give them a rating 0-100") {
+                Section("Enter in your stats!") {
                     ForEach(0..<8, id: \.self) { i in
                         LabeledContent("\(attributeNames[i]): \(Int(attributes[i].wrappedValue))") {
                             VStack{
                                 
-                                Slider(value: attributes[i], in: 0...100, step: 1)
+                                Slider(value: attributes[i], in: 0.0...limits[i], step: steps[i])
                                     .animation(.spring(response: 0.3, dampingFraction: 0.5), value: attributes[i].wrappedValue)
                             }
                         }.padding()
@@ -51,11 +53,11 @@ struct SelfCompareInputView: View {
         input_player = Player(
             id: 0000,
             name: "You",
-            points: ppg / 2.5,
-            assists: ast / 6.5,
-            rebounds: reb / 6.5,
-            steals: stl / 25,
-            blocks: blk / 25,
+            points: ppg,
+            assists: ast,
+            rebounds: reb,
+            steals: stl ,
+            blocks: blk ,
             fieldGoalPct: fgPct,
             threePointPct: threePoint,
             pct2Shots: 100 - pct2Shots
