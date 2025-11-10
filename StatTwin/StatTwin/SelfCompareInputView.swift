@@ -26,13 +26,25 @@ struct SelfCompareInputView: View {
             Form{
                 Section("Enter in your stats!") {
                     ForEach(0..<8, id: \.self) { i in
-                        LabeledContent("\(attributeNames[i]): \(Int(attributes[i].wrappedValue))") {
-                            VStack{
+                        
+                            LabeledContent("\(attributeNames[i]): \(Int(attributes[i].wrappedValue))") {
                                 
-                                Slider(value: attributes[i], in: 0.0...limits[i], step: steps[i])
-                                    .animation(.spring(response: 0.3, dampingFraction: 0.5), value: attributes[i].wrappedValue)
-                            }
-                        }.padding()
+                                ZStack{
+                                    Slider(value: attributes[i], in: 0.0...limits[i], step: steps[i])
+                                        .animation(.spring(response: 0.3, dampingFraction: 0.5), value: attributes[i].wrappedValue)
+                                    HStack{
+                                        ForEach(0..<10, id: \.self) { i in
+                                            Rectangle()
+                                                .frame(width:2, height: 8)
+                                            Spacer()
+                                        }
+                                    }
+                                }
+                                
+                                
+                            }.padding()
+                            
+                        
                     }
                     
                 }
