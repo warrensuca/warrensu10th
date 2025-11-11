@@ -334,7 +334,7 @@ def format2_std_json() :
     
     with open("STD_scaled_stats_2.json", "w") as json_file:
         json.dump(data, json_file, indent=4)
-format2_std_json()
+#format2_std_json()
 
 def getSimilarity(id1, id2):
     #vector projection cosine similarity
@@ -342,7 +342,7 @@ def getSimilarity(id1, id2):
     
     player1 = np.array(getPlayerScaledStats(id1))
     player2 = np.array(getPlayerScaledStats(id2))
-    print(player1, player2)
+    
     vProjectionSimilarity = np.dot(player1, player2)/(np.linalg.norm(player1)*np.linalg.norm(player2))
 
     #euclidean distance 

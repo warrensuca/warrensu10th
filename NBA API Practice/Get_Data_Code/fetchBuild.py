@@ -2,16 +2,13 @@ from nba_api.stats.static import players
 from nba_api.stats.endpoints import commonplayerinfo
 import time
 import json
-player_id = 1630166
+import numpy as np
+player_id = 2544
 info = commonplayerinfo.CommonPlayerInfo(player_id=player_id)
 
 data = info.get_normalized_dict()
 player_info = data['CommonPlayerInfo'][0]
 
-print(player_info['HEIGHT'])
-print(player_info['WEIGHT'])
-
-print(data)
 
 
 
@@ -41,7 +38,7 @@ def get_builds():
 
         temp_dict = {"id": id, "Height": int(height[0])*12 + int(height[2]), "Weight": int(weight)}
         builds.append(temp_dict)
-        print(builds)
+        
         time.sleep(0.5)
     return builds
 def get_builds_json():
@@ -50,4 +47,66 @@ def get_builds_json():
         json.dump(data, json_file, indent=4)
     return json.dumps(data, indent = 2)
 
-get_builds_json()
+#get_builds_json()
+def get_average_build():
+    with open('Get_Data_Code/builds_copy.json', 'r') as file:
+        data = json.load(file)
+    out = {"Height": 0, "Weight": 0}
+    outKeys = list(out.keys())
+
+
+    temp = [[player.get(k, 0) for k in outKeys] for player in data]
+    statsArr = np.array(temp, dtype=float)  
+
+    stats = np.mean(statsArr, axis=0) 
+    
+
+    for i, key in enumerate(outKeys):
+        out[key] = round(float(stats[i]), 2)  
+
+    return out
+def get_STD_builds():
+    with open('Get_Data_Code/builds_copy.json', 'r') as file:
+        data = json.load(file)
+    #print(data)
+    out = {"Height": 0, "Weight": 0}
+    outKeys = list(out.keys())
+
+    temp = [[player.get(k, 0) for k in outKeys] for player in data]
+    #print(temp)
+    statsArr = np.array(temp, dtype=float)  
+
+    
+    stds = np.std(statsArr, axis=0)
+
+    for i, key in enumerate(outKeys):
+        out[key] = round(float(stds[i]), 2)
+
+    return out
+
+#print(get_STD_builds())
+
+
+
+def get_scaled_builds_json():
+    with open('data/builds.json', 'r') as file:
+        data = json.load(file)
+    #print(data)
+
+    ids = get_ids()
+    averages = get_average_build()
+    std = get_STD_builds()
+    print(averages)
+    print(std)
+    
+    out = []
+    
+    for i in range(len(data)):
+        #print(data[i])
+        profile = {"id": ids[i], "Height": (data[i]['Height']-averages['Height'])/std['Height'], 
+                   "Weight": (data[i]['Weight']-averages['Weight'])/std['Weight']}
+        out.append(profile)
+        #print(out)
+    with open("data/std_scaled_builds.json", "w") as json_file:
+        json.dump(out, json_file, indent=4)
+get_scaled_builds_json()
