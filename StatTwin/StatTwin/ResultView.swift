@@ -68,10 +68,43 @@ struct ResultView: View {
                 }
             }.onAppear() {
                 calculateSimilarity()
+                
             }
-            .onChange(of: basePlayer) { 
+            .onChange(of: basePlayer.id) {
                 calculateSimilarity()
             }
+            .onChange(of: basePlayer.points) {
+                calculateSimilarity()
+            }
+            .onChange(of: basePlayer.assists) {
+                calculateSimilarity()
+            }
+            .onChange(of: basePlayer.rebounds) {
+                calculateSimilarity()
+            }
+            .onChange(of: basePlayer.steals) {
+                calculateSimilarity()
+            }
+            .onChange(of: basePlayer.blocks) {
+                calculateSimilarity()
+            }
+            .onChange(of: basePlayer.fieldGoalPct) {
+                calculateSimilarity()
+            }
+            .onChange(of: basePlayer.threePointPct) {
+                calculateSimilarity()
+            }
+            .onChange(of: basePlayer.pct2Shots) {
+                calculateSimilarity()
+            }
+            .onChange(of: basePlayer.height) {
+                calculateSimilarity()
+            }
+            .onChange(of: basePlayer.weight) {
+                calculateSimilarity()
+            }
+        
+            
         }
     }
     func calculateSimilarity(){
@@ -118,7 +151,7 @@ func findPlayerId(basePlayer: Player, players: [Player]) -> Int {
     return closestPlayer.id
 }
 func playerToVector(player: Player) -> [Double] {
-    let standardized_player = player
+    
     //avg for stats
     //{'PPG': 9.36, 'RPG': 3.76, 'AST': 2.17, 'STL': 0.71, 'BLK': 0.43, 'FG%': 0.45, '3P%': 0.31, '%2Shots': 0.65}
     
@@ -129,9 +162,9 @@ func playerToVector(player: Player) -> [Double] {
     //{'Height': 77.39, 'Weight': 215.2}
     //{'Height': 3.37, 'Weight': 23.21}
     
-    let avg = [9.36, 3.76, 2.17, 0.71, 0.43, 0.45, 0.31, 0.65, 77.39, 215.2]
-    let std = [6.23, 2.31, 1.78, 0.41, 0.4, 0.09, 0.13, 0.24, 3.37, 23.21]
-    var out = [standardized_player.points, standardized_player.assists, standardized_player.rebounds, standardized_player.steals, standardized_player.blocks, standardized_player.fieldGoalPct, standardized_player.threePointPct, standardized_player.height, standardized_player.weight]
+    let avg = [9.36, 2.17, 3.76, 0.71, 0.43, 0.45, 0.31, 0.65, 77.39, 215.2]
+    let std = [6.23, 1.78, 2.31, 0.41, 0.4, 0.09, 0.13, 0.24, 3.37, 23.21]
+    var out = [player.points, player.assists, player.rebounds, player.steals, player.blocks, player.fieldGoalPct/100, player.threePointPct/100, player.pct2Shots/100, player.height, player.weight]
     for i in 0..<out.count {
         out[i] = (out[i]-avg[i])/std[i]
     }
@@ -151,7 +184,7 @@ func playerToVector(player: Player, std_players: [Player]) -> [Double]{
         
     }
     
-    return [standardized_player.points, standardized_player.assists, standardized_player.rebounds, standardized_player.steals, standardized_player.blocks, standardized_player.fieldGoalPct, standardized_player.threePointPct, standardized_player.height, standardized_player.weight]
+    return [standardized_player.points, standardized_player.assists, standardized_player.rebounds, standardized_player.steals, standardized_player.blocks, standardized_player.fieldGoalPct, standardized_player.threePointPct, standardized_player.pct2Shots, standardized_player.height, standardized_player.weight]
 }
 func comparePlayer(v1: [Double], v2: [Double]) -> Double {
     //vector projection cosine similarity
