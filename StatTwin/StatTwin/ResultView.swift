@@ -73,6 +73,7 @@ struct ResultView: View {
                 
                 let v1 = playerToVector(player: basePlayer, std_players: std_players)
                 let v2 = playerToVector(player: closestPlayer ?? Player.samplePlayer, std_players: std_players)
+                print(v1, v2)
                 similarityScore = comparePlayer(v1: v1, v2: v2)
                 
                 print(comparePlayer(v1: playerToVector(player: Player.samplePlayer, std_players: std_players), v2: playerToVector(player: Player.samplePlayer2, std_players: std_players)))
@@ -114,7 +115,7 @@ func playerToVector(player: Player, std_players: [Player]) -> [Double]{
         
     }
     
-    return [standardized_player.points, standardized_player.assists, standardized_player.rebounds, standardized_player.steals, standardized_player.blocks, standardized_player.fieldGoalPct, standardized_player.threePointPct]
+    return [standardized_player.points, standardized_player.assists, standardized_player.rebounds, standardized_player.steals, standardized_player.blocks, standardized_player.fieldGoalPct, standardized_player.threePointPct, standardized_player.height, standardized_player.weight]
 }
 func comparePlayer(v1: [Double], v2: [Double]) -> Double {
     //vector projection cosine similarity

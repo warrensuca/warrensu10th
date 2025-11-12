@@ -24,8 +24,9 @@ class Player: Codable, Hashable, Identifiable {
     let fieldGoalPct: Double
     let threePointPct: Double
     let pct2Shots: Double
-    
-    init(id: Int, name: String, points: Double, assists: Double, rebounds: Double, steals: Double, blocks: Double, fieldGoalPct: Double, threePointPct: Double, pct2Shots: Double) {
+    let height: Double
+    let weight: Double
+    init(id: Int, name: String, points: Double, assists: Double, rebounds: Double, steals: Double, blocks: Double, fieldGoalPct: Double, threePointPct: Double, pct2Shots: Double, height: Double, weight: Double) {
             self.id = id
             self.name = name
             self.points = points
@@ -36,7 +37,8 @@ class Player: Codable, Hashable, Identifiable {
             self.fieldGoalPct = fieldGoalPct
             self.threePointPct = threePointPct
             self.pct2Shots = pct2Shots
-            
+            self.height = height
+            self.weight = weight
         }
     
     static let samplePlayer = Player(
@@ -49,7 +51,9 @@ class Player: Codable, Hashable, Identifiable {
             blocks: 0.6,
             fieldGoalPct: 0.513,
             threePointPct: 0.376,
-            pct2Shots: 77.1
+            pct2Shots: 77.1,
+            height: 81,
+            weight: 243
            
         )
     static let samplePlayer2 = Player(
@@ -62,7 +66,9 @@ class Player: Codable, Hashable, Identifiable {
             blocks: 0.6,
             fieldGoalPct: 0.452,
             threePointPct: 0.32,
-            pct2Shots: 0.789
+            pct2Shots: 0.789,
+            height: 82,
+            weight: 250
            
         )
     
@@ -77,6 +83,8 @@ class Player: Codable, Hashable, Identifiable {
         case fieldGoalPct = "FG%"
         case threePointPct = "3P%"
         case pct2Shots = "%2Shots"
+        case height = "Height"
+        case weight = "Weight"
 
     }
     

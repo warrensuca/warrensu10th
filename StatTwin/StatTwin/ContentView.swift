@@ -17,6 +17,7 @@ struct ContentView: View {
                 Label("Self Input",
                       systemImage: "1.circle")
                 
+                
             }
 
             PlayerCompareInput(players: players, input_player: $input_player)

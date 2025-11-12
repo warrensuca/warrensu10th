@@ -70,5 +70,5 @@ struct PlayerCompareInput: View {
 
 #Preview {
     @State var lebron = Player.samplePlayer
-    SelfCompareInputView(input_player: $lebron)
+    PlayerCompareInput(players: loadPlayers(), input_player: $lebron)
 }

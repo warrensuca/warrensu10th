@@ -15,11 +15,16 @@ struct PlayerView: View {
     
         HStack(){
             let player = players.first(where: { $0.id == player_id })!
-            Image("\(player.id)")
-                .resizable()
-                .scaledToFit()
-                .frame(height: 120)
-                .clipShape(Capsule())
+            VStack{
+                Image("\(player.id)")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 120)
+                    .clipShape(Capsule())
+                    .shadow(radius: 10)
+                
+                Text("\(player.name) - \(Int(player.height/12))'\(Int(player.height)%12)")
+            }
             RoundedRectangle(cornerRadius: 100)
                 .frame(width:5, height:200)
                 .foregroundStyle(.gray)
