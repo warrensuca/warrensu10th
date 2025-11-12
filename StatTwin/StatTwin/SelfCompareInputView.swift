@@ -59,32 +59,36 @@ struct SelfCompareInputView: View {
                             
                         
                     }
-                    
-                }
-                HStack{
-                    Image("\(input_player.id)")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 120)
-                        .clipShape(Capsule())
-                        .shadow(radius: 10)
-                    
-                    Text("\(input_player.name) - \(Int(input_player.height/12))'\(Int(input_player.height)%12)")
-                }
-                RoundedRectangle(cornerRadius: 100)
-                    .frame(width:5, height:200)
-                    .foregroundStyle(.gray)
-                    
-                VStack() {
-                    let attributeNames = ["PPG", "AST", "REB", "STL", "BLK", "FG%", "3P%", "%2Shots"]
-                    let attributes = [input_player.points, input_player.assists, input_player.rebounds, input_player.steals, input_player.blocks, input_player.fieldGoalPct, input_player.threePointPct, input_player.pct2Shots]
-                    ForEach(0..<7, id: \.self) { i in
+                    HStack(){
                         VStack{
-                            //String(format: "%.1f", statValues[i])
-                            Text("\(attributeNames[i]): \(String(format: "%.1f", attributes[i]))")
+                            Image("no_pfp")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 120)
+                                .clipShape(Capsule())
+                                .shadow(radius: 10)
+                            
+                            Text("\(input_player.name) - \(Int(input_player.height/12))'\(Int(input_player.height)%12)")
+                        }
+                        Spacer()
+                        RoundedRectangle(cornerRadius: 100)
+                            .frame(width:5, height:200)
+                            .foregroundStyle(.gray)
+                        
+                        VStack() {
+                            let attributeNames = ["PPG", "AST", "REB", "STL", "BLK", "FG%", "3P%", "%2Shots"]
+                            let attributes = [input_player.points, input_player.assists, input_player.rebounds, input_player.steals, input_player.blocks, input_player.fieldGoalPct, input_player.threePointPct, input_player.pct2Shots]
+                            ForEach(0..<7, id: \.self) { i in
+                                VStack{
+                                    //String(format: "%.1f", statValues[i])
+                                    Text("\(attributeNames[i]): \(String(format: "%.1f", attributes[i]))")
+                                }
+                            }
                         }
                     }
+                    
                 }
+                
             }.navigationTitle("Your attributes?")
                 .onChange(of: ppg) { updatePlayer() }
                 .onChange(of: ast) { updatePlayer() }

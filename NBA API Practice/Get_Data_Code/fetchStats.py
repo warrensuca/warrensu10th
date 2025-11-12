@@ -156,7 +156,7 @@ def getProccesableJson():
             output.append(player_data)
             coveredPlayers.add(playerProfile['PLAYER_ID'])
     
-    with open("BasicStatsJsonFile.json", "w") as json_file:
+    with open("data/BasicStatsJsonFile.json", "w") as json_file:
         json.dump(output, json_file, indent=4)
     return json.dumps(output, indent = 2)
 
@@ -186,7 +186,7 @@ def downloadAllPlayerImages():
 
 
 def getPlayerAverages():
-    statsData = json.load(open("BasicStatsJsonFile.json"))
+    statsData = json.load(open("data/BasicStatsJsonFile.json"))
 
     
 
@@ -201,7 +201,7 @@ def getPlayerAverages():
                         "3P%": player["3P%"]
                     } 
                 for player in statsData}
-    shotData = json.load(open("ShotData.json"))
+    shotData = json.load(open("data/ShotData.json"))
     playerKeys = statsDict.keys()
     for id in statsDict.keys():
         id_int = int(id)
@@ -215,7 +215,7 @@ def getPlayerAverages():
 
 def combineJsonFiles():
     data = getPlayerAverages()
-    with open("fullStats.json", "w") as json_file:
+    with open("data/fullStats.json", "w") as json_file:
         json.dump(data, json_file, indent=4)
     return json.dumps(data, indent = 2)
 #combineJsonFiles()
@@ -236,7 +236,7 @@ def getLeagueAverages():
 
     return out
     
-#print(getLeagueAverages())
+print(getLeagueAverages())
 def getSTD():
     statsDict = getPlayerAverages()
     out = {"PPG": 0, "RPG": 0, "AST": 0, "STL": 0, "BLK": 0, "FG%": 0 , "3P%": 0, "%2Shots": 0}
@@ -252,7 +252,7 @@ def getSTD():
         out[key] = round(float(stds[i]), 2)
 
     return out
-
+print(getSTD())
 
 
 def getPlayerScaledStats(id):
@@ -299,7 +299,7 @@ def getPlayerScaledStatsJson():
         data[id]['name'] = full_averages[id]['name']
         data[id].update(getDictPlayerScaledStats(id))
         
-    with open("STD_scaled_stats.json", "w") as json_file:
+    with open("data/STD_scaled_stats.json", "w") as json_file:
         json.dump(data, json_file, indent=4)
     return json.dumps(data, indent = 2)
 
@@ -318,7 +318,7 @@ def format2_averages_json() :
         player_data.update(player_stats[id])
         data.append(player_data)
 
-    with open("stats_2.json", "w") as json_file:
+    with open("data/stats_2.json", "w") as json_file:
         json.dump(data, json_file, indent=4)
 #format2_averages_json()
 
@@ -332,7 +332,7 @@ def format2_std_json() :
         player_data.update(getDictPlayerScaledStats(id))
         data.append(player_data)
     
-    with open("STD_scaled_stats_2.json", "w") as json_file:
+    with open("data/STD_scaled_stats_2.json", "w") as json_file:
         json.dump(data, json_file, indent=4)
 #format2_std_json()
 

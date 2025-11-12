@@ -71,7 +71,12 @@ struct ResultView: View {
                 
                 closestPlayer = players.first(where: { $0.id == closestPlayerId})!
                 
-                let v1 = playerToVector(player: basePlayer, std_players: std_players)
+                var v1 = playerToVector(player: basePlayer, std_players: std_players)
+                if(basePlayer.id == 0000) {
+                    v1 = playerToVector(player: basePlayer)
+                }
+                
+                
                 let v2 = playerToVector(player: closestPlayer ?? Player.samplePlayer, std_players: std_players)
                 print(v1, v2)
                 similarityScore = comparePlayer(v1: v1, v2: v2)
@@ -86,7 +91,10 @@ struct ResultView: View {
 func findPlayerId(basePlayer: Player, players: [Player]) -> Int {
     var closestPlayer = players[0]
     var closestValue = 0.0
-    let v1 = playerToVector(player: basePlayer, std_players: players)
+    var v1 = playerToVector(player: basePlayer, std_players: players)
+    if(basePlayer.id == 0000) {
+        v1 = playerToVector(player: basePlayer)
+    }
     for player in players {
         if(player != basePlayer) {
             
@@ -101,6 +109,27 @@ func findPlayerId(basePlayer: Player, players: [Player]) -> Int {
         
     }
     return closestPlayer.id
+}
+func playerToVector(player: Player) -> [Double] {
+    let standardized_player = player
+    //avg for stats
+    //{'PPG': 9.36, 'RPG': 3.76, 'AST': 2.17, 'STL': 0.71, 'BLK': 0.43, 'FG%': 0.45, '3P%': 0.31, '%2Shots': 0.65}
+    
+    //std for stats
+    //{'PPG': 6.23, 'RPG': 2.31, 'AST': 1.78, 'STL': 0.41, 'BLK': 0.4, 'FG%': 0.09, '3P%': 0.13, '%2Shots': 0.24}
+    
+    //avg and std for builds
+    //{'Height': 77.39, 'Weight': 215.2}
+    //{'Height': 3.37, 'Weight': 23.21}
+    
+    let avg = [9.36, 3.76, 2.17, 0.71, 0.43, 0.45, 0.31, 0.65, 77.39, 215.2]
+    let std = [6.23, 2.31, 1.78, 0.41, 0.4, 0.09, 0.13, 0.24, 3.37, 23.21]
+    var out = [standardized_player.points, standardized_player.assists, standardized_player.rebounds, standardized_player.steals, standardized_player.blocks, standardized_player.fieldGoalPct, standardized_player.threePointPct, standardized_player.height, standardized_player.weight]
+    for i in 0..<out.count {
+        out[i] = (out[i]-avg[i])/std[i]
+    }
+    return out
+    
 }
 
 func playerToVector(player: Player, std_players: [Player]) -> [Double]{

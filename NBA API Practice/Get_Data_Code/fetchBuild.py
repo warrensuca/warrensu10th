@@ -90,8 +90,8 @@ def get_STD_builds():
         out[key] = round(float(stds[i]), 2)
 
     return out
-
-#print(get_STD_builds())
+print(get_average_build())
+print(get_STD_builds())
 
 
 
@@ -119,7 +119,7 @@ def get_scaled_builds_json():
         #print(out)
     with open("data/scaled_builds.json", "w") as json_file:
         json.dump(out, json_file, indent=4)
-get_scaled_builds_json()
+#get_scaled_builds_json()
 
 def combine_all_std_json():
     
@@ -130,19 +130,19 @@ def combine_all_std_json():
         stats = json.load(file)
     print(len(builds))
     print(len(stats))
-    print(builds)
+    #print(builds)
     data = []
 
     for i in range(len(stats)):
         
         player_stats = stats[i]
-        print(player_stats['id'])
+       # print(player_stats['id'])
 
         id = str(player_stats['id'])
-        print(id)
+        #print(id)
 
         player_build = builds[id]
-        print(player_build)
+        #print(player_build)
         stat_keys = list(player_stats.keys())
         stat_vals = list(player_stats.values())
 
@@ -178,13 +178,13 @@ def get_combine_all_json():
     for i in range(len(stats)):
         
         player_stats = stats[i]
-        print(player_stats['id'])
+        #(player_stats['id'])
 
         id = str(player_stats['id'])
-        print(id)
+        #print(id)
 
         player_build = builds[id]
-        print(player_build)
+        #print(player_build)
         stat_keys = list(player_stats.keys())
         stat_vals = list(player_stats.values())
 
