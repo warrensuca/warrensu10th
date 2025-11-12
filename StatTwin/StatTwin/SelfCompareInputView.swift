@@ -70,7 +70,8 @@ struct SelfCompareInputView: View {
                             
                             Text("\(input_player.name) - \(Int(input_player.height/12))'\(Int(input_player.height)%12)")
                         }
-                        Spacer()
+                        .padding()
+                        
                         RoundedRectangle(cornerRadius: 100)
                             .frame(width:5, height:200)
                             .foregroundStyle(.gray)

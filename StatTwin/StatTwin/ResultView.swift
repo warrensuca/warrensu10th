@@ -67,26 +67,33 @@ struct ResultView: View {
                     .padding(.horizontal)
                 }
             }.onAppear() {
-                closestPlayerId = findPlayerId(basePlayer: basePlayer, players: std_players)
-                
-                closestPlayer = players.first(where: { $0.id == closestPlayerId})!
-                
-                var v1 = playerToVector(player: basePlayer, std_players: std_players)
-                if(basePlayer.id == 0000) {
-                    v1 = playerToVector(player: basePlayer)
-                }
-                
-                
-                let v2 = playerToVector(player: closestPlayer ?? Player.samplePlayer, std_players: std_players)
-                print(v1, v2)
-                similarityScore = comparePlayer(v1: v1, v2: v2)
-                
-                print(comparePlayer(v1: playerToVector(player: Player.samplePlayer, std_players: std_players), v2: playerToVector(player: Player.samplePlayer2, std_players: std_players)))
+                calculateSimilarity()
+            }
+            .onChange(of: basePlayer) { 
+                calculateSimilarity()
             }
         }
     }
+    func calculateSimilarity(){
+        closestPlayerId = findPlayerId(basePlayer: basePlayer, players: std_players)
+        
+        closestPlayer = players.first(where: { $0.id == closestPlayerId})!
+        
+        var v1 = playerToVector(player: basePlayer, std_players: std_players)
+        if(basePlayer.id == 0000) {
+            v1 = playerToVector(player: basePlayer)
+        }
+        
+        
+        let v2 = playerToVector(player: closestPlayer ?? Player.samplePlayer, std_players: std_players)
+        print(v1, v2)
+        similarityScore = comparePlayer(v1: v1, v2: v2)
+        
+        print(comparePlayer(v1: playerToVector(player: Player.samplePlayer, std_players: std_players), v2: playerToVector(player: Player.samplePlayer2, std_players: std_players)))
+    }
     
 }
+
 
 func findPlayerId(basePlayer: Player, players: [Player]) -> Int {
     var closestPlayer = players[0]
