@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ResultView: View {
-    var basePlayer: Player
+    @Binding var basePlayer: Player
     var players: [Player]
     var std_players = load_STD_players()
     
@@ -184,7 +184,7 @@ func playerToVector(player: Player, std_players: [Player]) -> [Double]{
         
     }
     
-    return [standardized_player.points, standardized_player.assists, standardized_player.rebounds, standardized_player.steals, standardized_player.blocks, standardized_player.fieldGoalPct, standardized_player.threePointPct, standardized_player.pct2Shots, standardized_player.height, standardized_player.weight]
+    return [1.3*standardized_player.points, standardized_player.assists, standardized_player.rebounds, standardized_player.steals, standardized_player.blocks, 0.7*standardized_player.fieldGoalPct, 0.7*standardized_player.threePointPct, 0.8*standardized_player.pct2Shots, 0.8*standardized_player.height, 0.6*standardized_player.weight]
 }
 func comparePlayer(v1: [Double], v2: [Double]) -> Double {
     //vector projection cosine similarity
@@ -219,5 +219,7 @@ func getMagnitude(v: [Double]) -> Double {
     return sqrt(v.reduce(0) { $0 + $1 * $1 })
 }
 #Preview {
-    ResultView(basePlayer: Player.samplePlayer, players: loadPlayers())
+    @State var lebron = Player.samplePlayer
+    
+    ResultView(basePlayer: $lebron, players: loadPlayers())
 }

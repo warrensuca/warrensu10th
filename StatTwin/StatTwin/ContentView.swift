@@ -26,8 +26,8 @@ struct ContentView: View {
                       systemImage: "2.circle")
                 
             }
-            ResultView(basePlayer: input_player, players: loadPlayers())
-                .id("\(input_player.points)-\(input_player.assists)-\(input_player.rebounds)-\(input_player.steals)-\(input_player.blocks)-\(input_player.fieldGoalPct)-\(input_player.threePointPct)-\(input_player.pct2Shots)-\(input_player.height)-\(input_player.weight)")
+            ResultView(basePlayer: $input_player, players: loadPlayers())
+                
             .tabItem {
                 Label("Results",
                       systemImage: "2.circle")
