@@ -184,7 +184,7 @@ func playerToVector(player: Player, std_players: [Player]) -> [Double]{
         
     }
     
-    return [1.3*standardized_player.points, standardized_player.assists, standardized_player.rebounds, standardized_player.steals, standardized_player.blocks, 0.7*standardized_player.fieldGoalPct, 0.7*standardized_player.threePointPct, 0.8*standardized_player.pct2Shots, 0.8*standardized_player.height, 0.6*standardized_player.weight]
+    return [1.3*standardized_player.points, standardized_player.assists, standardized_player.rebounds, 0.85*standardized_player.steals, 0.85*standardized_player.blocks, 0.7*standardized_player.fieldGoalPct, 0.7*standardized_player.threePointPct, 0.8*standardized_player.pct2Shots, 0.85*standardized_player.height, 0.75*standardized_player.weight]
 }
 func comparePlayer(v1: [Double], v2: [Double]) -> Double {
     //vector projection cosine similarity
