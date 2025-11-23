@@ -285,8 +285,8 @@ def getDictPlayerScaledStats(id):
     
     return out
 
-print(getPlayerScaledStats(2544))
-print(getDictPlayerScaledStats(2544))
+#print(getPlayerScaledStats(2544))
+#print(getDictPlayerScaledStats(2544))
 def getPlayerScaledStatsJson():
 
     full_averages = getPlayerAverages()
@@ -303,7 +303,7 @@ def getPlayerScaledStatsJson():
         json.dump(data, json_file, indent=4)
     return json.dumps(data, indent = 2)
 
-getPlayerScaledStatsJson()
+#getPlayerScaledStatsJson()
 
 def format2_averages_json() :
     
@@ -359,3 +359,21 @@ print(getSimilarity(2544, 1629029)) #lebron with luka, pretty simillar players
 print(getSimilarity(203497, 1629027)) #gobert with trae young
 
 
+def stats_new_format(data):
+    result = {}
+    for player in data:
+        name = player["name"]
+        # store everything except "name"
+        stats = {k: v for k, v in player.items() if k != "name"}
+        result[name] = [stats]
+    return result
+
+data = json.load(open("data/most_recent/stats_full.json"))
+output = stats_new_format(data)
+
+json.dump(output, open("data/most_recent/stats_full_by_name.json", "w"), indent=4)
+
+data = json.load(open("data/most_recent/scaled_stats_full.json"))
+output = stats_new_format(data)
+
+json.dump(output, (open("data/most_recent/scaled_stats_full_by_name.json", "w")), indent=4)

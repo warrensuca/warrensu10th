@@ -88,7 +88,7 @@ def mergePenaltyAveragesIntoStatsFull():
             p["TOV"] = 0
         out.append(p)
 
-    with open("data/stats_full.json", "w") as f:
+    with open("data/most_recent/stats_full.json", "w") as f:
         json.dump(out, f, indent=4)
 
     return out
@@ -109,7 +109,7 @@ def mergePenaltyZIntoStatsFullStd():
             p["TOV_z"] = 0
         out.append(p)
 
-    with open("data/scaled_stats_full.json", "w") as f:
+    with open("data/most_recent/scaled_stats_full.json", "w") as f:
         json.dump(out, f, indent=4)
 
     return out
