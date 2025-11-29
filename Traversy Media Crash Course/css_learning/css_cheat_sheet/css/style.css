@@ -1,0 +1,198 @@
+/*
+*{
+    margin: 0;
+    padding: 0;
+}
+*/
+
+a{
+    text-decoration: none;
+    color:#000;
+}
+
+a:hover{
+    color:red;
+}
+
+a:active{
+    color:green;
+}
+
+a:visited{
+    color:purple;
+}
+
+body {
+    background-color: #f4f4f4;
+    color:#555555;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+
+
+    line-height: 1.6em;
+}
+
+.container{
+    /* width: 500px */
+    width: 80%;
+    margin: auto; 
+}
+
+.button{
+    
+    padding: 10px 15px; /* fixed comma -> space */
+}
+
+
+.my-form .button input[type="submit"]{
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.my-form .button input[type="submit"]:hover{
+    background-color: red;
+   
+}
+
+
+.box-1{
+    background-color: #333333;
+    color:#ffffff;
+    /*
+    border-right: 5px red solid;
+    border-left: 5px red solid;
+
+    border-top: 5px red solid;
+    border-bottom: 5px red solid;
+    */
+    border:5px red solid;
+    border-width: 3px;
+
+    border-bottom-width: 10px;
+    border-top-style: dotted;
+
+    padding-top: 20px;
+    padding: 20px;
+
+    margin-top:20px;
+
+}
+
+.box-1 h1{
+    font-family: Tahoma;
+    font-weight: 800;
+    font-style: italic;
+    text-decoration: underline;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    word-spacing: 1.0em;
+}
+
+.box-2{
+    border:3px dotted #ccc;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.categories{
+    border : 1px #ccc solid;
+    padding:10px;
+    border-radius: 15px;
+}
+
+.categories h2 {
+    text-align: center;
+}
+
+.categories ul {
+    list-style: square;
+}
+.categories li{
+    padding-bottom: 6px;
+    border-bottom: dotted 1px #333;
+}
+
+.my-form{
+    padding: 20px;
+}
+
+.my-form .form-group{
+    padding-bottom: 15px;
+}
+
+.my-form label{
+    display:block;
+}
+
+.my-form input[type="text"], .my-form textarea{
+    padding:8px;
+    width:100%;
+}
+
+
+
+
+.my-form .button {
+    
+    padding: 10px 15px;
+}
+
+.clr {
+    clear: both; 
+}
+
+.block{
+    float:left;
+    width: 33.3%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box; /*accounts for border and padding when creating width*/
+}
+
+#main-block{
+    float:left;
+    width:70%;
+}
+
+#sidebar{
+    float:right;
+    width:30;
+    background-color: #333;
+    color:#fff;
+    padding:15px;
+    box-sizing: border-box;
+}
+
+.p-box{
+    width:800px;
+    height:500px;
+    border:1px solid #000;
+    margin-top:30px;
+    position:relative;
+    background-image: url("images/background.jpeg");
+    background-repeat: no-repeat;
+    background-position: 100px 200px;
+    background-position: center;
+}
+.p-box h1{
+    top:100px;
+    left:200px;
+}
+
+.p-box h2{
+    position:absolute;
+    bottom:40px;
+    right:100px;
+}
+
+.fix-me{
+    position:fixed;
+    top:400px;
+}
