@@ -3,7 +3,7 @@ import pandas as pd
 from scipy.stats import zscore
 #python -m venv myenv
 #source myenv/bin/activate
-#python data_analysis/glue_guy_rpi.py
+#python data_analysis/glue_rpi.py
 
 
 #deactivate()
