@@ -8,7 +8,7 @@ import json
 # Load the Excel file into a DataFrame
 # 'your_file.xlsx' should be replaced with the actual path to your Excel file
 # sheet_name can be specified if you have multiple sheets
-df = pd.read_excel('data/most_recent/role_player_dataset.xlsx', sheet_name='Sheet3', engine='openpyxl')
+df = pd.read_excel('data/most_recent/nba.xlsx', sheet_name='rpi sheet', engine='openpyxl')
 
 # Convert the DataFrame to a dictionary
 # The 'records' orientation creates a list of dictionaries, where each dictionary
