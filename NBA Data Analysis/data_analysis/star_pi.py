@@ -21,12 +21,13 @@ df_adv_subset = df_advanced[['Player', 'DEFRTG', 'EFG%', 'USG%']]
 
 df_combined = pd.merge(df_trad_subset, df_adv_subset, on='Player', how='inner')
 
+df_combined['DEFRTG_inv'] = -1*df_combined['DEFRTG']
 
 df_combined = df_combined.drop_duplicates(subset='Player', keep='first') #remove duplicates
 
 #zscore everything
 
-metrics = ['PTS', '3P%', 'FGM', 'FGA', '3PM', '3PA', 'STL', 'BLK', 'PM', 'DEFRTG', 'EFG%', 'USG%']
+metrics = ['PTS', '3P%', 'FGM', 'FGA', '3PM', '3PA', 'STL', 'BLK', 'PM', 'DEFRTG_inv', 'EFG%', 'USG%']
 for col in metrics:
     df_combined[f"z_{col}"] = zscore(df_combined[col].fillna(df_combined[col].mean()))
 
@@ -34,7 +35,7 @@ for col in metrics:
 df_combined['SPI'] = (
     0.6 * (df_combined['z_PTS'] + df_combined['z_FGM'] + df_combined['z_FGA']+ df_combined['z_3PM'] 
            + df_combined['z_3PA'] + df_combined['z_USG%'])
-    + 0.3 * (df_combined['z_STL'] + df_combined['z_BLK'] + df_combined['z_DEFRTG'])
+    + 0.3 * (df_combined['z_STL'] + df_combined['z_BLK'] + + df_combined['z_DEFRTG_inv'])
     + 0.1 * (df_combined['z_3P%'] + df_combined['z_EFG%'] + df_combined['z_PM'])
 )
 

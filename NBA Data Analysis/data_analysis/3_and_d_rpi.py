@@ -21,19 +21,20 @@ df_adv_subset = df_advanced[['Player', 'DEFRTG', 'EFG%', 'USG%']]
 
 df_combined = pd.merge(df_trad_subset, df_adv_subset, on='Player', how='inner')
 
-df_combined['USG%_inv'] = 100 - df_combined['USG%']
+df_combined['USG%_inv'] = 100 - df_combined['USG%'] #flig usg and defensive rating = lower usg and lower defensvie rating better
+df_combined['DEFRTG_inv'] = -1*df_combined['DEFRTG']
 
 df_combined = df_combined.drop_duplicates(subset='Player', keep='first') #remove duplicates
 
 #zscore everything
 
-metrics = ['PTS', '3P%', '3PM', '3PA', 'STL', 'BLK', 'PM', 'DEFRTG', 'EFG%', 'USG%_inv']
+metrics = ['PTS', '3P%', '3PM', '3PA', 'STL', 'BLK', 'PM', 'DEFRTG_inv', 'EFG%', 'USG%_inv']
 for col in metrics:
     df_combined[f"z_{col}"] = zscore(df_combined[col].fillna(df_combined[col].mean()))
 
 
 df_combined["RPI"] = (0.4 * (df_combined['z_PTS'] + df_combined['z_3P%'] + df_combined['z_3PM'] + df_combined['z_3PA'])
-                    +0.35*((df_combined['z_STL'] + df_combined['z_BLK'] +df_combined['z_DEFRTG'])
+                    +0.35*((df_combined['z_STL'] + df_combined['z_BLK'] +df_combined['z_DEFRTG_inv'])
                     +0.25*(df_combined['z_EFG%'] + df_combined['z_USG%_inv'] + df_combined['z_PM'] )      
                           )
 )
