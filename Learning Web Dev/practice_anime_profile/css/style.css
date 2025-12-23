@@ -1,0 +1,51 @@
+body {
+    background: linear-gradient(to bottom, #1a1a1a, #bf3030);
+    color:#ccc;
+    font-family: "Anime Ace";
+    font-size: 20px;
+    font-weight: normal;
+    
+
+    line-height: 1.6em;
+}
+
+body h1{
+    text-align: center;
+    font-family: "Bangers", cursive;
+
+}
+body footer{
+    text-align: center;
+}
+
+.block{
+    /*float:left;
+    width: 50%;*/
+    border: 2px solid #ccc;
+    padding: 10px;
+    /*box-sizing: border-box; accounts for border and padding when creating width*/
+}
+
+.container{
+    overflow: hidden;
+    display: table;
+    width: 100%;
+}
+
+.container img{
+    
+    float:left;
+    box-sizing: border-box;
+    height:60%;
+    margin-right: 20px;
+    border: 5px solid #ccc;
+}
+
+
+.info-column{
+    float:left;
+    display: table-cell;
+    width: 45%;
+
+}
+
