@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Guide</title>
+</head>
+<body>
+    <div class="navbar">
+        <h1 class="logo">
+            Flexbox Guide
+        </h1>
+
+        <ul>
+            <li><a href="">Guide #1</a></li>
+            <li><a href="">Guide #2</a></li>
+            <li><a href="">Guide #3</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1 class="main-header">
+                Flexbox works with 1d rows and columns. Use "display: flex;" to begin using! When creating container to use Flexbox, 
+                keep in mind you are working on the layer that contains the elements, not the individual elements.
+                The individual elements are called flex items, and are simply accessed with .items or .items:nth-of-type.  
+            </h1>
+
+            <div class="diagrams">
+                <img src="flexbox_guide_sheet.png" alt="">
+                
+            </div>
+        </header>
+    </div>
+    <div class="boxes">
+        <div class="box-u/d">
+            <p>
+                flex-direction tells flexbox if your div is a row or column. The attributes you set for your container will change
+                accordingly.
+            </p>
+        </div>
+        <div class="box-u/d"></div>
+        <div class="box-u/d"></div>
+        <div class="box-l/r"></div>
+        <div class="box-l/r"></div>
+        <div class="box-l/r"></div>
+    </div>
+</body>
+</html>
