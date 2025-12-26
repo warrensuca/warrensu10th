@@ -32,8 +32,9 @@ ul {
     color: #fff;
     font-weight: bold;
 
-    padding: 20px;
     
+    
+
     height: 80px;
 }
 
@@ -41,6 +42,8 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 100%;
+    padding: 0 20px;
 }
 
 .navbar ul {
@@ -107,19 +110,35 @@ header img{
 
 .box {
     display: flex;
-    flex-wrap: wrap;
-    max-width: 300px;
-    max-height: 800px;
 
+    flex: 1 1 280px;
+
+    
+    flex-wrap: wrap;
+    
+    
+
+    border-radius: 10px;
+
+    padding: 15px;
     background-color:azure;
     
-}
-
-.box li{
-    margin: 10px;
+    align-items: center;
+    text-align: flex-start;
+    margin: 20px;
     
 }
 
-.box img{
-    max-width: 80%;
+.box p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.code-text{
+    color: #7ba7bc;
+    background-color: rgb(44, 41, 41);
+    border-radius: 8px;
+    padding: 2px 6px;
+    display: inline-block;
+    font-family: monospace;
 }

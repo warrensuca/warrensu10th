@@ -13,9 +13,9 @@
             <h1 class="logo">Flexbox Guide</h1>
 
             <ul>
-                <li><a href="">Guide #1</a></li>
-                <li><a href="">Guide #2</a></li>
-                <li><a href="">Guide #3</a></li>
+                <li><a href="https://www.youtube.com/shorts/tpBzHfq_Z2o">Guide #1</a></li>
+                <li><a href="https://www.youtube.com/shorts/eH0x8kwW5sI">Guide #2</a></li>
+                <li><a href="https://www.youtube.com/shorts/hTcR1SU7rAg">Guide #3</a></li>
             </ul>
         </div>
         
@@ -32,9 +32,9 @@
             </h1>
 
             <p>
-                Flexbox works with 1d rows and columns. Use "display: flex;" to begin using! When creating container to use Flexbox, 
+                Flexbox works with 1d rows and columns. Use <div class = "code-text">"display: flex;"</div>  to begin using! When creating container to use Flexbox, 
                 keep in mind you are working on the layer that contains the elements, not the individual elements.
-                The individual elements are called flex items, and are simply accessed with .items or .items:nth-of-type.  
+                The individual elements are called flex items, and are simply accessed with <div class = "code-text">.items</div> or <div class = "code-text">.items:nth-of-type.  </div>
             </p>
         </div>
         
@@ -48,55 +48,30 @@
     
     <div class="boxes">
         <div class="box">
-            <img src="images_2/flex_direction.png" alt="">
+            <h1>Flex-Direction</h1>
             <p>
                 
-                Flex-Direction tells Flexbox if your div is a row or column. The attributes you set for your container will change
+                Flex-Direction tells Flexbox if your content is a row or column. The attributes you set for your container will change
                 accordingly. For a row (default), the main axis would be left to right and the cross axis would be up to down.
-                <ul>
-                    <li>flex-direction: row is the default</li>
-                    <li>flex:direction: column flips the main and cross axis</li>
-                
-                </ul>
             </p>
         </div>
         <div class="box">
-            <img src="images_2/justify_content.png" alt="">
+            <h1>Justify Content/Align Items</h1>
             <p>
-                Justify Content works on the main axis and can
+                Justify Content works on the main axis and can space out or position items. Align items does the same except it works on the cross axis. A common use is <div class = code-text>justify-content: space-evenly;</div>
             </p>
-            <ul>
-                <li>Space out items</li>
-                <li>Position group of items</li>
-                
-            </ul>
+            
             
         </div>
 
+        
         <div class="box">
-            <img src="images_2/align_items.png" alt="">
+            <h1>Items</h1>
             <p>
-            Align Items works on the cross axis and can
-            </p>
-            <ul>
-                <li>Space out items</li>
-                <li>Position group of items</li>
-                <li>Stretch items</li>
-                
-            </ul>
-        </div>
-        <div class="box">
-            <img src="images_2/flex_grow.png" alt="">
-            <p>
-                Specific items have 3 main attributes. Shorthand the attributes with "flex: <i>grow</i>, <i>shrink</i>, <i>basis</i>" 
+                Specific items have 3 main attributes. Shorthand the attributes with <div class = code-text>flex: <i>grow</i>, <i>shrink</i>, <i>basis</i></div>
             </p>
             
-            <ul>
-                <li>flex-grow determines how much a flex item should grow to fit availabe space. If given flex-grow: 2, the item will take up 2x the space as default</li>
-                <li>flex-shrink is used very rarely and determines how much a flex item will shrink relative to other items when there isn't enough space </li>
-                <li>flex-basis is the intial size of the item relative to the other items</li>
-                
-            </ul>
+            
         </div>
         
     </div>
