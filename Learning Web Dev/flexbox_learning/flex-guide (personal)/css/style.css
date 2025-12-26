@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;  
+}
+
+body {
+    
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    background: #a1c3ff;
+     
+}
+
+img {
+    max-width: 300px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.navbar {
+    
+    
+    
+    background-color: blue;
+    color: #fff;
+    font-weight: bold;
+
+    padding: 20px;
+    
+    height: 80px;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar ul {
+    display: flex;
+    
+}
+
+.navbar ul li{
+    font-size: 18px;
+    
+    margin-left: 20px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar a:hover{
+    color: lightblue;
+}
+
+
+.container {
+    max-width: 1400px;   
+    margin: 0 auto;      
+    padding: 0 20px;     
+    
+}
+
+header{
+    background: rgb(103, 82, 224);
+    color: white;
+}
+
+header .container{
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+
+
+
+
+header h1 {
+    font-size: 60px;
+}
+
+header .main-header{
+    max-width: 70%;
+
+}
+header img{
+    max-width: 400px;
+}
+
+.boxes {
+
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px;
+}
+
+.box {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 300px;
+    max-height: 800px;
+
+    background-color:azure;
+    
+}
+
+.box li{
+    margin: 10px;
+    
+}
+
+.box img{
+    max-width: 80%;
+}

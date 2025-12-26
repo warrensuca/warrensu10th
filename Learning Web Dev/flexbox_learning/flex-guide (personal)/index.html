@@ -4,46 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flexbox Guide</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="navbar">
-        <h1 class="logo">
-            Flexbox Guide
-        </h1>
+    
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">Flexbox Guide</h1>
 
-        <ul>
-            <li><a href="">Guide #1</a></li>
-            <li><a href="">Guide #2</a></li>
-            <li><a href="">Guide #3</a></li>
-        </ul>
-    </div>
+            <ul>
+                <li><a href="">Guide #1</a></li>
+                <li><a href="">Guide #2</a></li>
+                <li><a href="">Guide #3</a></li>
+            </ul>
+        </div>
+        
+    </nav>
+    
+    
+    <header>
+        <div class="container">
 
-    <div class="container">
-        <header>
-            <h1 class="main-header">
+        
+        <div class="main-header">
+            <h1>
+            Flexbox Study Guide
+            </h1>
+
+            <p>
                 Flexbox works with 1d rows and columns. Use "display: flex;" to begin using! When creating container to use Flexbox, 
                 keep in mind you are working on the layer that contains the elements, not the individual elements.
                 The individual elements are called flex items, and are simply accessed with .items or .items:nth-of-type.  
-            </h1>
-
-            <div class="diagrams">
-                <img src="flexbox_guide_sheet.png" alt="">
-                
-            </div>
-        </header>
-    </div>
-    <div class="boxes">
-        <div class="box-u/d">
-            <p>
-                flex-direction tells flexbox if your div is a row or column. The attributes you set for your container will change
-                accordingly.
             </p>
         </div>
-        <div class="box-u/d"></div>
-        <div class="box-u/d"></div>
-        <div class="box-l/r"></div>
-        <div class="box-l/r"></div>
-        <div class="box-l/r"></div>
+        
+
+        <div class="diagrams">
+            <img src="images_2/flexbox_guide_sheet.png" alt="">
+            
+        </div>
+        </div>
+    </header>
+    
+    <div class="boxes">
+        <div class="box">
+            <img src="images_2/flex_direction.png" alt="">
+            <p>
+                
+                Flex-Direction tells Flexbox if your div is a row or column. The attributes you set for your container will change
+                accordingly. For a row (default), the main axis would be left to right and the cross axis would be up to down.
+                <ul>
+                    <li>flex-direction: row is the default</li>
+                    <li>flex:direction: column flips the main and cross axis</li>
+                
+                </ul>
+            </p>
+        </div>
+        <div class="box">
+            <img src="images_2/justify_content.png" alt="">
+            <p>
+                Justify Content works on the main axis and can
+            </p>
+            <ul>
+                <li>Space out items</li>
+                <li>Position group of items</li>
+                
+            </ul>
+            
+        </div>
+
+        <div class="box">
+            <img src="images_2/align_items.png" alt="">
+            <p>
+            Align Items works on the cross axis and can
+            </p>
+            <ul>
+                <li>Space out items</li>
+                <li>Position group of items</li>
+                <li>Stretch items</li>
+                
+            </ul>
+        </div>
+        <div class="box">
+            <img src="images_2/flex_grow.png" alt="">
+            <p>
+                Specific items have 3 main attributes. Shorthand the attributes with "flex: <i>grow</i>, <i>shrink</i>, <i>basis</i>" 
+            </p>
+            
+            <ul>
+                <li>flex-grow determines how much a flex item should grow to fit availabe space. If given flex-grow: 2, the item will take up 2x the space as default</li>
+                <li>flex-shrink is used very rarely and determines how much a flex item will shrink relative to other items when there isn't enough space </li>
+                <li>flex-basis is the intial size of the item relative to the other items</li>
+                
+            </ul>
+        </div>
+        
     </div>
+    
 </body>
 </html>
